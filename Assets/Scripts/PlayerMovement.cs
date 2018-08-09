@@ -21,11 +21,13 @@ public class PlayerMovement : MonoBehaviour
     public Scene scene;
     private SFXManager SFXMan;
     private TouchControls touches;
+    private Transform trans;
     private UIManager uiMan;
     public Vector2 movementVector;
 
-    public bool bStopPlayerMovement;
     public bool bBoosting;
+    public bool bGWCUpdate;
+    public bool bStopPlayerMovement;
 
     public float moveSpeed;
 
@@ -41,9 +43,11 @@ public class PlayerMovement : MonoBehaviour
         scene = SceneManager.GetActiveScene();
         SFXMan = FindObjectOfType<SFXManager>();
         touches = FindObjectOfType<TouchControls>();
+        trans = GetComponent<Transform>(); 
         uiMan = FindObjectOfType<UIManager>();
 
         bBoosting = false;
+        bGWCUpdate = true;
 
         moveSpeed = 1.0f;
     }
@@ -60,44 +64,59 @@ public class PlayerMovement : MonoBehaviour
             // No action; just need to avoid MovePlayer() here b/c it's cancelling out
             // the Touches script by passing in Move(0,0) while touches passes Move(X,Y)
         }
+        else if (scene.name == "GuessWhoColluded")
+        {
+            if (bGWCUpdate)
+            {
+                GWCMovePlayer();
+            }
+
+            if (Input.GetAxisRaw("Horizontal") != 0)
+            {
+                bGWCUpdate = false;
+            }
+            else  if (Input.GetAxisRaw("Vertical") != 0)
+            {
+                bGWCUpdate = false;
+            }
+            else
+            {
+                bGWCUpdate = true;
+            }
+        }
         else
         {
             MovePlayer();
         }
 
-        // Set boosting
-        if (Input.GetButtonDown("BAction"))
+        if (scene.name == "GuessWhoColluded")
         {
-            bBoosting = true;
+
         }
-        else if (Input.GetButtonUp("BAction"))
+        else
         {
-            bBoosting = false;
+            // Set boosting
+            if (Input.GetButtonDown("BAction"))
+            {
+                bBoosting = true;
+            }
+            else if (Input.GetButtonUp("BAction"))
+            {
+                bBoosting = false;
+            }
         }
+            
     }
 
     public void MovePlayer()
     {
         // Unit's Project Settings -> Input
         Move(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
     }
 
     public void Move(float xInput, float yInput)
     {
         movementVector = moveSpeed * new Vector2(xInput, yInput);
-
-        // Animate movement
-        //if (movementVector != Vector2.zero)
-        //{
-        //    anim.SetBool("bIsWalking", true);
-        //    anim.SetFloat("Input_X", movementVector.x);
-        //    anim.SetFloat("Input_Y", movementVector.y);
-        //}
-        //else
-        //{
-        //    anim.SetBool("bIsWalking", false);
-        //}
 
         // 2x Move Speed
         if (bBoosting)
@@ -110,6 +129,35 @@ public class PlayerMovement : MonoBehaviour
         {
             rBody.velocity = movementVector;
             //anim.speed = 1.0f;
+        }
+    }
+
+    public void GWCMovePlayer()
+    {
+        GWCMove(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    }
+
+    public void GWCMove(float xInput, float yInput)
+    {
+        if (trans.position.x == 0 && xInput < 0)
+        {
+            rBody.position = new Vector2(0, rBody.position.y + (2 * yInput));
+        }
+        else if (trans.position.x == 10 && xInput > 0)
+        {
+            rBody.position = new Vector2(10, rBody.position.y + (2 * yInput));
+        }
+        else if (trans.position.y == 0 && yInput > 0)
+        {
+            rBody.position = new Vector2(rBody.position.x + (2 * xInput), 0);
+        }
+        else if (trans.position.y == -6 && yInput < 0)
+        {
+            rBody.position = new Vector2(rBody.position.x + (2 * xInput), -6);
+        }
+        else
+        {
+            rBody.position = new Vector2(rBody.position.x + (2 * xInput), rBody.position.y + (2 * yInput));
         }
     }
 
@@ -139,10 +187,10 @@ public class PlayerMovement : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         // Overworld Warps
-        if (collision.CompareTag("Door"))
-        {
-            SFXMan.sounds[0].PlayOneShot(SFXMan.sounds[0].clip);
-            collision.gameObject.transform.localScale = Vector3.zero;
-        }
+        //if (collision.CompareTag("Door"))
+        //{
+        //    SFXMan.sounds[0].PlayOneShot(SFXMan.sounds[0].clip);
+        //    collision.gameObject.transform.localScale = Vector3.zero;
+        //}
     }
 }

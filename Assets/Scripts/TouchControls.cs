@@ -17,6 +17,8 @@ public class TouchControls : MonoBehaviour
 
     public bool bAction;
     public bool bBaction;
+    public bool bXaction;
+    public bool bYaction;
     public bool bDown;
     public bool bLeft;
     public bool bRight;
@@ -29,8 +31,11 @@ public class TouchControls : MonoBehaviour
         scene = SceneManager.GetActiveScene();
         thePlayer = FindObjectOfType<PlayerMovement>();
 
+        // DC TODO
         bAction = false;
         bBaction = false;
+        bXaction = false;
+        bYaction = false;
         bDown = false;
         bLeft = false;
         bRight = false;
@@ -40,24 +45,101 @@ public class TouchControls : MonoBehaviour
     void Update()
     {
         // Moving the player based off arrow flags
-        if (bLeft && !thePlayer.bStopPlayerMovement)
+        if (scene.name == "GuessWhoColluded")
         {
-            thePlayer.Move(-1.0f, 0.0f);
-        }
+            if (bLeft && !thePlayer.bStopPlayerMovement)
+            {
+                if (thePlayer.bGWCUpdate)
+                {
+                    thePlayer.GWCMove(-1.0f, 0.0f);
+                    bLeft = false; // dis
+                }
 
-        if (bRight && !thePlayer.bStopPlayerMovement)
-        {
-            thePlayer.Move(1.0f, 0.0f);
-        }
+                //if (bLeft)
+                //{
+                //    thePlayer.bGWCUpdate = false;
+                //}
+                //else
+                //{
+                //    thePlayer.bGWCUpdate = true;
+                //}
+            }
 
-        if (bUp && !thePlayer.bStopPlayerMovement)
-        {
-            thePlayer.Move(0.0f, 1.0f);
-        }
+            if (bRight && !thePlayer.bStopPlayerMovement)
+            {
+                if (thePlayer.bGWCUpdate)
+                {
+                    thePlayer.GWCMove(1.0f, 0.0f);
+                    bRight = false; // dis
+                }
 
-        if (bDown && !thePlayer.bStopPlayerMovement)
+                //if (bRight)
+                //{
+                //    thePlayer.bGWCUpdate = false;
+                //}
+                //else
+                //{
+                //    thePlayer.bGWCUpdate = true;
+                //}
+            }
+
+            if (bUp && !thePlayer.bStopPlayerMovement)
+            {
+                if (thePlayer.bGWCUpdate)
+                {
+                    thePlayer.GWCMove(0.0f, 1.0f);
+                    bUp = false; // dis
+                }
+
+                //if (bUp)
+                //{
+                //    thePlayer.bGWCUpdate = false;
+                //}
+                //else
+                //{
+                //    thePlayer.bGWCUpdate = true;
+                //}
+            }
+
+            if (bDown && !thePlayer.bStopPlayerMovement)
+            {
+                if (thePlayer.bGWCUpdate)
+                {
+                    thePlayer.GWCMove(0.0f, -1.0f);
+                    bDown = false; // dis
+                }
+
+                //if (bDown)
+                //{
+                //    thePlayer.bGWCUpdate = false;
+                //}
+                //else
+                //{
+                //    thePlayer.bGWCUpdate = true;
+                //}
+            }
+        }
+        else
         {
-            thePlayer.Move(0.0f, -1.0f);
+            if (bLeft && !thePlayer.bStopPlayerMovement)
+            {
+                thePlayer.Move(-1.0f, 0.0f);
+            }
+
+            if (bRight && !thePlayer.bStopPlayerMovement)
+            {
+                thePlayer.Move(1.0f, 0.0f);
+            }
+
+            if (bUp && !thePlayer.bStopPlayerMovement)
+            {
+                thePlayer.Move(0.0f, 1.0f);
+            }
+
+            if (bDown && !thePlayer.bStopPlayerMovement)
+            {
+                thePlayer.Move(0.0f, -1.0f);
+            }
         }
     }
 
@@ -65,25 +147,43 @@ public class TouchControls : MonoBehaviour
     public void StartAction()
     {
         bAction = true;
-        StartCoroutine(DelayedStop());
+        StartCoroutine(DelayedStopA());
     }
-    IEnumerator DelayedStop()
+    IEnumerator DelayedStopA()
     {
         yield return new WaitForSeconds(0.1f);
         bAction = false;
-        StopCoroutine(DelayedStop());
+        StopCoroutine(DelayedStopA());
     }
 
     // Baction (boosting / secondary) button flags
-    public void StartBoosting()
+    //public void StartBoosting()
+    //{
+    //    thePlayer.bBoosting = true;
+    //    bBaction = true;
+    //}
+    // DC TODO never used?
+    //public void StopBoosting()
+    //{
+    //    thePlayer.bBoosting = false;
+    //    bBaction = false;
+    //}
+
+    public void BAction()
     {
-        thePlayer.bBoosting = true;
         bBaction = true;
     }
-    public void StopBoosting()
+
+    // Xaction (zoom in) button flags
+    public void XAction()
     {
-        thePlayer.bBoosting = false;
-        bBaction = false;
+        bXaction = true;
+    }
+
+    // Yaction (zoom out) button flags
+    public void StartYAction()
+    {
+        bYaction = true;
     }
 
     // Movement / arrow button flags
@@ -130,5 +230,11 @@ public class TouchControls : MonoBehaviour
         UnpressedLeftArrow();
         UnpressedRightArrow();
         UnpressedUpArrow();
+    }
+
+    // Vibrate on touch
+    public void Vibrate()
+    {
+        Handheld.Vibrate();
     }
 }
