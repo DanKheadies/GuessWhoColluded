@@ -1,12 +1,9 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  07/31/2018
+// Last:  08/10/2018
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 // Controls the actions & display of the GUI input
@@ -15,7 +12,7 @@ public class TouchControls : MonoBehaviour
     private PlayerMovement thePlayer;
     private Scene scene;
 
-    public bool bAction;
+    public bool bAaction;
     public bool bBaction;
     public bool bXaction;
     public bool bYaction;
@@ -23,6 +20,7 @@ public class TouchControls : MonoBehaviour
     public bool bLeft;
     public bool bRight;
     public bool bUp;
+    public bool bUIactive;
 
 
     void Start()
@@ -30,16 +28,6 @@ public class TouchControls : MonoBehaviour
         // Initializers
         scene = SceneManager.GetActiveScene();
         thePlayer = FindObjectOfType<PlayerMovement>();
-
-        // DC TODO
-        bAction = false;
-        bBaction = false;
-        bXaction = false;
-        bYaction = false;
-        bDown = false;
-        bLeft = false;
-        bRight = false;
-        bUp = false;
     }
 
     void Update()
@@ -54,15 +42,6 @@ public class TouchControls : MonoBehaviour
                     thePlayer.GWCMove(-1.0f, 0.0f);
                     bLeft = false; // dis
                 }
-
-                //if (bLeft)
-                //{
-                //    thePlayer.bGWCUpdate = false;
-                //}
-                //else
-                //{
-                //    thePlayer.bGWCUpdate = true;
-                //}
             }
 
             if (bRight && !thePlayer.bStopPlayerMovement)
@@ -72,15 +51,6 @@ public class TouchControls : MonoBehaviour
                     thePlayer.GWCMove(1.0f, 0.0f);
                     bRight = false; // dis
                 }
-
-                //if (bRight)
-                //{
-                //    thePlayer.bGWCUpdate = false;
-                //}
-                //else
-                //{
-                //    thePlayer.bGWCUpdate = true;
-                //}
             }
 
             if (bUp && !thePlayer.bStopPlayerMovement)
@@ -90,15 +60,6 @@ public class TouchControls : MonoBehaviour
                     thePlayer.GWCMove(0.0f, 1.0f);
                     bUp = false; // dis
                 }
-
-                //if (bUp)
-                //{
-                //    thePlayer.bGWCUpdate = false;
-                //}
-                //else
-                //{
-                //    thePlayer.bGWCUpdate = true;
-                //}
             }
 
             if (bDown && !thePlayer.bStopPlayerMovement)
@@ -108,15 +69,6 @@ public class TouchControls : MonoBehaviour
                     thePlayer.GWCMove(0.0f, -1.0f);
                     bDown = false; // dis
                 }
-
-                //if (bDown)
-                //{
-                //    thePlayer.bGWCUpdate = false;
-                //}
-                //else
-                //{
-                //    thePlayer.bGWCUpdate = true;
-                //}
             }
         }
         else
@@ -143,84 +95,97 @@ public class TouchControls : MonoBehaviour
         }
     }
 
-    // Action button flags
-    public void StartAction()
+    // A button flagging
+    public void aActionStart()
     {
-        bAction = true;
-        StartCoroutine(DelayedStopA());
+        bAaction = true;
+        bUIactive = true;
     }
-    IEnumerator DelayedStopA()
+    public void aActionStop()
     {
-        yield return new WaitForSeconds(0.1f);
-        bAction = false;
-        StopCoroutine(DelayedStopA());
+        bAaction = false;
+        bUIactive = false;
     }
 
-    // Baction (boosting / secondary) button flags
-    //public void StartBoosting()
-    //{
-    //    thePlayer.bBoosting = true;
-    //    bBaction = true;
-    //}
-    // DC TODO never used?
-    //public void StopBoosting()
-    //{
-    //    thePlayer.bBoosting = false;
-    //    bBaction = false;
-    //}
-
-    public void BAction()
+    // B button flagging
+    public void bActionStart()
     {
         bBaction = true;
+        bUIactive = true;
     }
-
-    // Xaction (zoom in) button flags
-    public void XAction()
+    public void bActionStop()
+    {
+        bBaction = false;
+        bUIactive = false;
+    }
+    
+    // X button flagging
+    public void xActionStart()
     {
         bXaction = true;
+        bUIactive = true;
+    }
+    public void xActionStop()
+    {
+        bXaction = false;
+        bUIactive = false;
     }
 
-    // Yaction (zoom out) button flags
-    public void StartYAction()
+    // Y button flagging
+    public void yActionStart()
     {
         bYaction = true;
+        bUIactive = true;
+    }
+    public void yActionStop()
+    {
+        bYaction = false;
+        bUIactive = false;
     }
 
     // Movement / arrow button flags
     public void PressedLeftArrow()
     {
         bLeft = true;
+        bUIactive = true;
     }
     public void UnpressedLeftArrow()
     {
         bLeft = false;
+        bUIactive = false;
     }
 
     public void PressedRightArrow()
     {
         bRight = true;
+        bUIactive = true;
     }
     public void UnpressedRightArrow()
     {
         bRight = false;
+        bUIactive = false;
     }
 
     public void PressedUpArrow()
     {
         bUp = true;
+        bUIactive = true;
     }
     public void UnpressedUpArrow()
     {
         bUp = false;
+        bUIactive = false;
     }
 
     public void PressedDownArrow()
     {
         bDown = true;
+        bUIactive = true;
     }
     public void UnpressedDownArrow()
     {
         bDown = false;
+        bUIactive = false;
     }
 
     // Clear all movement / arrow buttons
@@ -236,5 +201,14 @@ public class TouchControls : MonoBehaviour
     public void Vibrate()
     {
         Handheld.Vibrate();
+    }
+    
+    public void UIActive()
+    {
+        bUIactive = true;
+    }
+    public void UIInactive()
+    {
+        bUIactive = false;
     }
 }

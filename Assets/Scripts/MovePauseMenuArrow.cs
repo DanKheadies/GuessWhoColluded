@@ -1,10 +1,8 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 08/02/2018
-// Last:  08/02/2018
+// Last:  08/10/2018
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -120,9 +118,10 @@ public class MovePauseMenuArrow : MonoBehaviour
                     GoOnArw.transform.localScale = new Vector3(1, 1, 1);
                 }
             }
+            // Input.GetButtonDown("Action") DC TODO -- replace
             else if (Input.GetKeyDown(KeyCode.Space) ||
                      Input.GetKeyDown(KeyCode.Return) ||
-                     touches.bAction)
+                     touches.bAaction)
             {
                 if (currentPosition == ArrowPos.GoOn)
                 {

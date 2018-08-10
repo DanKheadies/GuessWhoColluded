@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/29/2018
-// Last:  07/29/2018
+// Last:  08/10/2018
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     public AspectUtility aspectUtil;
-    //public Animator anim; // rename to playerAnim?
     public CameraFollow mainCamera;
     public GameObject dBox;
     public Image dArrow;
@@ -52,7 +51,6 @@ public class DialogueManager : MonoBehaviour
     {
         // Initializers
         thePlayer = FindObjectOfType<PlayerMovement>();
-        //anim = thePlayer.GetComponent<Animator>();
         aspectUtil = GameObject.Find("Main Camera").GetComponent<AspectUtility>();
         dArrow = GameObject.Find("Dialogue_Arrow").GetComponent<Image>();
         dBox = GameObject.Find("Dialogue_Box");
@@ -92,7 +90,7 @@ public class DialogueManager : MonoBehaviour
         // Advance active dialogues
         if ((bDialogueActive && !bPauseDialogue && Input.GetButtonDown("Action")) ||
             (bDialogueActive && !bPauseDialogue && Input.GetButtonDown("DialogueAction")) ||
-            (bDialogueActive && !bPauseDialogue && touches.bAction))
+            (bDialogueActive && !bPauseDialogue && touches.bAaction))
         {
             if (currentLine < dialogueLines.Length)
             {
@@ -114,6 +112,7 @@ public class DialogueManager : MonoBehaviour
         else if (!oMan.bOptionsActive && currentLine >= dialogueLines.Length)
         {
             ResetDialogue();
+            touches.transform.localScale = Vector3.zero;
         }
 
         // Temp: Update Camera display / aspect ratio
@@ -146,7 +145,6 @@ public class DialogueManager : MonoBehaviour
 
         // Reactivate the player
         thePlayer.bStopPlayerMovement = false;
-        //anim.Play("Idle");
 
         // Show controls if visible
         touches.transform.localScale = Vector3.one;
@@ -166,7 +164,7 @@ public class DialogueManager : MonoBehaviour
         imgStrobe.bStartStrobe = true;
 
         // Sound Effect
-        SFXMan.sounds[0].PlayOneShot(SFXMan.sounds[0].clip);
+        SFXMan.sounds[2].PlayOneShot(SFXMan.sounds[2].clip);
 
         // Stops the player's movement
         thePlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);

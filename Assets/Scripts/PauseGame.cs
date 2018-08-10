@@ -1,10 +1,8 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  07/31/2018
+// Last:  08/10/2018
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +11,7 @@ public class PauseGame : MonoBehaviour
 {
     public OptionsManager oMan;
     public Scene scene;
+    public TouchControls touches;
     public Transform controlsMenu;
     public Transform pauseMenu;
     public Transform pauseTrans;
@@ -27,6 +26,7 @@ public class PauseGame : MonoBehaviour
         pauseMenu = GameObject.Find("PauseMenu").transform;
         soundMenu = GameObject.Find("SoundMenu").transform;
         controlsMenu = GameObject.Find("ControlsMenu").transform;
+        touches = GameObject.FindObjectOfType<TouchControls>();
     }
 
     void Update()
@@ -41,6 +41,9 @@ public class PauseGame : MonoBehaviour
     {
         if (pauseTrans.localScale != Vector3.one)
         {
+            // DC 08/09/2018 -- Handled on the button itself w/ an event trigger - pointer down
+            //touches.bUIactive = true;
+
             pauseMenu.transform.localScale = new Vector3(1, 1, 1);
             soundMenu.transform.localScale = new Vector3(0, 0, 0);
             controlsMenu.transform.localScale = new Vector3(0, 0, 0);
@@ -50,6 +53,8 @@ public class PauseGame : MonoBehaviour
         }
         else
         {
+            touches.bUIactive = false;
+
             oMan.bPauseOptions = true;
             pauseTrans.transform.localScale = new Vector3(0, 0, 0);
             Time.timeScale = 1;

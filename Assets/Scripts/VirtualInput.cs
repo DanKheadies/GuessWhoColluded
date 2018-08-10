@@ -4,10 +4,8 @@
 // Start: --/--/----
 // Last:  07/31/2018
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace UnityStandardAssets.CrossPlatformInput
 {

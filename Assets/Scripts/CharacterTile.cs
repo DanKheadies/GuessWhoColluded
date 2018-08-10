@@ -1,10 +1,8 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 08/08/2018
-// Last:  08/09/2018
+// Last:  08/10/2018
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Logic for each character tile on the GWC board
@@ -25,6 +23,8 @@ public class CharacterTile : MonoBehaviour
     public bool bShowIcon;
     public bool bShowName;
 
+    public bool bClick;
+
     void Start ()
     {
         // Initializers
@@ -42,21 +42,17 @@ public class CharacterTile : MonoBehaviour
     
     void Update ()
     {
-        if ((bHasEntered && !bHasExited && Input.GetButtonUp("Action")) ||
-            (bHasEntered && !bHasExited && touches.bAction))
+        // Flip tile
+        if ((bHasEntered && !bHasExited && Input.GetButtonDown("Action")) ||
+            (bHasEntered && !bHasExited && touches.bAaction))
         {
-            if (bHasFlipped)
-            {
-                ShowFront();
-            }
-            else if (!bHasFlipped)
-            {
-                ShowBack();
-            }
-            //CheckAndFlip();
+            CheckAndFlip();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !bAvoidUpdate)
+        // Tile layer changer
+        if ((Input.GetKeyDown(KeyCode.LeftShift) && !bAvoidUpdate) ||
+            (Input.GetKeyDown(KeyCode.RightShift) && !bAvoidUpdate) ||
+            (touches.bBaction && !bAvoidUpdate))
         {
             if (bShowIcon)
             {
@@ -88,7 +84,15 @@ public class CharacterTile : MonoBehaviour
             bAvoidUpdate = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        // Reset tile layer changer for keyboard
+        if (Input.GetKeyUp(KeyCode.LeftShift) ||
+            Input.GetKeyUp(KeyCode.RightShift))
+        {
+            bAvoidUpdate = false;
+        }
+
+        // Reset tile layer changer for GUI B button
+        if (!touches.bBaction && bAvoidUpdate)
         {
             bAvoidUpdate = false;
         }
@@ -132,18 +136,30 @@ public class CharacterTile : MonoBehaviour
         bHasFlipped = false;
     }
 
+    public void OnMouseUp()
+    {
+        // DC 08/10/2018 -- Unable to click wherever the 'player' is
+        // Exception: 
+            // Start of game before moving
+            // M: Pelosi & Rhee
+            // T: Trump Jr, Papa, Cohen, Pai, Oma
+        if (!touches.bUIactive)
+        {
+            CheckAndFlip();
+        }
+    }
+
     public void CheckAndFlip()
     {
-        Debug.Log("testicle");
         if (bHasFlipped)
         {
-            Debug.Log("showing front");
             ShowFront();
         }
         else if (!bHasFlipped)
         {
-            Debug.Log("showing back");
             ShowBack();
         }
+
+        touches.bAaction = false;
     }
 }

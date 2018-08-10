@@ -1,13 +1,9 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  07/31/2018
+// Last:  08/10/2018
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.SceneManagement;
 
 // Control Player movement and overworld transition areas
@@ -58,6 +54,11 @@ public class PlayerMovement : MonoBehaviour
         {
             movementVector = Vector2.zero;
             rBody.velocity = Vector2.zero;
+
+            if (scene.name == "GuessWhoColluded")
+            {
+                rBody.position = Vector2.zero;
+            }
         }
         else if (touches.bDown || touches.bLeft || touches.bRight || touches.bUp)
         {
@@ -96,11 +97,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // Set boosting
-            if (Input.GetButtonDown("BAction"))
+            if (Input.GetButtonDown("bAaction"))
             {
                 bBoosting = true;
             }
-            else if (Input.GetButtonUp("BAction"))
+            else if (Input.GetButtonUp("bAaction"))
             {
                 bBoosting = false;
             }

@@ -4,7 +4,7 @@
 // Last:  07/31/2018
 
 // IMPORTANT:
-// 1) Bug -- Dialogues are breaking when there are multiple prompts, e.g. GreatTree & Dad
+// 1) Bug -- Dialogues are breaking when there are multiple prompts back to back, e.g. GreatTree & Dad
 
 using UnityEngine;
 using UnityEngine.UI;

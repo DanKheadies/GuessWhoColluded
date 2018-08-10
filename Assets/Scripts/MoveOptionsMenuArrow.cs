@@ -119,9 +119,10 @@ public class MoveOptionsMenuArrow : MonoBehaviour
                     Opt1Arw.transform.localScale = new Vector3(1, 1, 1);
                 }
             }
+            // Input.GetButtonDown("Action") DC TODO -- replace
             else if (Input.GetKeyDown(KeyCode.Space) ||
                      Input.GetKeyDown(KeyCode.Return) ||
-                     touches.bAction)
+                     touches.bAaction)
             {
                 if (currentPosition == ArrowPos.Opt1)
                 {
