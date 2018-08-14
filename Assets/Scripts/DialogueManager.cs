@@ -17,7 +17,7 @@ public class DialogueManager : MonoBehaviour
     public Image dPic;
     public ImageStrobe imgStrobe;
     public OptionsManager oMan;
-    public PlayerMovement thePlayer;
+    public PlayerMovement pMove;
     private SFXManager SFXMan;
     public Sprite portPic;
     public Text dText;
@@ -50,7 +50,6 @@ public class DialogueManager : MonoBehaviour
     void Start ()
     {
         // Initializers
-        thePlayer = FindObjectOfType<PlayerMovement>();
         aspectUtil = GameObject.Find("Main Camera").GetComponent<AspectUtility>();
         dArrow = GameObject.Find("Dialogue_Arrow").GetComponent<Image>();
         dBox = GameObject.Find("Dialogue_Box");
@@ -60,6 +59,7 @@ public class DialogueManager : MonoBehaviour
         imgStrobe = GameObject.Find("Dialogue_Arrow").GetComponent<ImageStrobe>();
         mainCamera = FindObjectOfType<CameraFollow>();
         oMan = FindObjectOfType<OptionsManager>();
+        pMove = FindObjectOfType<PlayerMovement>();
         SFXMan = FindObjectOfType<SFXManager>();
         touches = FindObjectOfType<TouchControls>();
         uiMan = FindObjectOfType<UIManager>();
@@ -144,7 +144,7 @@ public class DialogueManager : MonoBehaviour
         imgStrobe.bStopStrobe = true;
 
         // Reactivate the player
-        thePlayer.bStopPlayerMovement = false;
+        pMove.bStopPlayerMovement = false;
 
         // Show controls if visible
         touches.transform.localScale = Vector3.one;
@@ -167,10 +167,10 @@ public class DialogueManager : MonoBehaviour
         SFXMan.sounds[2].PlayOneShot(SFXMan.sounds[2].clip);
 
         // Stops the player's movement
-        thePlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        pMove.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         //anim.SetBool("bIsWalking", false);
         touches.UnpressedAllArrows();
-        thePlayer.bStopPlayerMovement = true;
+        pMove.bStopPlayerMovement = true;
 
         // Hides UI controls
         touches.transform.localScale = Vector3.zero;

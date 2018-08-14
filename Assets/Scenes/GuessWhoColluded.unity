@@ -8423,11 +8423,11 @@ MonoBehaviour:
   player: {fileID: 0}
   smoothVelocity: {x: 0, y: 0}
   bUpdateOn: 0
-  smoothTime: 0
   minCamX: 0
   minCamY: 0
   maxCamX: 0
   maxCamY: 0
+  smoothTime: 0
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10042,8 +10042,10 @@ MonoBehaviour:
   contArrow: {fileID: 0}
   dArrow: {fileID: 0}
   dBox: {fileID: 0}
+  guiConts: {fileID: 0}
   HUD: {fileID: 0}
   muellerCards: {fileID: 0}
+  pauseBtn: {fileID: 0}
   oBox: {fileID: 0}
   playerCard: {fileID: 0}
   sFaderAnim: {fileID: 0}
@@ -24059,7 +24061,7 @@ MonoBehaviour:
   dPic: {fileID: 0}
   imgStrobe: {fileID: 0}
   oMan: {fileID: 0}
-  thePlayer: {fileID: 0}
+  pMove: {fileID: 0}
   portPic: {fileID: 0}
   dText: {fileID: 0}
   touches: {fileID: 0}

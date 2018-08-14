@@ -10,7 +10,6 @@ using UnityEngine.EventSystems;
 // Change the text / color of a button after it's clicked
 public class ChangeButtonText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
     public Text buttonText;
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -1,15 +1,14 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  08/10/2018
+// Last:  08/13/2018
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Control Player movement and overworld transition areas
+// Control Player movement
 public class PlayerMovement : MonoBehaviour
 {
-    //public Animator anim;
     private AspectUtility aspectUtil;
     private CameraFollow cameraFollow;
     public PolygonCollider2D playerCollider;
@@ -31,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         // Initializers
-        //anim = GetComponent<Animator>();
         aspectUtil = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AspectUtility>();
         cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         playerCollider = GetComponent<PolygonCollider2D>();
@@ -123,13 +121,11 @@ public class PlayerMovement : MonoBehaviour
         if (bBoosting)
         {
             rBody.velocity = movementVector * 2;
-            //anim.speed = 2.0f;
         }
         // 1x Move Speed
         else
         {
             rBody.velocity = movementVector;
-            //anim.speed = 1.0f;
         }
     }
 
@@ -167,9 +163,6 @@ public class PlayerMovement : MonoBehaviour
         // Reset Camera dimension / ratio incase screen size changed at all (e.g. WebGL Fullscreen)
         aspectUtil.Awake();
 
-        // "Stop" player animation
-        //anim.speed = 0.001f;
-
         // Unsync and stop camera tracking
         cameraFollow.bUpdateOn = false;
 
@@ -182,16 +175,5 @@ public class PlayerMovement : MonoBehaviour
 
         // Prevent player interactions (e.g. other tripwires)
         playerCollider.enabled = false;
-    }
-
-    // Location triggers, camera sliding, player stop/start, player sliding, faders, & sound effects
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        // Overworld Warps
-        //if (collision.CompareTag("Door"))
-        //{
-        //    SFXMan.sounds[0].PlayOneShot(SFXMan.sounds[0].clip);
-        //    collision.gameObject.transform.localScale = Vector3.zero;
-        //}
     }
 }

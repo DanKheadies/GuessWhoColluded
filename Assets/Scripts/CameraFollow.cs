@@ -15,12 +15,11 @@ public class CameraFollow : MonoBehaviour
 
     public bool bUpdateOn;
 
-    public float smoothTime;
-
     public float minCamX;
     public float minCamY;
     public float maxCamX;
     public float maxCamY;
+    public float smoothTime;
     
 
     void Start ()

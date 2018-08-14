@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  08/10/2018
+// Last:  08/13/2018
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,8 +16,10 @@ public class GWC001 : MonoBehaviour
     public GameObject contArrow;
     public GameObject dArrow;
     public GameObject dBox;
+    public GameObject guiConts;
     public GameObject HUD;
     public GameObject muellerCards;
+    public GameObject pauseBtn;
     public GameObject oBox;
     public GameObject playerCard;
     public GameObject sFaderAnim;
@@ -58,6 +60,7 @@ public class GWC001 : MonoBehaviour
         dMan = FindObjectOfType<DialogueManager>();
         dPic = GameObject.Find("Dialogue_Picture").GetComponent<Image>();
         dText = GameObject.Find("Dialogue_Text").GetComponent<Text>();
+        guiConts = GameObject.Find("GUIControls");
         HUD = GameObject.Find("HUD");
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         mMan = FindObjectOfType<MusicManager>();
@@ -65,6 +68,7 @@ public class GWC001 : MonoBehaviour
         muellerCards = GameObject.Find("Mueller Cards");
         oBox = GameObject.Find("Options_Box");
         oMan = FindObjectOfType<OptionsManager>();
+        pauseBtn = GameObject.Find("Pause_Button");
         playerCard = GameObject.Find("Player_Character_Card");
         save = FindObjectOfType<SaveGame>();
         sFaderAnim = GameObject.Find("Screen_Fader");
@@ -85,8 +89,8 @@ public class GWC001 : MonoBehaviour
 
         // Initial prompt to pick a side
         dMan.bDialogueActive = false;
-        HUD.transform.GetChild(3).localScale = Vector3.zero; // DC TODO
-        HUD.transform.GetChild(4).localScale = Vector3.zero; // DC TODO
+        guiConts.transform.localScale = Vector3.zero;
+        pauseBtn.transform.localScale = Vector3.zero;
         mMan.bMusicCanPlay = false;
         thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = true;
 
@@ -163,8 +167,8 @@ public class GWC001 : MonoBehaviour
             bStartGame)
         {
             thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = false;
-            HUD.transform.GetChild(3).localScale = Vector3.one; // DC TODO
-            HUD.transform.GetChild(4).localScale = Vector3.one; // DC TODO
+            guiConts.transform.localScale = Vector3.one;
+            pauseBtn.transform.localScale = Vector3.one;
             mMan.bMusicCanPlay = true;
             sFaderAnim.GetComponent<Animator>().enabled = true;
 

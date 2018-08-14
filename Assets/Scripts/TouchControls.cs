@@ -3,7 +3,6 @@
 // Start: 07/31/2018
 // Last:  08/10/2018
 
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

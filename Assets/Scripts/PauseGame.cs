@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  08/10/2018
+// Last:  08/13/2018
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,12 +21,12 @@ public class PauseGame : MonoBehaviour
     void Start()
     {
         // Initializers
-        oMan = GameObject.FindObjectOfType<OptionsManager>();
+        oMan = FindObjectOfType<OptionsManager>();
         pauseTrans = GameObject.Find("PauseScreen").GetComponent<Transform>();
         pauseMenu = GameObject.Find("PauseMenu").transform;
         soundMenu = GameObject.Find("SoundMenu").transform;
         controlsMenu = GameObject.Find("ControlsMenu").transform;
-        touches = GameObject.FindObjectOfType<TouchControls>();
+        touches = FindObjectOfType<TouchControls>();
     }
 
     void Update()
