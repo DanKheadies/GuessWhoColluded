@@ -10107,6 +10107,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4323854686f3c104d9551f6b2764c4da, type: 3}
   - {fileID: 21300000, guid: 1877a421431be8243abc07974b27d87e, type: 3}
   - {fileID: 21300000, guid: a039c2de1444dc542b02667a4a898246, type: 3}
+  - {fileID: 21300000, guid: 758b9778c479c724aac0a0e8dc2737fe, type: 3}
   dText: {fileID: 0}
   touches: {fileID: 0}
   uiMan: {fileID: 0}
@@ -15890,7 +15891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -18666,6 +18667,7 @@ GameObject:
   - component: {fileID: 1104048309}
   - component: {fileID: 1104048308}
   - component: {fileID: 1104048307}
+  - component: {fileID: 1104048306}
   m_Layer: 5
   m_Name: KREAMinac
   m_TagString: Untagged
@@ -18692,6 +18694,18 @@ RectTransform:
   m_AnchoredPosition: {x: 25, y: 120}
   m_SizeDelta: {x: 232, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1104048306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1104048304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551919bf1bb48794a82fa1ea51c3c41c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonText: {fileID: 957039314}
 --- !u!114 &1104048307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18730,7 +18744,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1104048308}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 603981780}
+        m_MethodName: OpenKREAMinac
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1104048308

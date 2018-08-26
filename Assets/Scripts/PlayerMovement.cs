@@ -55,9 +55,12 @@ public class PlayerMovement : MonoBehaviour
 
             if (scene.name == "GuessWhoColluded")
             {
-                rBody.position = Vector2.zero;
+                movementVector = Vector2.zero;
+                rBody.velocity = Vector2.zero;
             }
         }
+        //else if (touches.bDown || touches.bLeft || touches.bRight || touches.bUp ||
+        //    touches.bUpRight || touches.bUpLeft || touches.bDownRight || touches.bDownLeft)
         else if (touches.bDown || touches.bLeft || touches.bRight || touches.bUp)
         {
             // No action; just need to avoid MovePlayer() here b/c it's cancelling out

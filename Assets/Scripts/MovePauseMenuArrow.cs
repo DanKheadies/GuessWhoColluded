@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 08/02/2018
-// Last:  08/10/2018
+// Last:  08/26/2018
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,15 +10,17 @@ using UnityEngine.SceneManagement;
 // To "move" and execute the arrows on the Pause Menu
 public class MovePauseMenuArrow : MonoBehaviour
 {
-    private Button GoOnBtn;
-    private Button SoundBtn;
     private Button ControlsBtn;
+    private Button GoOnBtn;
+    private Button KREAMBtn;
     private Button QuitBtn;
+    private Button SoundBtn;
 
-    private GameObject GoOnArw;
-    private GameObject SoundArw;
     private GameObject ControlsArw;
+    private GameObject GoOnArw;
+    private GameObject KREAMArw;
     private GameObject QuitArw;
+    private GameObject SoundArw;
 
     private Scene scene;
 
@@ -30,6 +32,7 @@ public class MovePauseMenuArrow : MonoBehaviour
     public enum ArrowPos : int
     {
         GoOn = 167,
+        KREAMinac = 120,
         Sound = -70,
         Controls = -118,
         Quit = -165
@@ -40,14 +43,16 @@ public class MovePauseMenuArrow : MonoBehaviour
     void Start()
     {
         // Initializers
-        GoOnBtn = GameObject.Find("GoOn").GetComponent<UnityEngine.UI.Button>();
-        SoundBtn = GameObject.Find("Sound").GetComponent<UnityEngine.UI.Button>();
-        ControlsBtn = GameObject.Find("Controls").GetComponent<UnityEngine.UI.Button>();
-        QuitBtn = GameObject.Find("Quit").GetComponent<UnityEngine.UI.Button>();
+        ControlsBtn = GameObject.Find("Controls").GetComponent<Button>();
+        GoOnBtn = GameObject.Find("GoOn").GetComponent<Button>();
+        KREAMBtn = GameObject.Find("KREAMinac").GetComponent<Button>();
+        QuitBtn = GameObject.Find("Quit").GetComponent<Button>();
+        SoundBtn = GameObject.Find("Sound").GetComponent<Button>();
 
-        GoOnArw = GameObject.Find("GoOnArw");
-        SoundArw = GameObject.Find("SoundArw");
         ControlsArw = GameObject.Find("ControlsArw");
+        GoOnArw = GameObject.Find("GoOnArw");
+        KREAMArw = GameObject.Find("KREAMinacArw");
+        SoundArw = GameObject.Find("SoundArw");
         QuitArw = GameObject.Find("QuitArw");
 
         pauseMenu = GameObject.Find("PauseScreen").transform;
@@ -73,8 +78,9 @@ public class MovePauseMenuArrow : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.S) ||
                 Input.GetKeyDown(KeyCode.DownArrow)) //||
-                                                     //touches.bDown) DC TODO -- Fix touches w/ arrow movement (also, see OptionsMenu)
+              //touches.bDown) DC TODO -- Fix touches w/ arrow movement (also, see OptionsMenu)
             {
+                // For core
                 if (currentPosition == ArrowPos.GoOn)
                 {
                     currentPosition = ArrowPos.Sound;
@@ -93,10 +99,28 @@ public class MovePauseMenuArrow : MonoBehaviour
                     ClearAllArrows();
                     QuitArw.transform.localScale = new Vector3(1, 1, 1);
                 }
+
+                // For Guess Who Colluded
+                if (scene.name == "GuessWhoColluded")
+                {
+                    // Goes back "up" to correct option
+                    if (currentPosition == ArrowPos.Sound)
+                    {
+                        currentPosition = ArrowPos.KREAMinac;
+                        ClearAllArrows();
+                        KREAMArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (currentPosition == ArrowPos.KREAMinac)
+                    {
+                        currentPosition = ArrowPos.Sound;
+                        ClearAllArrows();
+                        SoundArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                }
             }
             else if (Input.GetKeyDown(KeyCode.W) ||
                      Input.GetKeyDown(KeyCode.UpArrow)) //||
-                                                        //touches.bUp) DC TODO -- Fix touches w/ arrow movement (also, see OptionsMenu)
+                   //touches.bUp) DC TODO -- Fix touches w/ arrow movement (also, see OptionsMenu)
             {
                 if (currentPosition == ArrowPos.Quit)
                 {
@@ -117,12 +141,30 @@ public class MovePauseMenuArrow : MonoBehaviour
                     ClearAllArrows();
                     GoOnArw.transform.localScale = new Vector3(1, 1, 1);
                 }
+
+                // For Guess Who Colluded
+                if (scene.name == "GuessWhoColluded")
+                {
+                    if (currentPosition == ArrowPos.GoOn)
+                    {
+                        currentPosition = ArrowPos.KREAMinac;
+                        ClearAllArrows();
+                        KREAMArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (currentPosition == ArrowPos.KREAMinac)
+                    {
+                        currentPosition = ArrowPos.GoOn;
+                        ClearAllArrows();
+                        GoOnArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                }
             }
             // Input.GetButtonDown("Action") DC TODO -- replace
             else if (Input.GetKeyDown(KeyCode.Space) ||
                      Input.GetKeyDown(KeyCode.Return) ||
                      touches.bAaction)
             {
+                // For core
                 if (currentPosition == ArrowPos.GoOn)
                 {
                     GoOnBtn.onClick.Invoke();
@@ -139,6 +181,19 @@ public class MovePauseMenuArrow : MonoBehaviour
                 {
                     QuitBtn.onClick.Invoke();
                 }
+
+                // Guess Who Colluded
+                if (scene.name == "GuessWhoColluded")
+                {
+                    if (currentPosition == ArrowPos.KREAMinac)
+                    {
+                        KREAMBtn.onClick.Invoke();
+                    }
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ResetArrows();
             }
         }
     }
@@ -147,10 +202,23 @@ public class MovePauseMenuArrow : MonoBehaviour
     {
         if (pauseMenu.localScale == Vector3.one)
         {
-            GoOnArw.transform.localScale = new Vector3(0, 0, 0);
-            SoundArw.transform.localScale = new Vector3(0, 0, 0);
             ControlsArw.transform.localScale = new Vector3(0, 0, 0);
+            GoOnArw.transform.localScale = new Vector3(0, 0, 0);
+            KREAMArw.transform.localScale = new Vector3(0, 0, 0);
             QuitArw.transform.localScale = new Vector3(0, 0, 0);
+            SoundArw.transform.localScale = new Vector3(0, 0, 0);
         }
+    }
+
+    public void ResetArrows()
+    {
+        ControlsArw.transform.localScale = Vector3.zero;
+        GoOnArw.transform.localScale = Vector3.zero;
+        KREAMArw.transform.localScale = Vector3.zero;
+        QuitArw.transform.localScale = Vector3.zero;
+        SoundArw.transform.localScale = Vector3.zero;
+
+        GoOnArw.transform.localScale = Vector3.one;
+        currentPosition = ArrowPos.GoOn;
     }
 }
