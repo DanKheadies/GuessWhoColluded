@@ -339,6 +339,8 @@ public class GWC001 : MonoBehaviour
 
     public void OpenKREAMinac()
     {
-        Application.OpenURL("https://docs.google.com/document/d/1Q8-YiK7TAVkGBsrL_3F9a92JjTFYVCyLcg-RQNNKYkM/edit?usp=sharing");
+        #if !UNITY_WEBGL
+            Application.OpenURL("https://docs.google.com/document/d/1Q8-YiK7TAVkGBsrL_3F9a92JjTFYVCyLcg-RQNNKYkM/edit?usp=sharing");
+        #endif
     }
 }

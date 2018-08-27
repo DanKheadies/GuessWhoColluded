@@ -200,9 +200,11 @@ public class TouchControls : MonoBehaviour
     // Vibrate on touch
     public void Vibrate()
     {
-        Handheld.Vibrate();
+        #if UNITY_ANDRIOD 
+            Handheld.Vibrate();
+        #endif
     }
-    
+
     public void UIActive()
     {
         bUIactive = true;

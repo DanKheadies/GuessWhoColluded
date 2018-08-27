@@ -574,6 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -1358,6 +1359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -1644,6 +1646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -1800,6 +1803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -2461,6 +2465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -2834,6 +2839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -3581,6 +3587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -5187,6 +5194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -5643,6 +5651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -5799,6 +5808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -7120,7 +7130,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 180, y: 200}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &459446999
 MonoBehaviour:
@@ -7152,6 +7162,40 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256752452}
+          m_MethodName: UnpressedRightArrow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256752452}
+          m_MethodName: PressedRightArrow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -7212,7 +7256,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 628fb8673f70d2d4fb0a98beca86b002,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 2bb08b0e8cdfb9848b066e355e90528b, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 3ade8b899e1ffa74180f99d91be2344b, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -7245,7 +7289,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 725b6031da5d93543ab7887d0e81fc31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae29e2bd928a8b54e940826095b90857, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8050,6 +8094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -8486,6 +8531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -9702,6 +9748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -10153,12 +10200,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f327b584a3850148bee435f3ceac8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movePArw: {fileID: 0}
   oMan: {fileID: 0}
+  pMove: {fileID: 0}
   touches: {fileID: 0}
   controlsMenu: {fileID: 0}
   pauseMenu: {fileID: 0}
   pauseTrans: {fileID: 0}
   soundMenu: {fileID: 0}
+  bPauseActive: 0
 --- !u!1 &605925274
 GameObject:
   m_ObjectHideFlags: 0
@@ -10274,6 +10324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -10361,6 +10412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -12695,6 +12747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -12975,7 +13028,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 70, y: 200}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &788468763
 MonoBehaviour:
@@ -13007,6 +13060,40 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256752452}
+          m_MethodName: UnpressedLeftArrow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256752452}
+          m_MethodName: PressedLeftArrow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -13067,7 +13154,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 30a74e4b9c13e4b41ac8d1e803b5af8c,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: d2024d62037150347a9330d7850ca780, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: b36c689beb5cc304e998105f580fe722, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -13100,7 +13187,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3f28d52906ca38749a8d7d7ac36f4931, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b84c4682d9b427e47a860f57ade2f59b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13299,6 +13386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -15965,6 +16053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -16202,6 +16291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -16364,6 +16454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -16670,6 +16761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -17704,6 +17796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -17791,6 +17884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -18668,6 +18762,8 @@ GameObject:
   - component: {fileID: 1104048308}
   - component: {fileID: 1104048307}
   - component: {fileID: 1104048306}
+  - component: {fileID: 1104048311}
+  - component: {fileID: 1104048310}
   m_Layer: 5
   m_Name: KREAMinac
   m_TagString: Untagged
@@ -18756,6 +18852,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1104048308
@@ -18792,6 +18899,45 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1104048304}
   m_CullTransparentMesh: 0
+--- !u!114 &1104048310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1104048304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ef33f0527d24bb0ab7e72fa2727d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KREAMinacLink: 
+--- !u!114 &1104048311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1104048304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d622d03aa4cc47fd9c4a35894a0c6e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1104048310}
+        m_MethodName: OpenLinkJSPlugin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: PressHandler+ButtonPressEvent, Assembly-CSharp-firstpass, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1104090588
 GameObject:
   m_ObjectHideFlags: 0
@@ -19634,6 +19780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -19871,6 +20018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -20267,6 +20415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -20579,6 +20728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -20930,6 +21080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -21092,6 +21243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -21879,7 +22031,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: fe9ad967a953e654aac0522c2f8cf4b0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d079810cb9a3b94ea2035d331703c99, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22212,6 +22364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -24362,6 +24515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -25187,6 +25341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -25490,7 +25645,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 125, y: 254}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1550423870
 MonoBehaviour:
@@ -25522,6 +25677,40 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256752452}
+          m_MethodName: UnpressedUpArrow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256752452}
+          m_MethodName: PressedUpArrow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -25582,7 +25771,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 1ec52629f062762438c5e9802ed438e0,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 660bf8f4778ed204bbb51f18ce04df06, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: f55ce9cc8d520b34da383d298316aaed, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -25615,7 +25804,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6d850aed9a440254292ca3edea09032e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 876035c721015a04ba15cf29ebf0ef6d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25676,6 +25865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -25763,6 +25953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -26953,6 +27144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -27680,6 +27872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -29414,6 +29607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -29570,6 +29764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -29946,6 +30141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -30795,6 +30991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -31403,6 +31600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -31647,6 +31845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -32187,7 +32386,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 125, y: 145}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1960233904
 MonoBehaviour:
@@ -32219,6 +32418,40 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256752452}
+          m_MethodName: UnpressedDownArrow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 256752452}
+          m_MethodName: PressedDownArrow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -32279,7 +32512,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 7e5c6f79d23a3254ba141df4b5b7624c,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 0b239adad21b2074cb33c8ec93e67544, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 0422e6c4c61ad5c41a201efa948ab8b2, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -32312,7 +32545,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5ebc358e294f084429cbe4ed85c43fc6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3aa9c835ae995fd41a06563f7bf0c5bb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -33059,6 +33292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -33636,6 +33870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -33723,6 +33958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -33810,6 +34046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -34806,6 +35043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -34893,6 +35131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
