@@ -574,6 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -1359,6 +1360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -1646,6 +1648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -1803,6 +1806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -2465,6 +2469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -2839,6 +2844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -2986,8 +2992,8 @@ RectTransform:
   m_Father: {fileID: 628413853}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.333, y: 0}
-  m_AnchorMax: {x: 0.333, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3587,6 +3593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -4035,7 +4042,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.333, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5194,6 +5201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -5651,6 +5659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -5808,6 +5817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -8094,6 +8104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -8531,6 +8542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -9748,6 +9760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -10158,6 +10171,7 @@ MonoBehaviour:
   dText: {fileID: 0}
   touches: {fileID: 0}
   uiMan: {fileID: 0}
+  bCanFlip: 0
   strobeTimer: 0
   randomCharacter: 0
   dialogueLines: []
@@ -10324,6 +10338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -10412,6 +10427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -12747,6 +12763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -13386,6 +13403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -16053,6 +16071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -16291,6 +16310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -16454,6 +16474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -16761,6 +16782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -17796,6 +17818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -17884,6 +17907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -18852,17 +18876,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1104048308
@@ -19780,6 +19793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -20018,6 +20032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -20415,6 +20430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -20728,6 +20744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -21080,6 +21097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -21243,6 +21261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -22364,6 +22383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -24515,6 +24535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -25341,6 +25362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -25865,6 +25887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -25953,6 +25976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -27144,6 +27168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -27872,6 +27897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -29607,6 +29633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -29764,6 +29791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -30141,6 +30169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -30991,6 +31020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -31600,6 +31630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -31845,6 +31876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -32097,8 +32129,8 @@ RectTransform:
   m_Father: {fileID: 1245305211}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.333, y: 0}
-  m_AnchorMax: {x: 0.333, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -32907,7 +32939,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.333, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -33292,6 +33324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -33870,6 +33903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -33958,6 +33992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -34046,6 +34081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -35043,6 +35079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -35131,6 +35168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
   pause: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
