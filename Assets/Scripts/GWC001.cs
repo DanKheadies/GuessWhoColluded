@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  10/04/2018
+// Last:  10/10/2018
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,6 +43,8 @@ public class GWC001 : MonoBehaviour
     private bool bOptOppSelect;
     private bool bStartGame;
 
+    public float musicTimer1;
+    public float musicTimer2;
     public float strobeTimer;
 
     public int randomCharacter;
@@ -79,7 +81,9 @@ public class GWC001 : MonoBehaviour
         touches = FindObjectOfType<TouchControls>();
         trumpCards = GameObject.Find("Trump Cards");
         uiMan = FindObjectOfType<UIManager>();
-        
+
+        musicTimer1 = 5.39f;
+        musicTimer2 = 1.05f;
         strobeTimer = 1.0f;
 
         // Trump Dialogue
@@ -180,7 +184,32 @@ public class GWC001 : MonoBehaviour
             // Allow tile flipping
             bCanFlip = true;
         }
+
+        // Change from first music track to second
+        if (!dMan.bDialogueActive &&
+            bStartGame &&
+            musicTimer1 > 0)
+        {
+            musicTimer1 -= Time.deltaTime;
+
+            if (musicTimer1 <= 0)
+            {
+                mMan.SwitchTrack(1);
+            }
+        }
         
+        // Change from second music track to third
+        if (musicTimer1 <= 0 &&
+            musicTimer2 > 0)
+        {
+            musicTimer2 -= Time.deltaTime;
+
+            if (musicTimer2 <= 0)
+            {
+                mMan.SwitchTrack(2);
+            }
+        }
+
         // Zoom In -- Scroll Forward or press Y
         if ((Input.GetAxis("Mouse ScrollWheel") > 0 &&
              mainCamera.orthographicSize >= aUtil._wantedAspectRatio) ||
