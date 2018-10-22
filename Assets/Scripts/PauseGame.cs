@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  08/26/2018
+// Last:  10/21/2018
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +15,7 @@ public class PauseGame : MonoBehaviour
     public Scene scene;
     public TouchControls touches;
     public Transform controlsMenu;
+    public Transform iconsMenu;
     public Transform pauseMenu;
     public Transform pauseTrans;
     public Transform soundMenu;
@@ -24,21 +25,43 @@ public class PauseGame : MonoBehaviour
     void Start()
     {
         // Initializers
+        controlsMenu = GameObject.Find("ControlsMenu").transform;
+        iconsMenu = GameObject.Find("IconsMenu").transform;
         movePArw = GameObject.Find("PauseMenu").GetComponent<MovePauseMenuArrow>();
         oMan = FindObjectOfType<OptionsManager>();
-        pMove = FindObjectOfType<PlayerMovement>();
-        pauseTrans = GameObject.Find("PauseScreen").GetComponent<Transform>();
         pauseMenu = GameObject.Find("PauseMenu").transform;
+        pauseTrans = GameObject.Find("PauseScreen").GetComponent<Transform>();
+        pMove = FindObjectOfType<PlayerMovement>();
         soundMenu = GameObject.Find("SoundMenu").transform;
-        controlsMenu = GameObject.Find("ControlsMenu").transform;
         touches = FindObjectOfType<TouchControls>();
+
+        // Hide submenus to allow Update-Pause-Escape action
+        controlsMenu.transform.localScale = Vector3.zero;
+        iconsMenu.transform.localScale = Vector3.zero;
+        soundMenu.transform.localScale = Vector3.zero;
+
     }
 
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            Pause();
+            if (controlsMenu.transform.localScale == Vector3.one)
+            {
+                Controls(false);
+            }
+            else if (iconsMenu.transform.localScale == Vector3.one)
+            {
+                Icons(false);
+            }
+            else if (soundMenu.transform.localScale == Vector3.one)
+            {
+                Sound(false);
+            }
+            else
+            {
+                Pause();
+            }
         }
     }
 
@@ -46,20 +69,22 @@ public class PauseGame : MonoBehaviour
     {
         if (pauseTrans.localScale != Vector3.one)
         {
-            pauseMenu.transform.localScale = new Vector3(1, 1, 1);
-            soundMenu.transform.localScale = new Vector3(0, 0, 0);
-            controlsMenu.transform.localScale = new Vector3(0, 0, 0);
+            controlsMenu.transform.localScale = Vector3.zero;
+            iconsMenu.transform.localScale = Vector3.zero;
+            pauseMenu.transform.localScale = Vector3.one;
+            soundMenu.transform.localScale = Vector3.zero;
 
-            pauseTrans.transform.localScale = new Vector3(1, 1, 1);
+            pauseTrans.transform.localScale = Vector3.one;
             Time.timeScale = 0;
 
             bPauseActive = true;
             pMove.bStopPlayerMovement = true;
+            touches.bUIactive = true;
         }
         else
         {
             oMan.bPauseOptions = true;
-            pauseTrans.transform.localScale = new Vector3(0, 0, 0);
+            pauseTrans.transform.localScale = Vector3.zero;
             Time.timeScale = 1;
 
             movePArw.ResetArrows();
@@ -70,31 +95,45 @@ public class PauseGame : MonoBehaviour
         }
     }
 
-    public void Sound(bool bOpen)
-    {
-        if (bOpen)
-        {
-            soundMenu.transform.localScale = new Vector3(1, 1, 1);
-            pauseMenu.transform.localScale = new Vector3(0, 0, 0);
-        }
-        else
-        {
-            soundMenu.transform.localScale = new Vector3(0, 0, 0);
-            pauseMenu.transform.localScale = new Vector3(1, 1, 1);
-        }
-    }
-
     public void Controls(bool bOpen)
     {
         if (bOpen)
         {
-            controlsMenu.transform.localScale = new Vector3(1, 1, 1);
-            pauseMenu.transform.localScale = new Vector3(0, 0, 0);
+            controlsMenu.transform.localScale = Vector3.one;
+            pauseMenu.transform.localScale = Vector3.zero;
         }
         else
         {
-            controlsMenu.transform.localScale = new Vector3(0, 0, 0);
-            pauseMenu.transform.localScale = new Vector3(1, 1, 1);
+            controlsMenu.transform.localScale = Vector3.zero;
+            pauseMenu.transform.localScale = Vector3.one;
+        }
+    }
+
+    public void Icons(bool bOpen)
+    {
+        if (bOpen)
+        {
+            iconsMenu.transform.localScale = Vector3.one;
+            pauseMenu.transform.localScale = Vector3.zero;
+        }
+        else
+        {
+            iconsMenu.transform.localScale = Vector3.zero;
+            pauseMenu.transform.localScale = Vector3.one;
+        }
+    }
+
+    public void Sound(bool bOpen)
+    {
+        if (bOpen)
+        {
+            soundMenu.transform.localScale = Vector3.one;
+            pauseMenu.transform.localScale = Vector3.zero;
+        }
+        else
+        {
+            soundMenu.transform.localScale = Vector3.zero;
+            pauseMenu.transform.localScale = Vector3.one;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 08/02/2018
-// Last:  08/26/2018
+// Last:  10/15/2018
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,16 +10,22 @@ using UnityEngine.SceneManagement;
 // To "move" and execute the arrows on the Pause Menu
 public class MovePauseMenuArrow : MonoBehaviour
 {
+    private Button CollumBtn;
     private Button ControlsBtn;
     private Button GoOnBtn;
-    private Button KREAMBtn;
+    private Button IconsBtn;
+    private Button MyCardBtn;
     private Button QuitBtn;
+    private Button ResetBtn;
     private Button SoundBtn;
 
+    private GameObject CollumArw;
     private GameObject ControlsArw;
     private GameObject GoOnArw;
-    private GameObject KREAMArw;
+    private GameObject IconsArw;
+    private GameObject MyCardArw;
     private GameObject QuitArw;
+    private GameObject ResetArw;
     private GameObject SoundArw;
 
     private Scene scene;
@@ -32,7 +38,10 @@ public class MovePauseMenuArrow : MonoBehaviour
     public enum ArrowPos : int
     {
         GoOn = 167,
-        KREAMinac = 120,
+        Colluminac = 120,
+        Icons = 75,
+        MyCard = 25,
+        Reset = -23,
         Sound = -70,
         Controls = -118,
         Quit = -165
@@ -43,17 +52,23 @@ public class MovePauseMenuArrow : MonoBehaviour
     void Start()
     {
         // Initializers
+        CollumBtn = GameObject.Find("Colluminac").GetComponent<Button>();
         ControlsBtn = GameObject.Find("Controls").GetComponent<Button>();
         GoOnBtn = GameObject.Find("GoOn").GetComponent<Button>();
-        KREAMBtn = GameObject.Find("KREAMinac").GetComponent<Button>();
+        IconsBtn = GameObject.Find("Icons").GetComponent<Button>();
+        MyCardBtn = GameObject.Find("MyCard").GetComponent<Button>();
         QuitBtn = GameObject.Find("Quit").GetComponent<Button>();
+        ResetBtn = GameObject.Find("Reset").GetComponent<Button>();
         SoundBtn = GameObject.Find("Sound").GetComponent<Button>();
 
+        CollumArw = GameObject.Find("ColluminacArw");
         ControlsArw = GameObject.Find("ControlsArw");
         GoOnArw = GameObject.Find("GoOnArw");
-        KREAMArw = GameObject.Find("KREAMinacArw");
-        SoundArw = GameObject.Find("SoundArw");
+        IconsArw = GameObject.Find("IconsArw");
+        MyCardArw = GameObject.Find("MyCardArw");
         QuitArw = GameObject.Find("QuitArw");
+        ResetArw = GameObject.Find("ResetArw");
+        SoundArw = GameObject.Find("SoundArw");
 
         pauseMenu = GameObject.Find("PauseScreen").transform;
         scene = SceneManager.GetActiveScene();
@@ -106,11 +121,29 @@ public class MovePauseMenuArrow : MonoBehaviour
                     // Goes back "up" to correct option
                     if (currentPosition == ArrowPos.Sound)
                     {
-                        currentPosition = ArrowPos.KREAMinac;
+                        currentPosition = ArrowPos.Colluminac;
                         ClearAllArrows();
-                        KREAMArw.transform.localScale = new Vector3(1, 1, 1);
+                        CollumArw.transform.localScale = new Vector3(1, 1, 1);
                     }
-                    else if (currentPosition == ArrowPos.KREAMinac)
+                    else if (currentPosition == ArrowPos.Colluminac)
+                    {
+                        currentPosition = ArrowPos.Icons;
+                        ClearAllArrows();
+                        IconsArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (currentPosition == ArrowPos.Icons)
+                    {
+                        currentPosition = ArrowPos.MyCard;
+                        ClearAllArrows();
+                        MyCardArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (currentPosition == ArrowPos.MyCard)
+                    {
+                        currentPosition = ArrowPos.Reset;
+                        ClearAllArrows();
+                        ResetArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (currentPosition == ArrowPos.Reset)
                     {
                         currentPosition = ArrowPos.Sound;
                         ClearAllArrows();
@@ -147,11 +180,29 @@ public class MovePauseMenuArrow : MonoBehaviour
                 {
                     if (currentPosition == ArrowPos.GoOn)
                     {
-                        currentPosition = ArrowPos.KREAMinac;
+                        currentPosition = ArrowPos.Reset;
                         ClearAllArrows();
-                        KREAMArw.transform.localScale = new Vector3(1, 1, 1);
+                        ResetArw.transform.localScale = new Vector3(1, 1, 1);
                     }
-                    else if (currentPosition == ArrowPos.KREAMinac)
+                    else if (currentPosition == ArrowPos.Reset)
+                    {
+                        currentPosition = ArrowPos.MyCard;
+                        ClearAllArrows();
+                        MyCardArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (currentPosition == ArrowPos.MyCard)
+                    {
+                        currentPosition = ArrowPos.Icons;
+                        ClearAllArrows();
+                        IconsArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (currentPosition == ArrowPos.Icons)
+                    {
+                        currentPosition = ArrowPos.Colluminac;
+                        ClearAllArrows();
+                        CollumArw.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    else if (currentPosition == ArrowPos.Colluminac)
                     {
                         currentPosition = ArrowPos.GoOn;
                         ClearAllArrows();
@@ -185,9 +236,21 @@ public class MovePauseMenuArrow : MonoBehaviour
                 // Guess Who Colluded
                 if (scene.name == "GuessWhoColluded")
                 {
-                    if (currentPosition == ArrowPos.KREAMinac)
+                    if (currentPosition == ArrowPos.Colluminac)
                     {
-                        KREAMBtn.onClick.Invoke();
+                        CollumBtn.onClick.Invoke();
+                    }
+                    else if (currentPosition == ArrowPos.Icons)
+                    {
+                        IconsBtn.onClick.Invoke();
+                    }
+                    else if (currentPosition == ArrowPos.MyCard)
+                    {
+                        MyCardBtn.onClick.Invoke();
+                    }
+                    else if (currentPosition == ArrowPos.Reset)
+                    {
+                        ResetBtn.onClick.Invoke();
                     }
                 }
             }
@@ -202,20 +265,26 @@ public class MovePauseMenuArrow : MonoBehaviour
     {
         if (pauseMenu.localScale == Vector3.one)
         {
-            ControlsArw.transform.localScale = new Vector3(0, 0, 0);
-            GoOnArw.transform.localScale = new Vector3(0, 0, 0);
-            KREAMArw.transform.localScale = new Vector3(0, 0, 0);
-            QuitArw.transform.localScale = new Vector3(0, 0, 0);
-            SoundArw.transform.localScale = new Vector3(0, 0, 0);
+            CollumArw.transform.localScale = Vector3.zero;
+            ControlsArw.transform.localScale = Vector3.zero;
+            GoOnArw.transform.localScale = Vector3.zero;
+            IconsArw.transform.localScale = Vector3.zero;
+            MyCardArw.transform.localScale = Vector3.zero;
+            QuitArw.transform.localScale = Vector3.zero;
+            ResetArw.transform.localScale = Vector3.zero;
+            SoundArw.transform.localScale = Vector3.zero;
         }
     }
 
     public void ResetArrows()
     {
+        CollumArw.transform.localScale = Vector3.zero;
         ControlsArw.transform.localScale = Vector3.zero;
         GoOnArw.transform.localScale = Vector3.zero;
-        KREAMArw.transform.localScale = Vector3.zero;
+        IconsArw.transform.localScale = Vector3.zero;
+        MyCardArw.transform.localScale = Vector3.zero;
         QuitArw.transform.localScale = Vector3.zero;
+        ResetArw.transform.localScale = Vector3.zero;
         SoundArw.transform.localScale = Vector3.zero;
 
         GoOnArw.transform.localScale = Vector3.one;

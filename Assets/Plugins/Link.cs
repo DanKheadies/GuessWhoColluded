@@ -2,33 +2,33 @@
 // Authors: valyard (https://github.com/valyard/UnityWebGLOpenLink)
 // Contributors: David W. Corso
 // Start: --/--/----
-// Last:  08/27/2018
+// Last:  10/15/2018
 
 using UnityEngine;
 using System.Runtime.InteropServices;
 
 public class Link : MonoBehaviour 
 {
-    public string KREAMinacLink;
+    public string ColluminacLink;
 
     private void Start()
     {
-        KREAMinacLink = "https://docs.google.com/document/d/1Q8-YiK7TAVkGBsrL_3F9a92JjTFYVCyLcg-RQNNKYkM/edit?usp=sharing";
+        ColluminacLink = "https://docs.google.com/document/d/1Q8-YiK7TAVkGBsrL_3F9a92JjTFYVCyLcg-RQNNKYkM/edit?usp=sharing";
     }
 
     public void OpenLink()
 	{
-		Application.OpenURL(KREAMinacLink);
+		Application.OpenURL(ColluminacLink);
 	}
 
 	public void OpenLinkJS()
 	{
-		Application.ExternalEval("window.open('"+ KREAMinacLink + "');");
+		Application.ExternalEval("window.open('"+ ColluminacLink + "');");
 	}
 
 	public void OpenLinkJSPlugin()
 	{
-        openWindow(KREAMinacLink);
+        openWindow(ColluminacLink);
 	}
 
 	[DllImport("__Internal")]

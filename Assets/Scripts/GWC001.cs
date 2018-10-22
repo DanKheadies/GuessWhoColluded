@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  10/10/2018
+// Last:  10/21/2018
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class GWC001 : MonoBehaviour
 {
     public AspectUtility aUtil;
+    public CharacterTile[] charTiles;
     public Camera mainCamera;
     public CameraFollow camFollow;
     public DialogueManager dMan;
@@ -38,10 +39,15 @@ public class GWC001 : MonoBehaviour
     public UIManager uiMan;
 
     private bool bAvoidUpdate;
+    private bool bBoardReset;
     public bool bCanFlip;
+    private bool bOppMueller;
+    private bool bOppTrump;
     private bool bOptTeamSelect;
     private bool bOptOppSelect;
     private bool bStartGame;
+    private bool bTeamMueller;
+    private bool bTeamTrump;
 
     public float musicTimer1;
     public float musicTimer2;
@@ -81,6 +87,8 @@ public class GWC001 : MonoBehaviour
         touches = FindObjectOfType<TouchControls>();
         trumpCards = GameObject.Find("Trump Cards");
         uiMan = FindObjectOfType<UIManager>();
+
+        charTiles = new CharacterTile[24];
 
         musicTimer1 = 5.39f;
         musicTimer2 = 1.05f;
@@ -210,6 +218,18 @@ public class GWC001 : MonoBehaviour
             }
         }
 
+        // Resetting
+        if (!dMan.bDialogueActive &&
+            bBoardReset &&
+            !bCanFlip)
+        {
+            // Change to avoid running this logic
+            bBoardReset = false;
+
+            // Allow tile flipping
+            bCanFlip = true;
+        }
+
         // Zoom In -- Scroll Forward or press Y
         if ((Input.GetAxis("Mouse ScrollWheel") > 0 &&
              mainCamera.orthographicSize >= aUtil._wantedAspectRatio) ||
@@ -243,6 +263,7 @@ public class GWC001 : MonoBehaviour
         {
             bOptTeamSelect = false;
             bOptOppSelect = true;
+            bTeamTrump = true;
 
             thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = true;
 
@@ -287,13 +308,21 @@ public class GWC001 : MonoBehaviour
         else if (bOptTeamSelect &&
                  moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
         {
+            bOppTrump = true;
             bOptTeamSelect = false;
+            bTeamMueller = true;
 
             oMan.ResetOptions();
             
             // Display Trump board
             trumpCards.transform.localScale = Vector3.one;
-            
+
+            // 'Store' Trump board
+            for (int i = 0; i < 24; i++)
+            {
+                charTiles[i] = trumpCards.transform.GetChild(i).GetComponent<CharacterTile>();
+            }
+
             dMan.dialogueLines = new string[] {
                 "Time to find out who on Team Trump is colluding...",
                 "And I better do it quickly."
@@ -315,6 +344,7 @@ public class GWC001 : MonoBehaviour
         else if (bOptOppSelect &&
                  moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
         {
+            bOppTrump = true;
             bOptOppSelect = false;
             bOptTeamSelect = false;
 
@@ -322,7 +352,13 @@ public class GWC001 : MonoBehaviour
 
             // Display Trump board
             trumpCards.transform.localScale = Vector3.one;
-            
+
+            // 'Store' Trump board
+            for (int i = 0; i < 24; i++)
+            {
+                charTiles[i] = trumpCards.transform.GetChild(i).GetComponent<CharacterTile>();
+            }
+
             dMan.dialogueLines = new string[] {
                 "Time to find out who on Team Trump is leaking information...",
                 "And I better do it quickly."
@@ -344,6 +380,7 @@ public class GWC001 : MonoBehaviour
         else if (bOptOppSelect &&
                  moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
         {
+            bOppMueller = true;
             bOptOppSelect = false;
             bOptTeamSelect = false;
 
@@ -351,7 +388,13 @@ public class GWC001 : MonoBehaviour
 
             // Display Mueller board
             muellerCards.transform.localScale = Vector3.one;
-            
+
+            // 'Store' Mueller board
+            for (int i = 0; i < 24; i++)
+            {
+                charTiles[i] = muellerCards.transform.GetChild(i).GetComponent<CharacterTile>();
+            }
+
             dMan.dialogueLines = new string[] {
                 "Time to find out who on Team Mueller is leading this witch hunt...",
                 "And I better do it quickly."
@@ -370,10 +413,104 @@ public class GWC001 : MonoBehaviour
         }
     }
 
-    public void OpenKREAMinac()
+    public void OpenColluminac()
     {
         #if !UNITY_WEBGL
             Application.OpenURL("https://docs.google.com/document/d/1Q8-YiK7TAVkGBsrL_3F9a92JjTFYVCyLcg-RQNNKYkM/edit?usp=sharing");
         #endif
+    }
+
+    public void ResetBoard()
+    {
+        // Hide current character card on Pause screen
+        playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.zero;
+
+        bBoardReset = true;
+
+        if (bOppMueller)
+        {
+            // Turn over tiles
+            for (int i = 0; i < 24; i++)
+            {
+                charTiles[i] = muellerCards.transform.GetChild(i).GetComponent<CharacterTile>();
+                charTiles[i].ShowFront();
+            }
+        }
+
+        if (bOppTrump)
+        {
+            // Turn over tiles
+            for (int i = 0; i < 24; i++)
+            {
+                charTiles[i] = trumpCards.transform.GetChild(i).GetComponent<CharacterTile>();
+                charTiles[i].ShowFront();
+            }
+        }
+
+        if (bTeamMueller)
+        {
+            // Stop tile flipping
+            bCanFlip = false;
+
+            dMan.dialogueLines = new string[] {
+                "Time to find out who on Team Trump is colluding...",
+                "And I better do it quickly."
+            };
+            dMan.currentLine = 0;
+            dText.text = dMan.dialogueLines[dMan.currentLine];
+            dMan.ShowDialogue();
+            dArrow.GetComponent<ImageStrobe>().bStartStrobe = true; // DC TODO -- Not strobing?
+
+            bStartGame = true;
+
+            // Pick random Mueller character for the player
+            randomCharacter = Random.Range(0, 23);
+            dPic.sprite = portPic[randomCharacter];
+            playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
+        }
+        else if (bTeamTrump &&
+                 bOppMueller)
+        {
+            // Stop tile flipping
+            bCanFlip = false;
+
+            dMan.dialogueLines = new string[] {
+                "Time to find out who on Team Mueller is leading this witch hunt...",
+                "And I better do it quickly."
+            };
+            dMan.currentLine = 0;
+            dText.text = dMan.dialogueLines[dMan.currentLine];
+            dMan.ShowDialogue();
+            dArrow.GetComponent<ImageStrobe>().bStartStrobe = true; // DC TODO -- Not strobing?
+
+            bStartGame = true;
+
+            // Pick random Trump character for the player
+            randomCharacter = Random.Range(24, 47);
+            dPic.sprite = portPic[randomCharacter];
+            playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
+        }
+        else if (bTeamTrump &&
+                 bOppTrump)
+        {
+            // Stop tile flipping
+            bCanFlip = false;
+
+            dMan.dialogueLines = new string[] {
+                "Time to find out who on Team Trump is leaking information...",
+                "And I better do it quickly."
+            };
+            dMan.currentLine = 0;
+            dText.text = dMan.dialogueLines[dMan.currentLine];
+            dMan.ShowDialogue();
+            dArrow.GetComponent<ImageStrobe>().bStartStrobe = true; // DC TODO -- Not strobing?
+
+            bStartGame = true;
+
+            // Pick random Trump character for the player
+            randomCharacter = Random.Range(24, 47);
+            dPic.sprite = portPic[randomCharacter];
+            playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
+        }
     }
 }
