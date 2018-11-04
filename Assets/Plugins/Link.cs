@@ -2,7 +2,7 @@
 // Authors: valyard (https://github.com/valyard/UnityWebGLOpenLink)
 // Contributors: David W. Corso
 // Start: --/--/----
-// Last:  10/15/2018
+// Last:  11/04/2018
 
 using UnityEngine;
 using System.Runtime.InteropServices;
@@ -10,25 +10,51 @@ using System.Runtime.InteropServices;
 public class Link : MonoBehaviour 
 {
     public string ColluminacLink;
+    public string CharactersLink;
+
+    public bool bColluminac;
+    public bool bCharacters;
 
     private void Start()
     {
-        ColluminacLink = "https://docs.google.com/document/d/1Q8-YiK7TAVkGBsrL_3F9a92JjTFYVCyLcg-RQNNKYkM/edit?usp=sharing";
+        ColluminacLink = "http://guesswhocolluded.com/colluminac.html";
+        CharactersLink = "http://guesswhocolluded.com/colluminac.html#characters";
     }
 
     public void OpenLink()
 	{
-		Application.OpenURL(ColluminacLink);
-	}
+        if (bColluminac)
+        {
+            Application.OpenURL(ColluminacLink);
+        }
+        else if (bCharacters)
+        {
+            Application.OpenURL(CharactersLink);
+        }
+    }
 
 	public void OpenLinkJS()
 	{
-		Application.ExternalEval("window.open('"+ ColluminacLink + "');");
+        if (bColluminac)
+        {
+            Application.ExternalEval("window.open('" + ColluminacLink + "');");
+        }
+        else if (bCharacters)
+        {
+            Application.ExternalEval("window.open('" + CharactersLink + "');");
+        }
 	}
 
 	public void OpenLinkJSPlugin()
 	{
-        openWindow(ColluminacLink);
+        if (bColluminac)
+        {
+            openWindow(ColluminacLink);
+        }
+        else if (bCharacters)
+        {
+            openWindow(CharactersLink);
+        }
 	}
 
 	[DllImport("__Internal")]

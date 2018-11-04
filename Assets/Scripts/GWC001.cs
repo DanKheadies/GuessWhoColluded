@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  10/21/2018
+// Last:  11/03/2018
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -416,7 +416,14 @@ public class GWC001 : MonoBehaviour
     public void OpenColluminac()
     {
         #if !UNITY_WEBGL
-            Application.OpenURL("https://docs.google.com/document/d/1Q8-YiK7TAVkGBsrL_3F9a92JjTFYVCyLcg-RQNNKYkM/edit?usp=sharing");
+            Application.OpenURL("http://guesswhocolluded.com/colluminac.html");
+        #endif
+    }
+
+    public void OpenCharacters()
+    {
+        #if !UNITY_WEBGL
+                Application.OpenURL("http://guesswhocolluded.com/colluminac.html#characters");
         #endif
     }
 
