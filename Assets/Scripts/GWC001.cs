@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  11/03/2018
+// Last:  01/10/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -235,6 +235,8 @@ public class GWC001 : MonoBehaviour
              mainCamera.orthographicSize >= aUtil._wantedAspectRatio) ||
             (Input.GetKeyDown(KeyCode.Comma) &&
              mainCamera.orthographicSize >= aUtil._wantedAspectRatio) ||
+            (Input.GetKeyDown(KeyCode.JoystickButton3) &&
+             mainCamera.orthographicSize >= aUtil._wantedAspectRatio) ||
             (touches.bYaction &&
              mainCamera.orthographicSize >= aUtil._wantedAspectRatio))
         {
@@ -246,6 +248,8 @@ public class GWC001 : MonoBehaviour
         if ((Input.GetAxis("Mouse ScrollWheel") < 0 &&
              mainCamera.orthographicSize < 5.5f) ||
             (Input.GetKeyDown(KeyCode.Period) &&
+             mainCamera.orthographicSize < 5.5f) ||
+            (Input.GetKeyDown(KeyCode.JoystickButton2) &&
              mainCamera.orthographicSize < 5.5f) ||
             (touches.bXaction &&
              mainCamera.orthographicSize < 5.5f))

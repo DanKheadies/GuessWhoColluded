@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/29/2018
-// Last:  08/10/2018
+// Last:  01/10/2019
 
 using UnityEngine;
 
@@ -43,7 +43,8 @@ public class CameraFollow : MonoBehaviour
         if (bUpdateOn)
         {
             // Temp: Update Camera display / aspect ratio
-            if (Input.GetKeyUp(KeyCode.R))
+            if (Input.GetKeyUp(KeyCode.R) ||
+                Input.GetKeyUp(KeyCode.JoystickButton6))
             {
                 aspectUtil.Awake();
             }

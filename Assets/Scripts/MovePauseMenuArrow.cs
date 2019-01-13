@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 08/02/2018
-// Last:  10/15/2018
+// Last:  01/10/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +33,10 @@ public class MovePauseMenuArrow : MonoBehaviour
     private TouchControls touches;
 
     private Transform pauseMenu;
+
+    public bool bControllerDown;
+    public bool bControllerUp;
+    public bool bFreezeControllerInput;
 
 
     public enum ArrowPos : int
@@ -91,10 +95,38 @@ public class MovePauseMenuArrow : MonoBehaviour
 
         if (pauseMenu.localScale == Vector3.one)
         {
-            if (Input.GetKeyDown(KeyCode.S) ||
-                Input.GetKeyDown(KeyCode.DownArrow)) //||
-              //touches.bDown) DC TODO -- Fix touches w/ arrow movement (also, see OptionsMenu)
+            // Controller Support 
+            // DC TODO 01/10/2019 -- temp bug where sub-pause menus not closing as expected
+            if (Input.GetAxis("Controller DPad Vertical") == 0 &&
+               (!touches.bDown &&
+                !touches.bUp))
             {
+                Debug.Log("zero");
+                bFreezeControllerInput = false;
+            }
+            else if (!bFreezeControllerInput &&
+                    (Input.GetAxis("Controller DPad Vertical") > 0 ||
+                    touches.bDown))
+            {
+                Debug.Log("down");
+                bControllerDown = true;
+                bFreezeControllerInput = true;
+            }
+            else if (!bFreezeControllerInput &&
+                    (Input.GetAxis("Controller DPad Vertical") < 0 ||
+                    touches.bUp))
+            {
+                Debug.Log("up");
+                bControllerUp = true;
+                bFreezeControllerInput = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.S) ||
+                Input.GetKeyDown(KeyCode.DownArrow) ||
+                bControllerDown)
+            {
+                bControllerDown = false;
+
                 // For core
                 if (currentPosition == ArrowPos.GoOn)
                 {
@@ -152,9 +184,12 @@ public class MovePauseMenuArrow : MonoBehaviour
                 }
             }
             else if (Input.GetKeyDown(KeyCode.W) ||
-                     Input.GetKeyDown(KeyCode.UpArrow)) //||
-                   //touches.bUp) DC TODO -- Fix touches w/ arrow movement (also, see OptionsMenu)
+                     Input.GetKeyDown(KeyCode.UpArrow) ||
+                     bControllerUp)
             {
+                bControllerUp = false;
+
+                // For core
                 if (currentPosition == ArrowPos.Quit)
                 {
                     currentPosition = ArrowPos.Controls;
@@ -210,9 +245,8 @@ public class MovePauseMenuArrow : MonoBehaviour
                     }
                 }
             }
-            // Input.GetButtonDown("Action") DC TODO -- replace
-            else if (Input.GetKeyDown(KeyCode.Space) ||
-                     Input.GetKeyDown(KeyCode.Return) ||
+            else if (Input.GetButtonDown("Action") ||
+                     Input.GetKeyDown(KeyCode.JoystickButton0) ||
                      touches.bAaction)
             {
                 // For core
@@ -254,7 +288,10 @@ public class MovePauseMenuArrow : MonoBehaviour
                     }
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Escape))
+            else if (Input.GetKeyDown(KeyCode.Escape) ||
+                     Input.GetKeyUp(KeyCode.JoystickButton7) ||
+                     Input.GetButton("BAction") ||
+                     touches.bBaction)
             {
                 ResetArrows();
             }

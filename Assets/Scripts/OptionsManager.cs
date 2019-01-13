@@ -1,10 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  07/31/2018
-
-// IMPORTANT:
-// 1) Bug -- Dialogues are breaking when there are multiple prompts back to back, e.g. GreatTree & Dad
+// Last:  01/10/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -105,7 +102,8 @@ public class OptionsManager : MonoBehaviour
         }
 
         // Temp: Update Camera display / aspect ratio
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetKeyUp(KeyCode.R) ||
+            Input.GetKeyUp(KeyCode.JoystickButton6))
         {
             ConfigureParameters();
         }
