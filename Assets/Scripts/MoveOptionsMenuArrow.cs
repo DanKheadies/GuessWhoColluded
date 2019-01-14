@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  01/10/2019
+// Last:  01/13/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,14 +83,12 @@ public class MoveOptionsMenuArrow : MonoBehaviour
                (!touches.bDown &&
                 !touches.bUp))
             {
-                Debug.Log("zero");
                 bFreezeControllerInput = false;
             }
             else if (!bFreezeControllerInput &&
                     (Input.GetAxis("Controller DPad Vertical") > 0 ||
                     touches.bDown))
             {
-                Debug.Log("down");
                 bControllerDown = true;
                 bFreezeControllerInput = true;
             }
@@ -98,7 +96,6 @@ public class MoveOptionsMenuArrow : MonoBehaviour
                     (Input.GetAxis("Controller DPad Vertical") < 0 ||
                     touches.bUp))
             {
-                Debug.Log("up");
                 bControllerUp = true;
                 bFreezeControllerInput = true;
             }
