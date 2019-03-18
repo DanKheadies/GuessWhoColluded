@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/29/2018
-// Last:  07/29/2018
+// Last:  03/15/2019
 
 using UnityEngine;
 
@@ -12,6 +12,7 @@ public class ScreenOrientation : MonoBehaviour
     public DialogueManager dMan;
     public DeviceOrientation devOr;
     public OptionsManager oMan;
+    public UIManager uMan;
 
     public bool bIsFull;
     public bool bSizingChange;
@@ -23,6 +24,7 @@ public class ScreenOrientation : MonoBehaviour
         devOr = Input.deviceOrientation;
         dMan = FindObjectOfType<DialogueManager>();
         oMan = FindObjectOfType<OptionsManager>();
+        uMan = FindObjectOfType<UIManager>();
 
         bIsFull = Screen.fullScreen;
         bSizingChange = false;
@@ -54,5 +56,6 @@ public class ScreenOrientation : MonoBehaviour
         aspectUtil.Awake();
         dMan.ConfigureParameters();
         oMan.ConfigureParameters();
+        uMan.CheckAndSetMenus();
     }
 }

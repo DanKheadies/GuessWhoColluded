@@ -2,7 +2,7 @@
 // Authors: valyard (https://github.com/valyard/UnityWebGLOpenLink)
 // Contributors: David W. Corso
 // Start: --/--/----
-// Last:  01/13/2019
+// Last:  01/15/2019
 
 using UnityEngine;
 using System.Runtime.InteropServices;
@@ -35,18 +35,20 @@ public class Link : MonoBehaviour
 
 	public void OpenLinkJS()
 	{
-        if (bColluminac)
-        {
-            Application.ExternalEval("window.open('" + ColluminacLink + "');");
-        }
-        else if (bCharacters)
-        {
-            Application.ExternalEval("window.open('" + CharactersLink + "');");
-        }
+        // DC 03/15/2019 -- Deprecated; needed? Using OpenLink()
+        //if (bColluminac)
+        //{
+        //    Application.ExternalEval("window.open('" + ColluminacLink + "');");
+        //}
+        //else if (bCharacters)
+        //{
+        //    Application.ExternalEval("window.open('" + CharactersLink + "');");
+        //}
 	}
 
+    #if !UNITY_IOS
     // Opens links for non-Unity Editor Apps (i.e. standalone, webgl, etc.)
-	public void OpenLinkJSPlugin()
+    public void OpenLinkJSPlugin()
 	{
         // DC 01/13/2019 -- Causes an error in Unity if this is active; avoid error by doing nothing here
         // Will still open the link via alt code (above?)
@@ -65,5 +67,5 @@ public class Link : MonoBehaviour
 
 	[DllImport("__Internal")]
 	private static extern void openWindow(string url);
-
+    #endif
 }

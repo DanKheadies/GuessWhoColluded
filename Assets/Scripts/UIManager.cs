@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/29/2018
-// Last:  07/29/2018
+// Last:  03/15/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +17,12 @@ public class UIManager : MonoBehaviour
     public CanvasGroup hudCanvas;
     public DialogueManager dMan;
     public OptionsManager oMan;
+    public RectTransform controlsMenu;
+    //public RectTransform gwcMenu;
+    public RectTransform iconsMenu;
+    public RectTransform pauseMenu;
+    public RectTransform soundMenu;
+    //public RectTransform stuffMenu;
     public Scene currScene;
     public Slider contOpacSlider;
     public Toggle conTog;
@@ -41,6 +47,10 @@ public class UIManager : MonoBehaviour
         oMan = GameObject.FindObjectOfType<OptionsManager>();
         touches = FindObjectOfType<TouchControls>();
 
+        controlsMenu = GameObject.Find("ControlsMenu").GetComponent<RectTransform>();
+        pauseMenu = GameObject.Find("PauseMenu").GetComponent<RectTransform>();
+        soundMenu = GameObject.Find("SoundMenu").GetComponent<RectTransform>();
+        iconsMenu = GameObject.Find("IconsMenu").GetComponent<RectTransform>();
 
         // Sets initial activation off saved data
         if (!PlayerPrefs.HasKey("ControlsActive"))
@@ -53,13 +63,13 @@ public class UIManager : MonoBehaviour
             {
                 bControlsActive = true;
                 conTog.isOn = true;
-                touches.GetComponent<Canvas>().enabled = true;
+                touches.transform.localScale = Vector3.one;
             }
             else
             {
                 bControlsActive = false;
                 conTog.isOn = false;
-                touches.GetComponent<Canvas>().enabled = false;
+                touches.transform.localScale = Vector3.zero;
             }
         }
 
@@ -76,13 +86,16 @@ public class UIManager : MonoBehaviour
             contOpacSlider.value = currentContOpac;
             contOpacCan.alpha = currentContOpac;
         }
+
+        // Sets menu position based off scene
+        CheckAndSetMenus();
     }
 
     void Update()
     {
         if (!bControlsActive)
         {
-            touches.GetComponent<Canvas>().enabled = false;
+            touches.transform.localScale = Vector3.zero;
         }
     }
 
@@ -98,16 +111,59 @@ public class UIManager : MonoBehaviour
     {
         if (bControlsActive)
         {
-            touches.GetComponent<Canvas>().enabled = false;
+            touches.transform.localScale = Vector3.zero;
             bControlsActive = false;
         }
         else if (!bControlsActive)
         {
-            touches.GetComponent<Canvas>().enabled = true;
+            touches.transform.localScale = Vector3.one;
             bControlsActive = true;
         }
     }
 
     // Adjusts the volume slider based off keyboard input
     // DC 07/29/2018 -- TODO: Adjusts the volume slider based off keyboard input
+
+
+    public void CheckAndSetMenus()
+    {
+        // Width > height = center in the screen
+        if (Screen.width >= Screen.height)
+        {
+            controlsMenu.anchorMin = new Vector2(0.5f, 0.5f);
+            controlsMenu.anchorMax = new Vector2(0.5f, 0.5f);
+            controlsMenu.anchoredPosition = new Vector2(0, 0);
+
+            pauseMenu.anchorMin = new Vector2(0.5f, 0.5f);
+            pauseMenu.anchorMax = new Vector2(0.5f, 0.5f);
+            pauseMenu.anchoredPosition = new Vector2(-140f, 0);
+
+            soundMenu.anchorMin = new Vector2(0.5f, 0.5f);
+            soundMenu.anchorMax = new Vector2(0.5f, 0.5f);
+            soundMenu.anchoredPosition = new Vector2(0, 0);
+
+            iconsMenu.anchorMin = new Vector2(0.5f, 0.5f);
+            iconsMenu.anchorMax = new Vector2(0.5f, 0.5f);
+            iconsMenu.anchoredPosition = new Vector2(0, 0);
+        }
+        // Height > width = stick to the top but below brio and menu button
+        else
+        {
+            controlsMenu.anchorMin = new Vector2(0.5f, 1f);
+            controlsMenu.anchorMax = new Vector2(0.5f, 1f);
+            controlsMenu.anchoredPosition = new Vector2(0, -275f);
+
+            pauseMenu.anchorMin = new Vector2(0.5f, 1f);
+            pauseMenu.anchorMax = new Vector2(0.5f, 1f);
+            pauseMenu.anchoredPosition = new Vector2(-140f, -275f);
+
+            soundMenu.anchorMin = new Vector2(0.5f, 1f);
+            soundMenu.anchorMax = new Vector2(0.5f, 1f);
+            soundMenu.anchoredPosition = new Vector2(0, -275f);
+
+            iconsMenu.anchorMin = new Vector2(0.5f, 1f);
+            iconsMenu.anchorMax = new Vector2(0.5f, 1f);
+            iconsMenu.anchoredPosition = new Vector2(0, -275f);
+        }
+    }
 }

@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  08/13/2018
+// Last:  03/15/2019
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             // No action; just need to avoid MovePlayer() here b/c it's cancelling out
             // the Touches script by passing in Move(0,0) while touches passes Move(X,Y)
         }
-        else if (scene.name == "GuessWhoColluded")
+        else
         {
             if (bGWCUpdate)
             {
@@ -85,53 +85,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 bGWCUpdate = true;
             }
-        }
-        else
-        {
-            MovePlayer();
-        }
-
-        if (scene.name == "GuessWhoColluded")
-        {
-
-        }
-        else
-        {
-            // Set boosting
-            if (Input.GetButtonDown("bAaction"))
-            {
-                bBoosting = true;
-            }
-            else if (Input.GetButtonUp("bAaction"))
-            {
-                bBoosting = false;
-            }
-        }
-            
+        }  
     }
-
-    public void MovePlayer()
-    {
-        // Unit's Project Settings -> Input
-        Move(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-    }
-
-    public void Move(float xInput, float yInput)
-    {
-        movementVector = moveSpeed * new Vector2(xInput, yInput);
-
-        // 2x Move Speed
-        if (bBoosting)
-        {
-            rBody.velocity = movementVector * 2;
-        }
-        // 1x Move Speed
-        else
-        {
-            rBody.velocity = movementVector;
-        }
-    }
-
+    
     public void GWCMovePlayer()
     {
         GWCMove(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -170,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
         cameraFollow.bUpdateOn = false;
 
         // Hide UI (if present) and prevent input
-        touches.GetComponent<Canvas>().enabled = false;
+        touches.transform.localScale = Vector3.zero;
         touches.UnpressedAllArrows();
 
         // Prevent player movement

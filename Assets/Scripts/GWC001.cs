@@ -1,8 +1,9 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  01/10/2019
+// Last:  03/15/2019
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +15,6 @@ public class GWC001 : MonoBehaviour
     public Camera mainCamera;
     public CameraFollow camFollow;
     public DialogueManager dMan;
-    public GameObject contArrow;
-    public GameObject dArrow;
     public GameObject dBox;
     public GameObject guiConts;
     public GameObject HUD;
@@ -28,6 +27,7 @@ public class GWC001 : MonoBehaviour
     public GameObject thePlayer;
     public GameObject trumpCards;
     public Image dPic;
+    public ImageStrobe dArrow;
     public MoveOptionsMenuArrow moveOptsArw;
     public MusicManager mMan;
     public OptionsManager oMan;
@@ -38,23 +38,53 @@ public class GWC001 : MonoBehaviour
     public TouchControls touches;
     public UIManager uiMan;
 
-    private bool bAvoidUpdate;
-    private bool bBoardReset;
+    public bool bAllowPlayerToGuess;
+    public bool bAvoidUpdate;
+    public bool bBoardReset;
     public bool bCanFlip;
-    private bool bOppMueller;
-    private bool bOppTrump;
-    private bool bOptTeamSelect;
-    private bool bOptOppSelect;
-    private bool bStartGame;
-    private bool bTeamMueller;
-    private bool bTeamTrump;
+    public bool bIsPlayerG2G;
+    public bool bOppMueller;
+    public bool bOppTrump;
+    public bool bOptModeSelect;
+    public bool bOptModeSingle;
+    public bool bOptModeMulti;
+    public bool bOptTeamSelect;
+    public bool bOptOppSelect;
+    public bool bOppQ1;
+    public bool bOppQ2;
+    public bool bOppQ3;
+    public bool bOppQ4;
+    public bool bOppQ5;
+    public bool bOppQ6;
+    public bool bPlayerGuessing;
+    public bool bPlayQ1;
+    public bool bPlayQ2;
+    public bool bPlayQ3;
+    public bool bPlayQ4;
+    public bool bPlayQ5;
+    public bool bPlayQ6;
+    public bool bSingleReminder;
+    public bool bStartGame;
+    public bool bStartSingle;
+    public bool bTeamMueller;
+    public bool bTeamTrump;
 
+    public float buttonTimer;
+    public float guessDownTime;
+    public float guessUpTime;
+    public float guessPressedTime;
+    public float guessThreshold;
     public float musicTimer1;
     public float musicTimer2;
     public float strobeTimer;
 
+    public int playerGuessNumber;
     public int randomCharacter;
-    
+
+    public string pAnswer;
+    public string teamName;
+    public string oppName;
+
     public string[] dialogueLines;
     public string[] optionsLines;
 
@@ -63,8 +93,7 @@ public class GWC001 : MonoBehaviour
         // Initializers
         aUtil = FindObjectOfType<AspectUtility>();
         camFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
-        contArrow = GameObject.Find("Dialogue_Arrow");
-        dArrow = GameObject.Find("Dialogue_Arrow");
+        dArrow = GameObject.Find("Dialogue_Arrow").GetComponent<ImageStrobe>();
         dBox = GameObject.Find("Dialogue_Box");
         dMan = FindObjectOfType<DialogueManager>();
         dPic = GameObject.Find("Dialogue_Picture").GetComponent<Image>();
@@ -90,6 +119,7 @@ public class GWC001 : MonoBehaviour
 
         charTiles = new CharacterTile[24];
 
+        guessThreshold = 3.0f;
         musicTimer1 = 5.39f;
         musicTimer2 = 1.05f;
         strobeTimer = 1.0f;
@@ -100,12 +130,13 @@ public class GWC001 : MonoBehaviour
         //        "The Fake News, the Disgusting Democrats, and the Deep State would say different."
         //    };
 
-        // Initial prompt to pick a side
+        // Initial prompt to pick a mode
         dMan.bDialogueActive = false;
         guiConts.transform.localScale = Vector3.zero;
         pauseBtn.transform.localScale = Vector3.zero;
         mMan.bMusicCanPlay = false;
-        thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = true;
+
+        HMB_PromptRestrictions();
 
         dialogueLines = new string[] {
                 "I want YOU.. to         Guess Who Colluded."
@@ -128,8 +159,8 @@ public class GWC001 : MonoBehaviour
 
             if (strobeTimer <= 0)
             {
-                bOptTeamSelect = true;
-                contArrow.GetComponent<ImageStrobe>().bStartStrobe = true;
+                bOptModeSelect = true;
+                StartCoroutine(dArrow.Strobe());
                 dMan.bDialogueActive = true;
                 sFaderAnimDia.transform.localScale = Vector3.zero; // Remove to allow mouse click on options prompts
 
@@ -138,41 +169,21 @@ public class GWC001 : MonoBehaviour
             }
         }
 
-        if (bOptTeamSelect &&
+        if (bOptModeSelect &&
             !dMan.bDialogueActive)
         {
-            thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = true;
-
-            touches.transform.localScale = Vector3.zero;
+            HMB_PromptRestrictions();
 
             dialogueLines = new string[] {
-                "First and first mostly, whose side are you on?"
+                "First and first mostly, who's playing?"
             };
-            // DC -- dman.ResetDialogue()?
-            dMan.dialogueLines = dialogueLines;
-            dMan.currentLine = 0;
-            dText.text = dialogueLines[dMan.currentLine];
-            dBox.transform.localScale = Vector3.one;
-            dMan.bDialogueActive = true;
-
+            HMB_DialogueRestter();
 
             optionsLines = new string[] {
-                "Team Trump",
-                "Team Mueller"
+                "Me (Single player)",
+                "Us (Multiplayer)"
             };
-
-            for (int i = 0; i < optionsLines.Length; i++)
-            {
-                GameObject optText = GameObject.Find("Opt" + (i + 1) + "_Text");
-                optText.GetComponentInChildren<Text>().text = optionsLines[i];
-                oMan.tempOptsCount += 1;
-            }
-
-            oMan.bDiaToOpts = true;
-            oMan.bOptionsActive = true;
-            oMan.HideThirdPlusOpt();
-            oBox.transform.localScale = Vector3.one;
-            oMan.PauseOptions();
+            HMB_OptionsResetter_2Q();
         }
 
         // Begin play -- Activate music, UI, and fade after team selection
@@ -190,7 +201,17 @@ public class GWC001 : MonoBehaviour
             bAvoidUpdate = true;
 
             // Allow tile flipping
-            bCanFlip = true;
+            StartCoroutine(StartFlipping());
+
+            // Mode Reminders
+            if (bOptModeMulti)
+            {
+                StartCoroutine(StartMulti());
+            }
+            if (bOptModeSingle)
+            {
+                StartCoroutine(StartSingle());
+            }
         }
 
         // Change from first music track to second
@@ -205,7 +226,7 @@ public class GWC001 : MonoBehaviour
                 mMan.SwitchTrack(1);
             }
         }
-        
+
         // Change from second music track to third
         if (musicTimer1 <= 0 &&
             musicTimer2 > 0)
@@ -257,58 +278,204 @@ public class GWC001 : MonoBehaviour
             mainCamera.orthographicSize = mainCamera.orthographicSize + 0.25f;
             touches.bXaction = false;
         }
+
+        // Single Player - Opponent's First Guess
+        if (bStartSingle &&
+            !dMan.bDialogueActive)
+        {
+            bStartSingle = false;
+            bOppQ1 = true;
+
+            HMB_PromptRestrictions();
+
+            dialogueLines = new string[] {
+                "Are you a man?"
+            };
+            HMB_DialogueRestter();
+
+            optionsLines = new string[] {
+                "Yes",
+                "No"
+            };
+            HMB_OptionsResetter_2Q();
+        }
+
+        // Single Player - Reminder to Guess
+        if (bSingleReminder &&
+            !dMan.bDialogueActive)
+        {
+            bSingleReminder = false;
+            bAllowPlayerToGuess = true;
+
+            HMB_PromptRestrictions();
+
+            dialogueLines = new string[] {
+                "Oh and when you're ready to guess, just hold down for 3 seconds."
+            };
+            HMB_DialogueRestter();
+        }
+
+        // Single Player - Player's First Guess
+        if (bPlayerGuessing &&
+            playerGuessNumber == 1 &&
+            !dMan.bDialogueActive)
+        {
+            bPlayerGuessing = false;
+            bPlayQ1 = true;
+
+            HMB_PromptRestrictions();
+
+            dialogueLines = new string[] {
+                "Hmmm..."
+            };
+            HMB_DialogueRestter();
+
+            // The meat of the logic tree
+            // Will want to know what team player is on & against (worked in WH vs on MIT)
+            // Keep track of what has been asked
+            // Allow user to select a character (or hold down again cancel)
+            optionsLines = new string[] {
+                "Are you wearing red?",
+                "Are you a female?",
+                "You work in the white house?",
+                "I know who it is!"
+            };
+            HMB_OptionsResetter_4Q();
+        }
+
+        // Single Player - Player Guess
+        if (Input.GetMouseButton(0) &&
+            bAllowPlayerToGuess &&
+            !dMan.bDialogueActive)
+        {
+            buttonTimer += Time.deltaTime;
+
+            if (buttonTimer >= guessThreshold &&
+                !bIsPlayerG2G)
+            {
+                IsPlayerGoodToGuess();
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            buttonTimer = 0;
+        }
+    }
+
+    IEnumerator StartFlipping()
+    {
+        yield return new WaitForSeconds(1.0f);
+        
+        bCanFlip = true;
+    }
+
+    IEnumerator StartSingle()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        HMB_PromptRestrictions();
+
+        if (bTeamMueller)
+        {
+            teamName = "Mueller";
+        }
+        else if (bTeamTrump)
+        {
+            teamName = "Trump";
+        }
+
+        if (bOppMueller)
+        {
+            oppName = "Mueller";
+        }
+        else if (bOppTrump)
+        {
+            oppName = "Trump";
+        }
+
+        dialogueLines = new string[] {
+                "As Team " + teamName + ", I'll go first...",
+            };
+        HMB_DialogueRestter();
+        dPic.sprite = portPic[48];
+
+        bStartSingle = true;
+    }
+
+    IEnumerator StartMulti()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        HMB_PromptRestrictions();
+
+        dialogueLines = new string[] {
+                "Oh and don't forget about the Colluminac in the menu. GLHF"
+            };
+        HMB_DialogueRestter();
+        dPic.sprite = portPic[48];
     }
 
     public void OptionsSelection()
     {
-        // Dialogue 1 - Option 1 - Selected Trump
-        if (bOptTeamSelect && 
+        // Dialogue 1 - Option * - Selected Mode
+        if (bOptModeSelect &&
+           (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1 ||
+            moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2))
+        {
+            bOptModeSelect = false;
+            bOptTeamSelect = true;
+
+            // Selected Single Player
+            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+            {
+                bOptModeSingle = true;
+            }
+            // Selected Multi Player
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+            {
+                bOptModeMulti = true;
+            }
+
+            HMB_PromptRestrictions();
+
+            dialogueLines = new string[] {
+                "Got it. Now more importantly, whose side are you on?"
+            };
+            HMB_DialogueRestter();
+
+            optionsLines = new string[] {
+                "Team Trump",
+                "Team Mueller"
+            };
+
+            HMB_OptionsResetter_2Q();
+        }
+
+        // Dialogue 2 - Option 1 - Selected Trump
+        else if (bOptTeamSelect &&
             moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
         {
             bOptTeamSelect = false;
             bOptOppSelect = true;
             bTeamTrump = true;
 
-            thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = true;
-
-            touches.transform.localScale = Vector3.zero;
+            HMB_PromptRestrictions();
 
             dialogueLines = new string[] {
-                //"But what to do, what to do... Should I go after"
                 "But what to do, what to do... Are you going to.."
             };
-            // DC -- dman.ResetDialogue()?
-            dMan.dialogueLines = dialogueLines;
-            dMan.currentLine = 0;
-            dText.text = dialogueLines[dMan.currentLine];
-            dBox.transform.localScale = Vector3.one;
-            dMan.bDialogueActive = true;
+            HMB_DialogueRestter();
 
-
-            //optionsLines = new string[] {
-            //    "Trump (and very Fine People)",
-            //    "Mueller (and the Fake News)"
-            //};
             optionsLines = new string[] {
                 "Stop the leaks!",
                 "End the witch hunt!"
             };
 
-            for (int i = 0; i < optionsLines.Length; i++)
-            {
-                GameObject optText = GameObject.Find("Opt" + (i + 1) + "_Text");
-                optText.GetComponentInChildren<Text>().text = optionsLines[i];
-                oMan.tempOptsCount += 1;
-            }
-
-            oMan.bDiaToOpts = true;
-            oMan.bOptionsActive = true;
-            oMan.HideThirdPlusOpt();
-            oBox.transform.localScale = Vector3.one;
-            oMan.PauseOptions();
+            HMB_OptionsResetter_2Q();
         }
 
-        // Dialogue 1 - Option 2 - Selected Mueller
+        // Dialogue 2 - Option 2 - Selected Mueller
         else if (bOptTeamSelect &&
                  moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
         {
@@ -317,7 +484,7 @@ public class GWC001 : MonoBehaviour
             bTeamMueller = true;
 
             oMan.ResetOptions();
-            
+
             // Display Trump board
             trumpCards.transform.localScale = Vector3.one;
 
@@ -334,7 +501,6 @@ public class GWC001 : MonoBehaviour
             dMan.currentLine = 0;
             dText.text = dMan.dialogueLines[dMan.currentLine];
             dMan.ShowDialogue();
-            dArrow.GetComponent<ImageStrobe>().bStartStrobe = true; // DC TODO -- Not strobing?
 
             bStartGame = true;
 
@@ -344,7 +510,7 @@ public class GWC001 : MonoBehaviour
             playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
         }
 
-        // Dialogue 2 - Option 1 - Selected Trump (and very Fine People)
+        // Dialogue 3 - Option 1 - Selected Trump (and very Fine People)
         else if (bOptOppSelect &&
                  moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
         {
@@ -370,7 +536,6 @@ public class GWC001 : MonoBehaviour
             dMan.currentLine = 0;
             dText.text = dMan.dialogueLines[dMan.currentLine];
             dMan.ShowDialogue();
-            dArrow.GetComponent<ImageStrobe>().bStartStrobe = true; // DC TODO -- Not strobing?
 
             bStartGame = true;
 
@@ -380,7 +545,7 @@ public class GWC001 : MonoBehaviour
             playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
         }
 
-        // Dialogue 2 - Option 2 - Selected Mueller (and the Fake News)
+        // Dialogue 3 - Option 2 - Selected Mueller (and the Fake News)
         else if (bOptOppSelect &&
                  moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
         {
@@ -406,7 +571,6 @@ public class GWC001 : MonoBehaviour
             dMan.currentLine = 0;
             dText.text = dMan.dialogueLines[dMan.currentLine];
             dMan.ShowDialogue();
-            dArrow.GetComponent<ImageStrobe>().bStartStrobe = true; // DC TODO -- Not strobing?
 
             bStartGame = true;
 
@@ -415,6 +579,86 @@ public class GWC001 : MonoBehaviour
             dPic.sprite = portPic[randomCharacter];
             playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
         }
+
+        // Single Player - Player Guess Check
+        else if (bIsPlayerG2G)
+        {
+            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+            {
+                playerGuessNumber = playerGuessNumber + 1;
+                bPlayerGuessing = true;
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+            {
+                bPlayerGuessing = false;
+            }
+
+            bIsPlayerG2G = false;
+
+            oMan.ResetOptions();
+        }
+
+        // Single Player - Opponent Question 1 
+        else if (bOppQ1)
+        {
+            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+            {
+                pAnswer = "yes";
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+            {
+                pAnswer = "no";
+            }
+
+            bOppQ1 = false;
+            bSingleReminder = true;
+
+            oMan.ResetOptions();
+        }
+
+        // Single Player - Opponent Question 1 
+        else if (bPlayQ1)
+        {
+            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+            {
+                // "Are you wearing red?";
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+            {
+                // "Are you a female?"
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+            {
+                // "Do or did you work in the white house?"
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+            {
+                // "I know who it is!"
+            }
+
+            bPlayQ1 = false;
+
+            oMan.ResetOptions();
+        }
+    }
+
+    public void IsPlayerGoodToGuess()
+    {
+        bIsPlayerG2G = true;
+
+        HMB_PromptRestrictions();
+
+        dialogueLines = new string[] {
+                "Would you like to guess?"
+            };
+        HMB_DialogueRestter();
+        //dPic.sprite = portPic[48];
+
+        optionsLines = new string[] {
+                "Yes",
+                "No"
+            };
+        HMB_OptionsResetter_2Q();
     }
 
     public void OpenColluminac()
@@ -470,7 +714,6 @@ public class GWC001 : MonoBehaviour
             dMan.currentLine = 0;
             dText.text = dMan.dialogueLines[dMan.currentLine];
             dMan.ShowDialogue();
-            dArrow.GetComponent<ImageStrobe>().bStartStrobe = true; // DC TODO -- Not strobing?
 
             bStartGame = true;
 
@@ -492,7 +735,6 @@ public class GWC001 : MonoBehaviour
             dMan.currentLine = 0;
             dText.text = dMan.dialogueLines[dMan.currentLine];
             dMan.ShowDialogue();
-            dArrow.GetComponent<ImageStrobe>().bStartStrobe = true; // DC TODO -- Not strobing?
 
             bStartGame = true;
 
@@ -514,7 +756,6 @@ public class GWC001 : MonoBehaviour
             dMan.currentLine = 0;
             dText.text = dMan.dialogueLines[dMan.currentLine];
             dMan.ShowDialogue();
-            dArrow.GetComponent<ImageStrobe>().bStartStrobe = true; // DC TODO -- Not strobing?
 
             bStartGame = true;
 
@@ -523,5 +764,53 @@ public class GWC001 : MonoBehaviour
             dPic.sprite = portPic[randomCharacter];
             playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
         }
+    }
+
+    public void HMB_PromptRestrictions()
+    {
+        thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = true;
+
+        touches.transform.localScale = Vector3.zero;
+    }
+
+    public void HMB_DialogueRestter()
+    {
+        dMan.dialogueLines = dialogueLines;
+        dMan.currentLine = 0;
+        dText.text = dialogueLines[dMan.currentLine];
+        dBox.transform.localScale = Vector3.one;
+        dMan.bDialogueActive = true;
+    }
+
+    public void HMB_OptionsResetter_2Q()
+    {
+        for (int i = 0; i < optionsLines.Length; i++)
+        {
+            GameObject optText = GameObject.Find("Opt" + (i + 1) + "_Text");
+            optText.GetComponentInChildren<Text>().text = optionsLines[i];
+            oMan.tempOptsCount += 1;
+        }
+
+        oMan.bDiaToOpts = true;
+        oMan.bOptionsActive = true;
+        oMan.HideThirdPlusOpt();
+        oBox.transform.localScale = Vector3.one;
+        oMan.PauseOptions();
+    }
+
+    public void HMB_OptionsResetter_4Q()
+    {
+        for (int i = 0; i < optionsLines.Length; i++)
+        {
+            GameObject optText = GameObject.Find("Opt" + (i + 1) + "_Text");
+            optText.GetComponentInChildren<Text>().text = optionsLines[i];
+            oMan.tempOptsCount += 1;
+        }
+
+        oMan.bDiaToOpts = true;
+        oMan.bOptionsActive = true;
+        //oMan.HideThirdPlusOpt();
+        oBox.transform.localScale = Vector3.one;
+        oMan.PauseOptions();
     }
 }

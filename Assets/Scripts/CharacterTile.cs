@@ -1,16 +1,17 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 08/08/2018
-// Last:  01/10/2019
+// Last:  03/18/2019
 
 using UnityEngine;
 
 // Logic for each character tile on the GWC board
 public class CharacterTile : MonoBehaviour
 {
+    public DialogueManager dMan;
     public GWC001 gwc;
     public PauseGame pause;
-    private TouchControls touches;
+    public TouchControls touches;
     public Transform tileChar;
     public Transform tileFlag;
     public Transform tileIcon;
@@ -30,6 +31,7 @@ public class CharacterTile : MonoBehaviour
     void Start ()
     {
         // Initializers
+        dMan = FindObjectOfType<DialogueManager>();
         gwc = FindObjectOfType<GWC001>();
         pause = GameObject.Find("Game_Controller").GetComponent<PauseGame>();
         tileChar = gameObject.transform.GetChild(2);
@@ -60,6 +62,8 @@ public class CharacterTile : MonoBehaviour
             (gwc.bCanFlip && Input.GetKeyDown(KeyCode.JoystickButton5) && !pause.bPauseActive && !bAvoidUpdate) ||
             (gwc.bCanFlip && touches.bBaction && !bAvoidUpdate))
         {
+            touches.Vibrate();
+
             if (bShowIcon)
             {
                 tileIcon.GetComponent<SpriteRenderer>().enabled = false;
@@ -166,10 +170,13 @@ public class CharacterTile : MonoBehaviour
         bHasFlipped = false;
     }
 
-    public void OnMouseDown()
+    public void OnMouseUp()
     {
         if (gwc.bCanFlip &&
-            !touches.bUIactive)
+            !dMan.bDialogueActive &&
+            !pause.bPauseActive &&
+            !touches.bUIactive &&
+            !touches.bAvoidSubUIElements)
         {
             CheckAndFlip();
         }
@@ -177,6 +184,8 @@ public class CharacterTile : MonoBehaviour
 
     public void CheckAndFlip()
     {
+        touches.Vibrate();
+
         if (bHasFlipped)
         {
             ShowFront();

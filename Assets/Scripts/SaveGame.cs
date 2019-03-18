@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  08/10/2018
+// Last:  03/15/2019
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +13,7 @@ public class SaveGame : MonoBehaviour
     public CameraFollow camFollow;
     public GameObject savedPlayer;
     public Scene scene;
+    public TouchControls touches;
     public UIManager uiMan;
     public VolumeManager savedVol;
 
@@ -33,6 +34,7 @@ public class SaveGame : MonoBehaviour
             savedCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             savedPlayer = GameObject.FindGameObjectWithTag("Player");
             savedVol = FindObjectOfType<VolumeManager>();
+            touches = FindObjectOfType<TouchControls>();
             uiMan = FindObjectOfType<UIManager>();
         }
     }
@@ -95,6 +97,7 @@ public class SaveGame : MonoBehaviour
     public void SavingUIControls()
     {
         PlayerPrefs.SetFloat("ControlsOpac", uiMan.currentContOpac); // Called in UIManager
+        PlayerPrefs.SetInt("ControlsVibrate", touches.currentContVibe); // Called in TouchControls
 
         if (uiMan.bControlsActive)
         {

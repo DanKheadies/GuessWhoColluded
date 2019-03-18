@@ -1,16 +1,18 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  08/26/2018
+// Last:  03/15/2019
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // Controls the actions & display of the GUI input
 public class TouchControls : MonoBehaviour
 {
     private PlayerMovement pMove;
     private Scene scene;
+    public Toggle vibeTog;
 
     public bool bAaction;
     public bool bBaction;
@@ -20,7 +22,14 @@ public class TouchControls : MonoBehaviour
     public bool bLeft;
     public bool bRight;
     public bool bUp;
+
+    public bool bAvoidSubUIElements;
+    public bool bControlsVibrate;
     public bool bUIactive;
+
+    public int currentContVibe;
+
+    public string lastDirection;
 
 
     void Start()
@@ -28,71 +37,130 @@ public class TouchControls : MonoBehaviour
         // Initializers
         pMove = FindObjectOfType<PlayerMovement>();
         scene = SceneManager.GetActiveScene();
+        vibeTog = GameObject.Find("VibrateToggle").GetComponent<Toggle>();
+
+        // Sets initial vibrate based off saved data
+        if (!PlayerPrefs.HasKey("ControlsVibrate"))
+        {
+            currentContVibe = 1;
+            vibeTog.isOn = true;
+            bControlsVibrate = true;
+        }
+        else
+        {
+            currentContVibe = PlayerPrefs.GetInt("ControlsVibrate");
+
+            // Set control type based off level
+            if (currentContVibe == 1)
+            {
+                vibeTog.isOn = true;
+                bControlsVibrate = true;
+            }
+            else if (currentContVibe == 0)
+            {
+                vibeTog.isOn = false; // Prob not necessary; gets called in function
+                bControlsVibrate = true;
+                ToggleVibrate();
+            }
+        }
     }
 
     void Update()
     {
         // Moving the player based off arrow flags
-        if (scene.name == "GuessWhoColluded")
+        if (pMove.bGWCUpdate &&
+            !pMove.bStopPlayerMovement &&
+            scene.name == "GuessWhoColluded")
         {
-            if (bLeft && !pMove.bStopPlayerMovement)
+            if (bUp)
             {
-                if (pMove.bGWCUpdate)
-                {
-                    pMove.GWCMove(-1.0f, 0.0f);
-                    bLeft = false; // dis
-                }
+                pMove.GWCMove(0.0f, 1.0f);
+                bUp = false;
             }
 
-            if (bRight && !pMove.bStopPlayerMovement)
+            if (bLeft)
             {
-                if (pMove.bGWCUpdate)
-                {
-                    pMove.GWCMove(1.0f, 0.0f);
-                    bRight = false; // dis
-                }
+                pMove.GWCMove(-1.0f, 0.0f);
+                bLeft = false;
             }
 
-            if (bUp && !pMove.bStopPlayerMovement)
+            if (bDown)
             {
-                if (pMove.bGWCUpdate)
-                {
-                    pMove.GWCMove(0.0f, 1.0f);
-                    bUp = false; // dis
-                }
+                pMove.GWCMove(0.0f, -1.0f);
+                bDown = false;
             }
 
-            if (bDown && !pMove.bStopPlayerMovement)
+            if (bRight)
             {
-                if (pMove.bGWCUpdate)
-                {
-                    pMove.GWCMove(0.0f, -1.0f);
-                    bDown = false; // dis
-                }
+                pMove.GWCMove(1.0f, 0.0f);
+                bRight = false;
             }
         }
-        else
-        {
-            if (bLeft && !pMove.bStopPlayerMovement)
-            {
-                pMove.Move(-1.0f, 0.0f);
-            }
 
-            if (bRight && !pMove.bStopPlayerMovement)
-            {
-                pMove.Move(1.0f, 0.0f);
-            }
+        //if (!pMove.bStopPlayerMovement &&
+        //    bUIactive)
+        //{
+        //    if (bUp)
+        //    {
+        //        pMove.Move(0.0f, 1.0f);
+        //    }
+        //    else if (bRight)
+        //    {
+        //        pMove.Move(1.0f, 0.0f);
+        //    }
+        //    else if (bLeft)
+        //    {
+        //        pMove.Move(-1.0f, 0.0f);
+        //    }
+        //    else if (bDown)
+        //    {
+        //        pMove.Move(0.0f, -1.0f);
+        //    }
 
-            if (bUp && !pMove.bStopPlayerMovement)
-            {
-                pMove.Move(0.0f, 1.0f);
-            }
+        //    if (bUpRight &&
+        //        lastDirection == "up")
+        //    {
+        //        pMove.Move(1.0f, 0.0f);
+        //    }
+        //    else if (bUpRight &&
+        //             lastDirection == "right")
+        //    {
+        //        pMove.Move(0.0f, 1.0f);
+        //    }
 
-            if (bDown && !pMove.bStopPlayerMovement)
-            {
-                pMove.Move(0.0f, -1.0f);
-            }
-        }
+        //    if (bUpLeft &&
+        //        lastDirection == "up")
+        //    {
+        //        pMove.Move(-1.0f, 0.0f);
+        //    }
+        //    else if (bUpLeft &&
+        //             lastDirection == "left")
+        //    {
+        //        pMove.Move(0.0f, 1.0f);
+        //    }
+
+        //    if (bDownLeft &&
+        //        lastDirection == "down")
+        //    {
+        //        pMove.Move(-1.0f, 0.0f);
+        //    }
+        //    else if (bDownLeft &&
+        //             lastDirection == "left")
+        //    {
+        //        pMove.Move(0.0f, -1.0f);
+        //    }
+
+        //    if (bDownRight &&
+        //        lastDirection == "down")
+        //    {
+        //        pMove.Move(1.0f, 0.0f);
+        //    }
+        //    else if (bDownRight &&
+        //             lastDirection == "right")
+        //    {
+        //        pMove.Move(0.0f, -1.0f);
+        //    }
+        //}
     }
 
     // A button flagging
@@ -144,27 +212,19 @@ public class TouchControls : MonoBehaviour
     }
 
     // Movement / arrow button flags
-    public void PressedLeftArrow()
-    {
-        bLeft = true;
-        bUIactive = true;
-    }
-    public void UnpressedLeftArrow()
-    {
-        bLeft = false;
-        bUIactive = false;
-    }
+    // Cartesian coordinate arrangement
+    //public void PressedUpRightArrow()
+    //{
+    //    bUpRight = true;
+    //    bUIactive = true;
+    //}
+    //public void UnpressedUpRightArrow()
+    //{
+    //    bUpRight = false;
+    //    bUIactive = false;
 
-    public void PressedRightArrow()
-    {
-        bRight = true;
-        bUIactive = true;
-    }
-    public void UnpressedRightArrow()
-    {
-        bRight = false;
-        bUIactive = false;
-    }
+    //    lastDirection = "upRight";
+    //}
 
     public void PressedUpArrow()
     {
@@ -175,7 +235,48 @@ public class TouchControls : MonoBehaviour
     {
         bUp = false;
         bUIactive = false;
+
+        lastDirection = "up";
     }
+
+    //public void PressedUpLeftArrow()
+    //{
+    //    bUpLeft = true;
+    //    bUIactive = true;
+    //}
+    //public void UnpressedUpLeftArrow()
+    //{
+    //    bUpLeft = false;
+    //    bUIactive = false;
+
+    //    lastDirection = "upLeft";
+    //}
+
+    public void PressedLeftArrow()
+    {
+        bLeft = true;
+        bUIactive = true;
+    }
+    public void UnpressedLeftArrow()
+    {
+        bLeft = false;
+        bUIactive = false;
+
+        lastDirection = "left";
+    }
+
+    //public void PressedDownLeftArrow()
+    //{
+    //    bDownLeft = true;
+    //    bUIactive = true;
+    //}
+    //public void UnpressedDownLeftArrow()
+    //{
+    //    bDownLeft = false;
+    //    bUIactive = false;
+
+    //    lastDirection = "downLeft";
+    //}
 
     public void PressedDownArrow()
     {
@@ -186,23 +287,87 @@ public class TouchControls : MonoBehaviour
     {
         bDown = false;
         bUIactive = false;
+
+        lastDirection = "down";
+    }
+
+    //public void PressedDownRightArrow()
+    //{
+    //    bDownRight = true;
+    //    bUIactive = true;
+    //}
+    //public void UnpressedDownRightArrow()
+    //{
+    //    bDownRight = false;
+    //    bUIactive = false;
+
+    //    lastDirection = "downRight";
+    //}
+
+    public void PressedRightArrow()
+    {
+        bRight = true;
+        bUIactive = true;
+    }
+    public void UnpressedRightArrow()
+    {
+        bRight = false;
+        bUIactive = false;
+
+        lastDirection = "right";
     }
 
     // Clear all movement / arrow buttons
     public void UnpressedAllArrows()
     {
-        UnpressedDownArrow();
-        UnpressedLeftArrow();
-        UnpressedRightArrow();
+        //UnpressedUpRightArrow();
         UnpressedUpArrow();
+        //UnpressedUpLeftArrow();
+        UnpressedLeftArrow();
+        //UnpressedDownLeftArrow();
+        UnpressedDownArrow();
+        //UnpressedDownRightArrow();
+        UnpressedRightArrow();
     }
 
     // Vibrate on touch
     public void Vibrate()
     {
-        #if UNITY_ANDRIOD 
+        if (bControlsVibrate)
+        {
+        #if UNITY_ANDROID
             Handheld.Vibrate();
         #endif
+
+        #if UNITY_IOS
+            Handheld.Vibrate();
+        #endif
+        }
+    }
+
+    public void ToggleVibrate()
+    {
+        if (bControlsVibrate)
+        {
+            bControlsVibrate = false;
+            currentContVibe = 0;
+        }
+        else if (!bControlsVibrate)
+        {
+            bControlsVibrate = true;
+            currentContVibe = 1;
+        }
+    }
+
+    // DC TODO 02/14/2019 -- Avoid & UIAct might be doing the same thing; see about consolidating
+    public void AvoidSubUIElements()
+    {
+        bAvoidSubUIElements = true;
+    }
+
+    public void StopAvoidSubUIElements()
+    {
+        bAvoidSubUIElements = false;
     }
 
     public void UIActive()
