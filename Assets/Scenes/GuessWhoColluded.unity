@@ -675,8 +675,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -1596,8 +1598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -1973,8 +1977,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -2140,8 +2146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -2951,8 +2959,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -3451,8 +3461,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -4241,8 +4253,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -5401,6 +5415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aUtil: {fileID: 0}
   mainCamera: {fileID: 0}
+  pause: {fileID: 0}
   pMove: {fileID: 0}
   touches: {fileID: 0}
   bReadyToPan: 0
@@ -6188,8 +6203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -6745,8 +6762,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -6991,8 +7010,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -9597,8 +9618,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -10135,8 +10158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -11499,8 +11524,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -11922,6 +11949,7 @@ GameObject:
   - component: {fileID: 603981782}
   - component: {fileID: 603981781}
   - component: {fileID: 603981780}
+  - component: {fileID: 603981784}
   m_Layer: 0
   m_Name: Game_Controller
   m_TagString: Untagged
@@ -11963,8 +11991,6 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   camFollow: {fileID: 0}
   dMan: {fileID: 0}
-  contArrow: {fileID: 0}
-  dArrow: {fileID: 0}
   dBox: {fileID: 0}
   guiConts: {fileID: 0}
   HUD: {fileID: 0}
@@ -11977,11 +12003,13 @@ MonoBehaviour:
   thePlayer: {fileID: 0}
   trumpCards: {fileID: 0}
   dPic: {fileID: 0}
+  dArrow: {fileID: 0}
   moveOptsArw: {fileID: 0}
   mMan: {fileID: 0}
   oMan: {fileID: 0}
   save: {fileID: 0}
   SFXMan: {fileID: 0}
+  spLogic: {fileID: 0}
   portPic:
   - {fileID: 21300000, guid: e1dd5c36011e0524095e15108916be2d, type: 3}
   - {fileID: 21300000, guid: 3fad5bbe82d49704dbab89fe925fcf65, type: 3}
@@ -12035,11 +12063,33 @@ MonoBehaviour:
   dText: {fileID: 0}
   touches: {fileID: 0}
   uiMan: {fileID: 0}
+  bAllowPlayerToGuess: 0
+  bAvoidUpdate: 0
+  bBoardReset: 0
   bCanFlip: 0
+  bIsPlayerG2G: 0
+  bOppMueller: 0
+  bOppTrump: 0
+  bOptModeSelect: 0
+  bOptModeSingle: 0
+  bOptModeMulti: 0
+  bOptTeamSelect: 0
+  bOptOppSelect: 0
+  bSingleReminder: 0
+  bStartGame: 0
+  bTeamMueller: 0
+  bTeamTrump: 0
+  buttonTimer: 0
+  guessDownTime: 0
+  guessUpTime: 0
+  guessPressedTime: 0
+  guessThreshold: 0
   musicTimer1: 0
   musicTimer2: 0
   strobeTimer: 0
   randomCharacter: 0
+  teamName: 
+  oppName: 
   dialogueLines: []
   optionsLines: []
 --- !u!114 &603981781
@@ -12098,6 +12148,38 @@ MonoBehaviour:
   pauseTrans: {fileID: 0}
   soundMenu: {fileID: 0}
   bPauseActive: 0
+--- !u!114 &603981784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603981778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e381c0356e830d439eef26a330db8b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gwc: {fileID: 0}
+  dMan: {fileID: 0}
+  moveOptsArw: {fileID: 0}
+  oMan: {fileID: 0}
+  bOppQ1: 0
+  bOppQ2: 0
+  bOppQ3: 0
+  bOppQ4: 0
+  bOppQ5: 0
+  bOppQ6: 0
+  bPauseQuestion: 0
+  bPlayerGuessing: 0
+  bPlayQ1: 0
+  bPlayQ2: 0
+  bPlayQ3: 0
+  bPlayQ4: 0
+  bPlayQ5: 0
+  bPlayQ6: 0
+  playerGuessNumber: 0
+  pAnswer: 
 --- !u!1 &605925274
 GameObject:
   m_ObjectHideFlags: 0
@@ -12221,8 +12303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -12314,8 +12398,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -14974,8 +15060,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -15651,8 +15739,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -18827,8 +18917,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -19078,8 +19170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -19330,8 +19424,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -19920,8 +20016,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -21097,8 +21195,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -21190,8 +21290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -23542,8 +23644,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -23793,8 +23897,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -24403,8 +24509,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -24733,8 +24841,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -25285,8 +25395,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -25457,8 +25569,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -26642,8 +26756,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -28911,8 +29027,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aspectUtil: {fileID: 0}
   mainCamera: {fileID: 0}
-  dBox: {fileID: 0}
   dArrow: {fileID: 0}
+  dBox: {fileID: 0}
   dFrame: {fileID: 0}
   dPic: {fileID: 0}
   imgStrobe: {fileID: 0}
@@ -29288,8 +29404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -30303,8 +30421,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -30943,8 +31063,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -31036,8 +31158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -32527,8 +32651,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -33591,8 +33717,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -35583,8 +35711,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -35908,8 +36038,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -36347,8 +36479,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -37706,8 +37840,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -38349,8 +38485,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -38605,8 +38743,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -40158,8 +40298,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -40842,8 +40984,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -41014,8 +41158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -41107,8 +41253,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -42507,8 +42655,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -42600,8 +42750,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97eaa0c31c74542b5d4330a0593541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
   tileIcon: {fileID: 0}
@@ -43717,8 +43869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f2c694f26f7d648ade29ebac54e575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bStartStrobe: 0
-  bStopStrobe: 0
   pulseTime: 1
 --- !u!114 &2130732885
 MonoBehaviour:

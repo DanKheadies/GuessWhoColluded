@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  03/15/2019
+// Last:  03/19/2019
 
 using System.Collections;
 using UnityEngine;
@@ -33,6 +33,7 @@ public class GWC001 : MonoBehaviour
     public OptionsManager oMan;
     public SaveGame save;
     public SFXManager SFXMan;
+    public SinglePlayerLogic spLogic;
     public Sprite[] portPic;
     public Text dText;
     public TouchControls touches;
@@ -50,22 +51,8 @@ public class GWC001 : MonoBehaviour
     public bool bOptModeMulti;
     public bool bOptTeamSelect;
     public bool bOptOppSelect;
-    public bool bOppQ1;
-    public bool bOppQ2;
-    public bool bOppQ3;
-    public bool bOppQ4;
-    public bool bOppQ5;
-    public bool bOppQ6;
-    public bool bPlayerGuessing;
-    public bool bPlayQ1;
-    public bool bPlayQ2;
-    public bool bPlayQ3;
-    public bool bPlayQ4;
-    public bool bPlayQ5;
-    public bool bPlayQ6;
     public bool bSingleReminder;
     public bool bStartGame;
-    public bool bStartSingle;
     public bool bTeamMueller;
     public bool bTeamTrump;
 
@@ -78,10 +65,8 @@ public class GWC001 : MonoBehaviour
     public float musicTimer2;
     public float strobeTimer;
 
-    public int playerGuessNumber;
     public int randomCharacter;
 
-    public string pAnswer;
     public string teamName;
     public string oppName;
 
@@ -112,6 +97,7 @@ public class GWC001 : MonoBehaviour
         sFaderAnim = GameObject.Find("Screen_Fader");
         sFaderAnimDia = GameObject.Find("Screen_Fader_Dialogue");
         SFXMan = FindObjectOfType<SFXManager>();
+        spLogic = FindObjectOfType<SinglePlayerLogic>();
         thePlayer = GameObject.FindGameObjectWithTag("Player");
         touches = FindObjectOfType<TouchControls>();
         trumpCards = GameObject.Find("Trump Cards");
@@ -136,7 +122,7 @@ public class GWC001 : MonoBehaviour
         pauseBtn.transform.localScale = Vector3.zero;
         mMan.bMusicCanPlay = false;
 
-        HMB_PromptRestrictions();
+        GWC_PromptRestrictions();
 
         dialogueLines = new string[] {
                 "I want YOU.. to         Guess Who Colluded."
@@ -172,18 +158,18 @@ public class GWC001 : MonoBehaviour
         if (bOptModeSelect &&
             !dMan.bDialogueActive)
         {
-            HMB_PromptRestrictions();
+            GWC_PromptRestrictions();
 
             dialogueLines = new string[] {
                 "First and first mostly, who's playing?"
             };
-            HMB_DialogueRestter();
+            GWC_DialogueRestter();
 
             optionsLines = new string[] {
                 "Me (Single player)",
                 "Us (Multiplayer)"
             };
-            HMB_OptionsResetter_2Q();
+            GWC_OptionsResetter_2Q();
         }
 
         // Begin play -- Activate music, UI, and fade after team selection
@@ -279,27 +265,6 @@ public class GWC001 : MonoBehaviour
             touches.bXaction = false;
         }
 
-        // Single Player - Opponent's First Guess
-        if (bStartSingle &&
-            !dMan.bDialogueActive)
-        {
-            bStartSingle = false;
-            bOppQ1 = true;
-
-            HMB_PromptRestrictions();
-
-            dialogueLines = new string[] {
-                "Are you a man?"
-            };
-            HMB_DialogueRestter();
-
-            optionsLines = new string[] {
-                "Yes",
-                "No"
-            };
-            HMB_OptionsResetter_2Q();
-        }
-
         // Single Player - Reminder to Guess
         if (bSingleReminder &&
             !dMan.bDialogueActive)
@@ -307,40 +272,12 @@ public class GWC001 : MonoBehaviour
             bSingleReminder = false;
             bAllowPlayerToGuess = true;
 
-            HMB_PromptRestrictions();
+            GWC_PromptRestrictions();
 
             dialogueLines = new string[] {
                 "Oh and when you're ready to guess, just hold down for 3 seconds."
             };
-            HMB_DialogueRestter();
-        }
-
-        // Single Player - Player's First Guess
-        if (bPlayerGuessing &&
-            playerGuessNumber == 1 &&
-            !dMan.bDialogueActive)
-        {
-            bPlayerGuessing = false;
-            bPlayQ1 = true;
-
-            HMB_PromptRestrictions();
-
-            dialogueLines = new string[] {
-                "Hmmm..."
-            };
-            HMB_DialogueRestter();
-
-            // The meat of the logic tree
-            // Will want to know what team player is on & against (worked in WH vs on MIT)
-            // Keep track of what has been asked
-            // Allow user to select a character (or hold down again cancel)
-            optionsLines = new string[] {
-                "Are you wearing red?",
-                "Are you a female?",
-                "You work in the white house?",
-                "I know who it is!"
-            };
-            HMB_OptionsResetter_4Q();
+            GWC_DialogueRestter();
         }
 
         // Single Player - Player Guess
@@ -374,7 +311,7 @@ public class GWC001 : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
 
-        HMB_PromptRestrictions();
+        GWC_PromptRestrictions();
 
         if (bTeamMueller)
         {
@@ -394,28 +331,47 @@ public class GWC001 : MonoBehaviour
             oppName = "Trump";
         }
 
-        dialogueLines = new string[] {
-                "As Team " + teamName + ", I'll go first...",
+        // Randomize Dialogue
+        int randomInt = Random.Range(0, 3);
+        Debug.Log(randomInt);
+        if (randomInt == 0)
+        {
+            dialogueLines = new string[] {
+                "Hmm.. Team " + teamName + " it is. Please, age before beauty..",
             };
-        HMB_DialogueRestter();
+        }
+        else if (randomInt == 1)
+        {
+            dialogueLines = new string[] {
+                "Good luck Team " + oppName + ", I'll go first...",
+            };
+        }
+        else if (randomInt == 2)
+        {
+            dialogueLines = new string[] {
+                "Alright Team " + oppName + ", it's you and your squad vs Me and the Revolution..",
+            };
+        }
+
+        GWC_DialogueRestter();
         dPic.sprite = portPic[48];
 
-        bStartSingle = true;
+        spLogic.bOppQ1 = true;
     }
 
     IEnumerator StartMulti()
     {
         yield return new WaitForSeconds(1.0f);
 
-        HMB_PromptRestrictions();
+        GWC_PromptRestrictions();
 
         dialogueLines = new string[] {
                 "Oh and don't forget about the Colluminac in the menu. GLHF"
             };
-        HMB_DialogueRestter();
+        GWC_DialogueRestter();
         dPic.sprite = portPic[48];
     }
-
+    
     public void OptionsSelection()
     {
         // Dialogue 1 - Option * - Selected Mode
@@ -437,19 +393,19 @@ public class GWC001 : MonoBehaviour
                 bOptModeMulti = true;
             }
 
-            HMB_PromptRestrictions();
+            GWC_PromptRestrictions();
 
             dialogueLines = new string[] {
                 "Got it. Now more importantly, whose side are you on?"
             };
-            HMB_DialogueRestter();
+            GWC_DialogueRestter();
 
             optionsLines = new string[] {
                 "Team Trump",
                 "Team Mueller"
             };
 
-            HMB_OptionsResetter_2Q();
+            GWC_OptionsResetter_2Q();
         }
 
         // Dialogue 2 - Option 1 - Selected Trump
@@ -460,19 +416,19 @@ public class GWC001 : MonoBehaviour
             bOptOppSelect = true;
             bTeamTrump = true;
 
-            HMB_PromptRestrictions();
+            GWC_PromptRestrictions();
 
             dialogueLines = new string[] {
                 "But what to do, what to do... Are you going to.."
             };
-            HMB_DialogueRestter();
+            GWC_DialogueRestter();
 
             optionsLines = new string[] {
                 "Stop the leaks!",
                 "End the witch hunt!"
             };
 
-            HMB_OptionsResetter_2Q();
+            GWC_OptionsResetter_2Q();
         }
 
         // Dialogue 2 - Option 2 - Selected Mueller
@@ -585,12 +541,12 @@ public class GWC001 : MonoBehaviour
         {
             if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
             {
-                playerGuessNumber = playerGuessNumber + 1;
-                bPlayerGuessing = true;
+                spLogic.playerGuessNumber = spLogic.playerGuessNumber + 1;
+                spLogic.bPlayerGuessing = true;
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
             {
-                bPlayerGuessing = false;
+                spLogic.bPlayerGuessing = false;
             }
 
             bIsPlayerG2G = false;
@@ -598,67 +554,25 @@ public class GWC001 : MonoBehaviour
             oMan.ResetOptions();
         }
 
-        // Single Player - Opponent Question 1 
-        else if (bOppQ1)
-        {
-            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
-            {
-                pAnswer = "yes";
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
-            {
-                pAnswer = "no";
-            }
-
-            bOppQ1 = false;
-            bSingleReminder = true;
-
-            oMan.ResetOptions();
-        }
-
-        // Single Player - Opponent Question 1 
-        else if (bPlayQ1)
-        {
-            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
-            {
-                // "Are you wearing red?";
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
-            {
-                // "Are you a female?"
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
-            {
-                // "Do or did you work in the white house?"
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
-            {
-                // "I know who it is!"
-            }
-
-            bPlayQ1 = false;
-
-            oMan.ResetOptions();
-        }
+        spLogic.LogicTree();
     }
 
     public void IsPlayerGoodToGuess()
     {
         bIsPlayerG2G = true;
 
-        HMB_PromptRestrictions();
+        GWC_PromptRestrictions();
 
         dialogueLines = new string[] {
                 "Would you like to guess?"
             };
-        HMB_DialogueRestter();
-        //dPic.sprite = portPic[48];
+        GWC_DialogueRestter();
 
         optionsLines = new string[] {
                 "Yes",
                 "No"
             };
-        HMB_OptionsResetter_2Q();
+        GWC_OptionsResetter_2Q();
     }
 
     public void OpenColluminac()
@@ -766,14 +680,14 @@ public class GWC001 : MonoBehaviour
         }
     }
 
-    public void HMB_PromptRestrictions()
+    public void GWC_PromptRestrictions()
     {
         thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = true;
 
         touches.transform.localScale = Vector3.zero;
     }
 
-    public void HMB_DialogueRestter()
+    public void GWC_DialogueRestter()
     {
         dMan.dialogueLines = dialogueLines;
         dMan.currentLine = 0;
@@ -782,7 +696,7 @@ public class GWC001 : MonoBehaviour
         dMan.bDialogueActive = true;
     }
 
-    public void HMB_OptionsResetter_2Q()
+    public void GWC_OptionsResetter_2Q()
     {
         for (int i = 0; i < optionsLines.Length; i++)
         {
@@ -798,7 +712,7 @@ public class GWC001 : MonoBehaviour
         oMan.PauseOptions();
     }
 
-    public void HMB_OptionsResetter_4Q()
+    public void GWC_OptionsResetter_4Q()
     {
         for (int i = 0; i < optionsLines.Length; i++)
         {
@@ -809,7 +723,6 @@ public class GWC001 : MonoBehaviour
 
         oMan.bDiaToOpts = true;
         oMan.bOptionsActive = true;
-        //oMan.HideThirdPlusOpt();
         oBox.transform.localScale = Vector3.one;
         oMan.PauseOptions();
     }
