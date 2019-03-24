@@ -4045,8 +4045,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.08627451, g: 0.41568628, b: 0.2509804, a: 0}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+    m_HighlightedColor: {r: 0.08627451, g: 0.17254902, b: 0.46666667, a: 0}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -11950,6 +11950,7 @@ GameObject:
   - component: {fileID: 603981781}
   - component: {fileID: 603981780}
   - component: {fileID: 603981784}
+  - component: {fileID: 603981785}
   m_Layer: 0
   m_Name: Game_Controller
   m_TagString: Untagged
@@ -11990,6 +11991,7 @@ MonoBehaviour:
   charTiles: []
   mainCamera: {fileID: 0}
   camFollow: {fileID: 0}
+  chars: {fileID: 0}
   dMan: {fileID: 0}
   dBox: {fileID: 0}
   guiConts: {fileID: 0}
@@ -12087,7 +12089,8 @@ MonoBehaviour:
   musicTimer1: 0
   musicTimer2: 0
   strobeTimer: 0
-  randomCharacter: 0
+  playerCharacter: 0
+  opponentCharacter: 0
   teamName: 
   oppName: 
   dialogueLines: []
@@ -12179,7 +12182,23 @@ MonoBehaviour:
   bPlayQ5: 0
   bPlayQ6: 0
   playerGuessNumber: 0
-  pAnswer: 
+  pAnswer1: 
+  pAnswer2: 
+  pAnswer3: 
+  pAnswer4: 
+  pAnswer5: 
+--- !u!114 &603981785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603981778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ceed06f2f80aef4ebc7ab4601cf0c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &605925274
 GameObject:
   m_ObjectHideFlags: 0
@@ -34468,8 +34487,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.08627451, g: 0.41568628, b: 0.2509804, a: 0}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+    m_HighlightedColor: {r: 0.08627451, g: 0.17254902, b: 0.46666667, a: 0}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -42308,8 +42327,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.08627451, g: 0.41568628, b: 0.2509804, a: 0}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+    m_HighlightedColor: {r: 0.08627451, g: 0.17254902, b: 0.46666667, a: 0}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -43570,8 +43589,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
-    m_HighlightedColor: {r: 0.08627451, g: 0.41568628, b: 0.2509804, a: 0}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+    m_HighlightedColor: {r: 0.08627451, g: 0.17254902, b: 0.46666667, a: 0}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

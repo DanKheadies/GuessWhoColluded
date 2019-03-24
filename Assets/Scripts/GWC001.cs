@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  03/19/2019
+// Last:  03/24/2019
 
 using System.Collections;
 using UnityEngine;
@@ -14,6 +14,7 @@ public class GWC001 : MonoBehaviour
     public CharacterTile[] charTiles;
     public Camera mainCamera;
     public CameraFollow camFollow;
+    public Characters chars;
     public DialogueManager dMan;
     public GameObject dBox;
     public GameObject guiConts;
@@ -65,7 +66,8 @@ public class GWC001 : MonoBehaviour
     public float musicTimer2;
     public float strobeTimer;
 
-    public int randomCharacter;
+    public int playerCharacter;
+    public int opponentCharacter;
 
     public string teamName;
     public string oppName;
@@ -78,6 +80,7 @@ public class GWC001 : MonoBehaviour
         // Initializers
         aUtil = FindObjectOfType<AspectUtility>();
         camFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        chars = GetComponent<Characters>();
         dArrow = GameObject.Find("Dialogue_Arrow").GetComponent<ImageStrobe>();
         dBox = GameObject.Find("Dialogue_Box");
         dMan = FindObjectOfType<DialogueManager>();
@@ -325,25 +328,26 @@ public class GWC001 : MonoBehaviour
         if (bOppMueller)
         {
             oppName = "Mueller";
+            opponentCharacter = Random.Range(0, 23);
         }
         else if (bOppTrump)
         {
             oppName = "Trump";
+            opponentCharacter = Random.Range(24, 47);
         }
 
         // Randomize Dialogue
         int randomInt = Random.Range(0, 3);
-        Debug.Log(randomInt);
         if (randomInt == 0)
         {
             dialogueLines = new string[] {
-                "Hmm.. Team " + teamName + " it is. Please, age before beauty..",
+                "Sure, I'll be Team " + oppName + ". Please, age before beauty..",
             };
         }
         else if (randomInt == 1)
         {
             dialogueLines = new string[] {
-                "Good luck Team " + oppName + ", I'll go first...",
+                "Good luck Team " + teamName + ", I'll go first...",
             };
         }
         else if (randomInt == 2)
@@ -461,9 +465,9 @@ public class GWC001 : MonoBehaviour
             bStartGame = true;
 
             // Pick random Mueller character for the player
-            randomCharacter = Random.Range(0, 23);
-            dPic.sprite = portPic[randomCharacter];
-            playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
+            playerCharacter = Random.Range(0, 23);
+            dPic.sprite = portPic[playerCharacter];
+            playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
 
         // Dialogue 3 - Option 1 - Selected Trump (and very Fine People)
@@ -496,9 +500,9 @@ public class GWC001 : MonoBehaviour
             bStartGame = true;
 
             // Pick random Trump character for the player
-            randomCharacter = Random.Range(24, 47);
-            dPic.sprite = portPic[randomCharacter];
-            playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
+            playerCharacter = Random.Range(24, 47);
+            dPic.sprite = portPic[playerCharacter];
+            playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
 
         // Dialogue 3 - Option 2 - Selected Mueller (and the Fake News)
@@ -531,9 +535,9 @@ public class GWC001 : MonoBehaviour
             bStartGame = true;
 
             // Pick random Trump character for the player
-            randomCharacter = Random.Range(24, 47);
-            dPic.sprite = portPic[randomCharacter];
-            playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
+            playerCharacter = Random.Range(24, 47);
+            dPic.sprite = portPic[playerCharacter];
+            playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
 
         // Single Player - Player Guess Check
@@ -592,7 +596,7 @@ public class GWC001 : MonoBehaviour
     public void ResetBoard()
     {
         // Hide current character card on Pause screen
-        playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.zero;
+        playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.zero;
 
         bBoardReset = true;
 
@@ -632,9 +636,9 @@ public class GWC001 : MonoBehaviour
             bStartGame = true;
 
             // Pick random Mueller character for the player
-            randomCharacter = Random.Range(0, 23);
-            dPic.sprite = portPic[randomCharacter];
-            playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
+            playerCharacter = Random.Range(0, 23);
+            dPic.sprite = portPic[playerCharacter];
+            playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
         else if (bTeamTrump &&
                  bOppMueller)
@@ -653,9 +657,9 @@ public class GWC001 : MonoBehaviour
             bStartGame = true;
 
             // Pick random Trump character for the player
-            randomCharacter = Random.Range(24, 47);
-            dPic.sprite = portPic[randomCharacter];
-            playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
+            playerCharacter = Random.Range(24, 47);
+            dPic.sprite = portPic[playerCharacter];
+            playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
         else if (bTeamTrump &&
                  bOppTrump)
@@ -674,9 +678,9 @@ public class GWC001 : MonoBehaviour
             bStartGame = true;
 
             // Pick random Trump character for the player
-            randomCharacter = Random.Range(24, 47);
-            dPic.sprite = portPic[randomCharacter];
-            playerCard.gameObject.transform.GetChild(randomCharacter).localScale = Vector3.one;
+            playerCharacter = Random.Range(24, 47);
+            dPic.sprite = portPic[playerCharacter];
+            playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
     }
 
@@ -708,6 +712,22 @@ public class GWC001 : MonoBehaviour
         oMan.bDiaToOpts = true;
         oMan.bOptionsActive = true;
         oMan.HideThirdPlusOpt();
+        oBox.transform.localScale = Vector3.one;
+        oMan.PauseOptions();
+    }
+
+    public void GWC_OptionsResetter_3Q()
+    {
+        for (int i = 0; i < optionsLines.Length; i++)
+        {
+            GameObject optText = GameObject.Find("Opt" + (i + 1) + "_Text");
+            optText.GetComponentInChildren<Text>().text = optionsLines[i];
+            oMan.tempOptsCount += 1;
+        }
+
+        oMan.bDiaToOpts = true;
+        oMan.bOptionsActive = true;
+        oMan.HideFourthOpt();
         oBox.transform.localScale = Vector3.one;
         oMan.PauseOptions();
     }
