@@ -12163,6 +12163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e381c0356e830d439eef26a330db8b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chars: {fileID: 0}
   gwc: {fileID: 0}
   dMan: {fileID: 0}
   moveOptsArw: {fileID: 0}
@@ -12182,11 +12183,15 @@ MonoBehaviour:
   bPlayQ5: 0
   bPlayQ6: 0
   playerGuessNumber: 0
+  randomInt: 0
   pAnswer1: 
   pAnswer2: 
   pAnswer3: 
   pAnswer4: 
   pAnswer5: 
+  pAnswer6: 
+  bNpcTrait: 
+  npcTrait: []
 --- !u!114 &603981785
 MonoBehaviour:
   m_ObjectHideFlags: 0

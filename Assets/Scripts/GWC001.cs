@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  03/24/2019
+// Last:  03/28/2019
 
 using System.Collections;
 using UnityEngine;
@@ -108,7 +108,7 @@ public class GWC001 : MonoBehaviour
 
         charTiles = new CharacterTile[24];
 
-        guessThreshold = 3.0f;
+        guessThreshold = 1.25f;
         musicTimer1 = 5.39f;
         musicTimer2 = 1.05f;
         strobeTimer = 1.0f;
@@ -278,7 +278,7 @@ public class GWC001 : MonoBehaviour
             GWC_PromptRestrictions();
 
             dialogueLines = new string[] {
-                "Oh and when you're ready to guess, just hold down for 3 seconds."
+                "And when you're ready, just hold down for a couple of seconds."
             };
             GWC_DialogueRestter();
         }
@@ -291,10 +291,18 @@ public class GWC001 : MonoBehaviour
             buttonTimer += Time.deltaTime;
 
             if (buttonTimer >= guessThreshold &&
-                !bIsPlayerG2G)
+                !spLogic.bGuessingFTW)
             {
-                IsPlayerGoodToGuess();
+                if (spLogic.bPlayerMidGuess)
+                {
+                    spLogic.bPlayerGuessing = true; // derp
+                }
+                else if (!bIsPlayerG2G)
+                {
+                    IsPlayerGoodToGuess();
+                }
             }
+            
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -557,8 +565,15 @@ public class GWC001 : MonoBehaviour
 
             oMan.ResetOptions();
         }
-
-        spLogic.LogicTree();
+        
+        if (spLogic.bGuessingTrait)
+        {
+            spLogic.TraitTree();
+        }
+        else
+        {
+            spLogic.LogicTree();
+        }
     }
 
     public void IsPlayerGoodToGuess()

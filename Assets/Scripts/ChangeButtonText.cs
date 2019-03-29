@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  03/24/2019
+// Last:  03/28/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,24 +18,24 @@ public class ChangeButtonText : MonoBehaviour, IPointerEnterHandler, IPointerExi
         //this.buttonText.color = new Color(22.0f / 255.0f, 106.0f / 255.0f, 64.0f / 255.0f);
 
         // Red
-        this.buttonText.color = new Color(255.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f);
+        buttonText.color = new Color(255.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         // Blue
-        this.buttonText.color = new Color(22.0f / 255.0f, 44.0f / 255.0f, 119.0f / 255.0f);
+        buttonText.color = new Color(22.0f / 255.0f, 44.0f / 255.0f, 119.0f / 255.0f);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         // White
-        this.buttonText.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+        buttonText.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         // White
-        this.buttonText.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+        buttonText.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
     }
 }

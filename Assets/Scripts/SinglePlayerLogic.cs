@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 03/20/2019
-// Last:  03/24/2019
+// Last:  03/28/2019
 
 using UnityEngine;
 
@@ -14,6 +14,9 @@ public class SinglePlayerLogic : MonoBehaviour
     public MoveOptionsMenuArrow moveOptsArw;
     public OptionsManager oMan;
 
+    public bool bCheckingBoard;
+    public bool bGuessingFTW;
+    public bool bGuessingTrait;
     public bool bOppQ1;
     public bool bOppQ2;
     public bool bOppQ3;
@@ -22,24 +25,46 @@ public class SinglePlayerLogic : MonoBehaviour
     public bool bOppQ6;
     public bool bPauseQuestion;
     public bool bPlayerGuessing;
+    public bool bPlayerMidGuess;
     public bool bPlayQ1;
     public bool bPlayQ2;
     public bool bPlayQ3;
     public bool bPlayQ4;
     public bool bPlayQ5;
     public bool bPlayQ6;
+    public bool bTraitClothingColorO1;
+    public bool bTraitClothingColorO2;
+    public bool bTraitClothingColorO3;
+    public bool bTraitCountryO1;
+    public bool bTraitCountryO2;
+    public bool bTraitHairColorO1;
+    public bool bTraitHairColorO2;
+    public bool bTraitHairColorO3;
+    public bool bTraitHairLengthO1;
+    public bool bTraitHairLengthO2;
+    public bool bTraitIconsO1;
+    public bool bTraitIconsO2;
+    public bool bTraitIconsO3;
+    public bool bTraitIconsO4;
+    public bool bTraitIconsO5;
+    public bool bTraitSkinColorO1;
+    public bool bTraitSkinColorO2;
 
     public int playerGuessNumber;
     public int randomInt;
+    public int traitInt;
 
-    private float pauseTime;
+    public float pauseTime;
 
+    public string nameFTW;
     public string pAnswer1;
     public string pAnswer2;
     public string pAnswer3;
     public string pAnswer4;
     public string pAnswer5;
     public string pAnswer6;
+
+    public string[] npcTrait;
 
     void Start()
     {
@@ -50,7 +75,23 @@ public class SinglePlayerLogic : MonoBehaviour
         moveOptsArw = FindObjectOfType<MoveOptionsMenuArrow>();
         oMan = FindObjectOfType<OptionsManager>();
 
-        pauseTime = 3.0f;
+        bTraitClothingColorO1 = bTraitCountryO1 = bTraitHairColorO1 = bTraitHairLengthO1 = bTraitIconsO1 = bTraitSkinColorO1 = true;
+
+        pauseTime = 10f;
+        traitInt = 5;
+
+        npcTrait = new string[11];
+        npcTrait[0] = "clothing color";
+        npcTrait[1] = "country";
+        npcTrait[2] = "direction";
+        npcTrait[3] = "eye color";
+        npcTrait[4] = "eye wear";
+        npcTrait[5] = "facial hair";
+        npcTrait[6] = "gender";
+        npcTrait[7] = "hair color";
+        npcTrait[8] = "hair length";
+        npcTrait[9] = "icons";
+        npcTrait[10] = "skin color";
     }
     
     void Update()
@@ -204,25 +245,34 @@ public class SinglePlayerLogic : MonoBehaviour
             !dMan.bDialogueActive)
         {
             bPlayerGuessing = false;
+            bPlayerMidGuess = true;
             bPlayQ1 = true;
 
             gwc.GWC_PromptRestrictions();
 
+            // Avoid new Trait if checking board and reset board check
+            if (!bCheckingBoard)
+            {
+                traitInt = traitInt + 1;
+
+                if (traitInt >= 11)
+                {
+                    traitInt = 0;
+                }
+            }
+            bCheckingBoard = false;
+
             gwc.dialogueLines = new string[] {
-                "Hmmm..."
+                "Hmmm.. Should I ask him about.. " + npcTrait[traitInt] + "?"
             };
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[gwc.playerCharacter];
 
-            // The meat of the logic tree
-            // Will want to know what team player is on & against (worked in WH vs on MIT)
-            // Keep track of what has been asked
-            // Allow user to select a character (or hold down again cancel)
             gwc.optionsLines = new string[] {
-                "Are you wearing red?",
-                "Are you a female?",
-                "You work in the white house?",
-                "I know who it is!"
+                "Yes.",
+                "Nah something else..",
+                "Lemme check the board again.",
+                "I know who he is!"
             };
             gwc.GWC_OptionsResetter_4Q();
         }
@@ -232,21 +282,34 @@ public class SinglePlayerLogic : MonoBehaviour
                  !dMan.bDialogueActive)
         {
             bPlayerGuessing = false;
+            bPlayerMidGuess = true;
             bPlayQ2 = true;
 
             gwc.GWC_PromptRestrictions();
 
+            // Avoid new Trait if checking board and reset board check
+            if (!bCheckingBoard)
+            {
+                traitInt = traitInt + 1;
+
+                if (traitInt >= 11)
+                {
+                    traitInt = 0;
+                }
+            }
+            bCheckingBoard = false;
+
             gwc.dialogueLines = new string[] {
-                "Hmmm..."
+                "Hmmm.. Should I ask him about.. " + npcTrait[traitInt] + "?"
             };
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[gwc.playerCharacter];
 
             gwc.optionsLines = new string[] {
-                "Are you wearing blue?",
-                "Are you a male?",
-                "Are you blonde?",
-                "I know who it is!"
+                "Yes.",
+                "Nah something else..",
+                "Lemme check the board again.",
+                "I know who he is!"
             };
             gwc.GWC_OptionsResetter_4Q();
         }
@@ -256,35 +319,35 @@ public class SinglePlayerLogic : MonoBehaviour
                  !dMan.bDialogueActive)
         {
             bPlayerGuessing = false;
-            bPlayQ3 = true;
+            bPlayerMidGuess = true;
+            bPlayQ1 = true;
 
             gwc.GWC_PromptRestrictions();
 
+            // Avoid new Trait if checking board and reset board check
+            if (!bCheckingBoard)
+            {
+                traitInt = traitInt + 1;
+
+                if (traitInt >= 11)
+                {
+                    traitInt = 0;
+                }
+            }
+            bCheckingBoard = false;
+
             gwc.dialogueLines = new string[] {
-                "Hmmm..."
+                "Hmmm.. Should I ask him about.. " + npcTrait[traitInt] + "?"
             };
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[gwc.playerCharacter];
 
-            if (gwc.oppName == "Trump")
-            {
-                gwc.optionsLines = new string[] {
-                    "On Trump's campaign team?",
-                    "You w/ a 2016 US party?",
-                    "You looking to the left?",
-                    "I know who it is!"
-                };
-            }
-            else if (gwc.oppName == "Mueller")
-            {
-                gwc.optionsLines = new string[] {
-                    "On Mueller's investigation?",
-                    "Are you a female?",
-                    "Are you wearing glasses?",
-                    "I know who it is!"
-                };
-            }
-            
+            gwc.optionsLines = new string[] {
+                "Yes.",
+                "Nah something else..",
+                "Lemme check the board again.",
+                "I know who he is!"
+            };
             gwc.GWC_OptionsResetter_4Q();
         }
         // Single Player - Player's Fourth Guess
@@ -373,6 +436,70 @@ public class SinglePlayerLogic : MonoBehaviour
             // Sam will say are you sure it's X person
             // Yup or no...
         }
+
+        // Guessing FTW
+        if (bGuessingFTW &&
+            Input.GetMouseButtonUp(0))
+        {
+            if (nameFTW != "")
+            {
+                if (nameFTW == gwc.chars.characters[gwc.opponentCharacter].charGameName)
+                {
+                    Debug.Log("You did it! You win!!");
+                }
+                else
+                {
+                    // Use a forLoop to match nameFTW to char[].GameName and pull that charName
+                    //gwc.dialogueLines = new string[] {
+                    //    "So sorry.. I am not " + nameFTW
+                    //};
+                    //gwc.GWC_DialogueRestter();
+                    //gwc.dPic.sprite = gwc.portPic[48];
+
+                    Debug.Log("Nope..");
+                    bPlayerMidGuess = false;
+
+                    QuestionAdvancer();
+                }
+
+                // Reset
+                nameFTW = "";
+                bGuessingFTW = false;
+            }
+        }
+    }
+
+    public void QuestionAdvancer()
+    {
+        if (bPlayQ1)
+        {
+            bPlayQ1 = false;
+            bOppQ2 = true;
+        }
+        else if (bPlayQ2)
+        {
+            bPlayQ2 = false;
+            bOppQ3 = true;
+        }
+        else if (bPlayQ3)
+        {
+            bPlayQ3 = false;
+            bOppQ4 = true;
+        }
+        else if (bPlayQ4)
+        {
+            bPlayQ4 = false;
+            bOppQ5 = true;
+        }
+        else if (bPlayQ5)
+        {
+            bPlayQ5 = false;
+            bOppQ6 = true;
+        }
+        //else if (bPlayQ6)
+        //{
+        //    bPlayQ6 = false;
+        //}
     }
 
     public void LogicTree()
@@ -493,134 +620,1752 @@ public class SinglePlayerLogic : MonoBehaviour
         }
 
         // Single Player - Player Question 1 
-        else if (bPlayQ1)
+        else if (bPlayQ1 || bPlayQ2 || bPlayQ3 || bPlayQ4 || bPlayQ5)
         {
             if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
             {
-                // "Are you wearing red?";
+                PlayerGuessYes(npcTrait[traitInt]);
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
             {
-                // "Are you a female?"
+                PlayerGuessAnother();
+                oMan.ResetOptions();
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
             {
-                // "Do or did you work in the white house?"
+                PlayerCheckBoard();
+                oMan.ResetOptions();
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
             {
-                // "I know who it is!"
+                PlayerGuessNPC();
+                oMan.ResetOptions();
             }
-
-            bPlayQ1 = false;
-            bOppQ2 = true;
-            PauseQuestion();
-            
-            oMan.ResetOptions();
         }
-        // Single Player - Player Question 2 
-        else if (bPlayQ2)
+        else if (bPlayQ6)
         {
             if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
             {
-                // "Are you wearing red?";
+                PlayerCheckBoard();
+                oMan.ResetOptions();
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
             {
-                // "Are you a female?"
+                PlayerGuessNPC();
+                oMan.ResetOptions();
             }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
-            {
-                // "Do or did you work in the white house?"
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
-            {
-                // "I know who it is!"
-            }
-
-            bPlayQ2 = false;
-            bOppQ3 = true;
-            PauseQuestion();
-
-            oMan.ResetOptions();
         }
-        // Single Player - Player Question 3 
-        else if (bPlayQ3)
+        //// Single Player - Player Question 2 
+        //else if (bPlayQ2)
+        //{
+        //    if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+        //    {
+        //        // "Yes";
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+        //    {
+        //        // "No another"
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+        //    {
+        //        // "Check the board"
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+        //    {
+        //        // "Guess"
+        //    }
+
+        //    bPlayQ2 = false;
+        //    bOppQ3 = true;
+        //    PauseQuestion();
+
+        //    oMan.ResetOptions();
+        //}
+        //// Single Player - Player Question 3 
+        //else if (bPlayQ3)
+        //{
+        //    if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+        //    {
+        //        // "Yes";
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+        //    {
+        //        // "No another"
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+        //    {
+        //        // "Check the board"
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+        //    {
+        //        // "Guess"
+        //    }
+
+        //    bPlayQ3 = false;
+        //    bOppQ4 = true;
+        //    PauseQuestion();
+
+        //    oMan.ResetOptions();
+        //}
+        //// Single Player - Player Question 4 
+        //else if (bPlayQ4)
+        //{
+        //    if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+        //    {
+        //        // "Yes";
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+        //    {
+        //        // "No another"
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+        //    {
+        //        // "Check the board"
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+        //    {
+        //        // "Guess"
+        //    }
+
+        //    bPlayQ4 = false;
+        //    bOppQ5 = true;
+        //    PauseQuestion();
+
+        //    oMan.ResetOptions();
+        //}
+        //// Single Player - Player Question 5 
+        //else if (bPlayQ5)
+        //{
+        //    if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+        //    {
+        //        // "Yes";
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+        //    {
+        //        // "No another"
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+        //    {
+        //        // "Check the board"
+        //    }
+        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+        //    {
+        //        // "Guess"
+        //    }
+
+        //    bPlayQ5 = false;
+        //    bOppQ6 = true;
+        //    PauseQuestion();
+
+        //    oMan.ResetOptions();
+        //}
+    }
+
+    public void PlayerGuessYes(string trait)
+    {
+        bGuessingTrait = true;
+
+        gwc.GWC_PromptRestrictions();
+
+        if (trait == "clothing color")
         {
-            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
-            {
-                // "Are you wearing red?";
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
-            {
-                // "Are you a female?"
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
-            {
-                // "Do or did you work in the white house?"
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
-            {
-                // "I know who it is!"
-            }
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Are you wearing anything.."
+            };
+            gwc.GWC_DialogueRestter();
 
-            bPlayQ3 = false;
-            bOppQ4 = true;
-            PauseQuestion();
-
-            oMan.ResetOptions();
+            if (bTraitClothingColorO1)
+            {
+                gwc.optionsLines = new string[] {
+                    "Black",
+                    "Brown",
+                    "Blue",
+                    "Nah, another color.."
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitClothingColorO2)
+            {
+                gwc.optionsLines = new string[] {
+                    "Red",
+                    "Purple",
+                    "Yellow",
+                    "Nah, another color.." 
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitClothingColorO3)
+            {
+                gwc.optionsLines = new string[] {
+                    "White",
+                    "Nevermind.. To the board"
+                };
+                gwc.GWC_OptionsResetter_2Q();
+            }
         }
-        // Single Player - Player Question 4 
-        else if (bPlayQ4)
+        else if (trait == "country")
         {
-            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
-            {
-                // "Are you wearing red?";
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
-            {
-                // "Are you a female?"
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
-            {
-                // "Do or did you work in the white house?"
-            }
-            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
-            {
-                // "I know who it is!"
-            }
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Are you from.."
+            };
+            gwc.GWC_DialogueRestter();
 
-            bPlayQ4 = false;
-            bOppQ5 = true;
-            PauseQuestion();
-
-            oMan.ResetOptions();
+            if (bTraitCountryO1)
+            {
+                gwc.optionsLines = new string[] {
+                    "The United States",
+                    "The United Kingdom",
+                    "Mother Russia",
+                    "Nah, another place.."
+                };
+                    gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitCountryO2)
+            {
+                gwc.optionsLines = new string[] {
+                    "Saudi Arabia",
+                    "Canada",
+                    "Nevermind.. To the board"
+                };
+                gwc.GWC_OptionsResetter_3Q();
+            }
         }
-        // Single Player - Player Question 5 
-        else if (bPlayQ5)
+        else if (trait == "direction")
+        {
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Are you looking to.."
+            };
+            gwc.GWC_DialogueRestter();
+
+            gwc.optionsLines = new string[] {
+                "The left",
+                "The right",
+                "The center",
+                "Nevermind.. To the board"
+            };
+            gwc.GWC_OptionsResetter_4Q();
+        }
+        else if (trait == "eye color")
+        {
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Are your eyes.."
+            };
+            gwc.GWC_DialogueRestter();
+
+            gwc.optionsLines = new string[] {
+                "Dark (brown / black)",
+                "Blue or green (ish)",
+                "White or n/a",
+                "Nevermind.. To the board"
+            };
+            gwc.GWC_OptionsResetter_4Q();
+        }
+        else if (trait == "eye wear")
+        {
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Are wearing any kind of glasses.."
+            };
+            gwc.GWC_DialogueRestter();
+
+            gwc.optionsLines = new string[] {
+                "Yea",
+                "Nevermind.. To the board"
+            };
+            gwc.GWC_OptionsResetter_3Q();
+        }
+        else if (trait == "facial hair")
+        {
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Do you have any facial hair.."
+            };
+            gwc.GWC_DialogueRestter();
+
+            gwc.optionsLines = new string[] {
+                "Yea",
+                "Nevermind.. To the board"
+            };
+            gwc.GWC_OptionsResetter_3Q();
+        }
+        else if (trait == "gender")
+        {
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Are you a.."
+            };
+            gwc.GWC_DialogueRestter();
+
+            gwc.optionsLines = new string[] {
+                "Man",
+                "Woman",
+                "Nevermind.. To the board"
+            };
+            gwc.GWC_OptionsResetter_3Q();
+        }
+        else if (trait == "hair color")
+        {
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Is your hair color.."
+            };
+            gwc.GWC_DialogueRestter();
+
+            if (bTraitHairColorO1)
+            {
+                gwc.optionsLines = new string[] {
+                    "Black",
+                    "Brown",
+                    "Blonde",
+                    "Nah, another color.."
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitHairColorO2)
+            {
+                gwc.optionsLines = new string[] {
+                    "Grey",
+                    "Black and grey",
+                    "White",
+                    "Nah, another color.."
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitHairColorO3)
+            {
+                gwc.optionsLines = new string[] {
+                    "Red",
+                    "Pink",
+                    "N/a",
+                    "Nevermind.. To the board"
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+        }
+        else if (trait == "hair length")
+        {
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Is your hair.."
+            };
+            gwc.GWC_DialogueRestter();
+
+            if (bTraitHairLengthO1)
+            {
+                gwc.optionsLines = new string[] {
+                    "Long",
+                    "Medium",
+                    "Short",
+                    "Nah, another length.."
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitHairLengthO2)
+            {
+                gwc.optionsLines = new string[] {
+                    "None there",
+                    "Nevermind.. To the board"
+                };
+                gwc.GWC_OptionsResetter_2Q();
+            }
+        }
+        else if (trait == "icons")
+        {
+            gwc.dialogueLines = new string[] {
+                "Hmmm..."
+            };
+            gwc.GWC_DialogueRestter();
+
+            if (bTraitIconsO1)
+            {
+                gwc.optionsLines = new string[] {
+                    "You fired by DJT",
+                    "In a DJT tweet",
+                    "A democrat in 2016",
+                    "Nah, another icon.."
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitIconsO2)
+            {
+                gwc.optionsLines = new string[] {
+                    "A republican in 2016",
+                    "An independent in 2016",
+                    "No US party in 2016",
+                    "Nah, another icon.."
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitIconsO3)
+            {
+                gwc.optionsLines = new string[] {
+                    "(Ex-) CIA",
+                    "(Ex-) DOJ",
+                    "(Ex-) FBI",
+                    "Nah, another icon.."
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitIconsO4)
+            {
+                gwc.optionsLines = new string[] {
+                    "(Ex-) NSA",
+                    "(Ex-) White House",
+                    "(Ex-) Congress",
+                    "Nah, another icon.."
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitIconsO5)
+            {
+                gwc.optionsLines = new string[] {
+                    "On Trump's campaign",
+                    "On Mueller's team",
+                    "Media member",
+                    "Nevermind.. To the board"
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+        }
+        else if (trait == "skin color")
+        {
+            gwc.dialogueLines = new string[] {
+                "Hmmm... Is your skin.."
+            };
+            gwc.GWC_DialogueRestter();
+
+            if (bTraitSkinColorO1)
+            {
+                gwc.optionsLines = new string[] {
+                    "White",
+                    "Black",
+                    "Brown",
+                    "Nah, another color.."
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+            else if (bTraitSkinColorO2)
+            {
+                gwc.optionsLines = new string[] {
+                    "Purple",
+                    "Grey",
+                    "N/a",
+                    "Nevermind.. To the board"
+                };
+                gwc.GWC_OptionsResetter_4Q();
+            }
+        }
+        else
+        {
+            gwc.dialogueLines = new string[] {
+                "Derp"
+            };
+            gwc.GWC_DialogueRestter();
+
+            gwc.optionsLines = new string[] {
+                "Derp",
+                "Derp",
+                "Derp",
+                "Derp"
+            };
+            gwc.GWC_OptionsResetter_4Q();
+        }
+    }
+
+    public void PlayerGuessAnother()
+    {
+        bPlayerGuessing = true;
+    }
+
+    public void PlayerCheckBoard()
+    {
+        bCheckingBoard = true;
+    }
+
+    public void PlayerGuessNPC()
+    {
+        bGuessingFTW = true;
+    }
+
+    public void TraitTree()
+    {
+        // Clothing Color
+        if (npcTrait[traitInt] == "clothing color")
+        {
+            if (bTraitClothingColorO1)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "black" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "black" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "black" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "black")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am wearing black."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not wearing black."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "brown" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "brown" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "brown" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "brown")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am wearing brown."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not wearing brown."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "blue" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "blue" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "blue" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "blue")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am wearing blue."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not wearing brown."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitClothingColorO1 = false;
+                    bTraitClothingColorO2 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitClothingColorO2)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "red" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "red" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "red" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "red")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am wearing red."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not wearing red."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "purple" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "purple" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "purple" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "purple")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am wearing purple."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not wearing purple."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "yellow" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "yellow" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "yellow" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "yellow")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am wearing yellow."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not wearing yellow."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitClothingColorO2 = false;
+                    bTraitClothingColorO3 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitClothingColorO3)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "white" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "white" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "white" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "white")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am wearing white."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not wearing white."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    bTraitClothingColorO3 = false;
+                    bTraitClothingColorO1 = true;
+
+                    bGuessingTrait = false;
+                    bCheckingBoard = true;
+                    oMan.ResetOptions();
+                }
+            }
+        }
+        // Country
+        else if (npcTrait[traitInt] == "country")
+        {
+            if (bTraitCountryO1)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charCountry == "us")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am from the United States."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not from the United States."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charCountry == "uk")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am from the United Kingdom."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not from the United Kingdom."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charCountry == "russia")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am from Russia."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not from Russia."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitCountryO1 = false;
+                    bTraitCountryO2 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitCountryO2)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charCountry == "sa")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am from Saudi Arabia."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not from Saudi Arabia."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charCountry == "canada")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am from Canada."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not from Canada."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    bTraitCountryO2 = false;
+                    bTraitCountryO1 = true;
+
+                    bGuessingTrait = false;
+                    bCheckingBoard = true;
+                    oMan.ResetOptions();
+                }
+            }
+        }
+        // Direction
+        else if (npcTrait[traitInt] == "direction")
         {
             if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
             {
-                // "Are you wearing red?";
+                if (gwc.chars.characters[gwc.opponentCharacter].charDirection == "left")
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I am looking to the left."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I am not looking to the left."
+                    };
+                }
+
+                SPL_TraitTreeConsolidator();
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
             {
-                // "Are you a female?"
+                if (gwc.chars.characters[gwc.opponentCharacter].charDirection == "right")
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I am looking to the right."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I am not looking to the right."
+                    };
+                }
+
+                SPL_TraitTreeConsolidator();
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
             {
-                // "Do or did you work in the white house?"
+                if (gwc.chars.characters[gwc.opponentCharacter].charDirection == "center")
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I am looking to the center."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I am not looking to the center."
+                    };
+                }
+
+                SPL_TraitTreeConsolidator();
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
             {
-                // "I know who it is!"
+                bGuessingTrait = false;
+                bCheckingBoard = true;
+                oMan.ResetOptions();
             }
+        }
+        // Eye Color
+        else if (npcTrait[traitInt] == "eye color")
+        {
+            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+            {
+                if (gwc.chars.characters[gwc.opponentCharacter].charEyeColor == "black" ||
+                    gwc.chars.characters[gwc.opponentCharacter].charEyeColor == "brown" ||
+                    gwc.chars.characters[gwc.opponentCharacter].charEyeColor == "black-white")
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I have dark (brown / black) eyes."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I do not have dark (brown / black) eyes."
+                    };
+                }
 
-            bPlayQ5 = false;
-            bOppQ6 = true;
-            PauseQuestion();
+                SPL_TraitTreeConsolidator();
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+            {
+                if (gwc.chars.characters[gwc.opponentCharacter].charEyeColor == "blue" ||
+                    gwc.chars.characters[gwc.opponentCharacter].charEyeColor == "teal-green" ||
+                    gwc.chars.characters[gwc.opponentCharacter].charEyeColor == "green")
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I have blue or green (ish) eyes."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I do not have blue or green (ish) eyes."
+                    };
+                }
 
-            oMan.ResetOptions();
+                SPL_TraitTreeConsolidator();
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+            {
+                if (gwc.chars.characters[gwc.opponentCharacter].charEyeColor == "white" ||
+                    gwc.chars.characters[gwc.opponentCharacter].charEyeColor == "n/a")
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I have white eyes or 'you can't tell' eyes."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I do not have white eyes nor 'you can't tell' eyes."
+                    };
+                }
+
+                SPL_TraitTreeConsolidator();
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+            {
+                bGuessingTrait = false;
+                bCheckingBoard = true;
+                oMan.ResetOptions();
+            }
+        }
+        // Eye Wear
+        else if (npcTrait[traitInt] == "eye wear")
+        {
+            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+            {
+                if (gwc.chars.characters[gwc.opponentCharacter].charEyeWear == 1)
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I am wearing glasses of some kind."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I am not wearing glasses of some kind."
+                    };
+                }
+
+                SPL_TraitTreeConsolidator();
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+            {
+                bGuessingTrait = false;
+                bCheckingBoard = true;
+                oMan.ResetOptions();
+            }
+        }
+        // Facial Hair
+        else if (npcTrait[traitInt] == "facial hair")
+        {
+            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+            {
+                if (gwc.chars.characters[gwc.opponentCharacter].charFacialHair == 1)
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I have facial hair of some kind."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I do not have facial hair of some kind."
+                    };
+                }
+
+                SPL_TraitTreeConsolidator();
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+            {
+                bGuessingTrait = false;
+                bCheckingBoard = true;
+                oMan.ResetOptions();
+            }
+        }
+        // Gender
+        else if (npcTrait[traitInt] == "gender")
+        {
+            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+            {
+                if (gwc.chars.characters[gwc.opponentCharacter].charGender == 0)
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I am a man."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I am not a man."
+                    };
+                }
+
+                SPL_TraitTreeConsolidator();
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+            {
+                if (gwc.chars.characters[gwc.opponentCharacter].charGender == 1)
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Yes, I am a woman."
+                    };
+                }
+                else
+                {
+                    gwc.dialogueLines = new string[] {
+                        "No, I am not a woman."
+                    };
+                }
+
+                SPL_TraitTreeConsolidator();
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+            {
+                bGuessingTrait = false;
+                bCheckingBoard = true;
+                oMan.ResetOptions();
+            }
+        }
+        // Hair Color
+        if (npcTrait[traitInt] == "hair color")
+        {
+            if (bTraitHairColorO1)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairColor == "black")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have black hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have black hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairColor == "brown")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have brown hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have brown hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairColor == "blonde")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have blonde hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have blonde hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitHairColorO1 = false;
+                    bTraitHairColorO2 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitHairColorO2)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairColor == "grey")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have grey hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have grey hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairColor == "black-grey")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have salt and pepper (black & grey) hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have salt and pepper (black & grey) hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairColor == "white")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have white hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have white hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitHairColorO2 = false;
+                    bTraitHairColorO3 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitHairColorO3)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairColor == "red")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have red hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have red hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairColor == "pink")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have pink hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have pink hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairColor == "n/a")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I can't determine my hair color."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I can determine my hair color."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitHairColorO3 = false;
+                    bTraitHairColorO1 = true;
+
+                    bGuessingTrait = false;
+                    bCheckingBoard = true;
+                    oMan.ResetOptions();
+                }
+            }
+        }
+        // Hair Length
+        else if (npcTrait[traitInt] == "hair length")
+        {
+            if (bTraitHairLengthO1)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairLength == "long")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have long hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have long hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairLength == "medium")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have medium hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have medium hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairLength == "short")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have short hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do not have short hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitHairLengthO1 = false;
+                    bTraitHairLengthO2 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitHairLengthO2)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charHairLength == "none")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I have no hair."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I do have hair."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    bTraitHairLengthO2 = false;
+                    bTraitHairLengthO1 = true;
+
+                    bGuessingTrait = false;
+                    bCheckingBoard = true;
+                    oMan.ResetOptions();
+                }
+            }
+        }
+        // Icons
+        if (npcTrait[traitInt] == "icons")
+        {
+            if (bTraitIconsO1)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "fired" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "fired" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "fired" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "fired" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "fired")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I was 'fired' by Donald J. Trump."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I was not 'fired' by Donald J. Trump."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "tweet" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "tweet" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "tweet" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "tweet" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "tweet")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I was mentioned in a Donald J. Trump tweet."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I was not mentioned in a Donald J. Trump tweet."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "democrat" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "democrat" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "democrat" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "democrat" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "democrat")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I was a registered Democrat in 2016."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I was not a registered Democrat in 2016."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitIconsO1 = false;
+                    bTraitIconsO2 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitIconsO2)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "republican" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "republican" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "republican" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "republican" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "republican")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I was a registered Republican in 2016."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I was not a registered Republican in 2016."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "independent" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "independent" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "independent" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "independent" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "independent")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I was a registered Independent in 2016."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I was not a registered Independent in 2016."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "no-party" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "no-party" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "no-party" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "no-party" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "no-party")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I had no US party affiliation in 2016."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I had a US party affiliation in 2016."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitIconsO2 = false;
+                    bTraitIconsO3 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitIconsO3)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "cia" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "cia" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "cia" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "cia" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "cia")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am or was in the Central Intelligence Agency."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not with the Central Intelligence Agency."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "doj" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "doj" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "doj" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "doj" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "doj")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am or was in the Department of Justice."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not with the Department of Justice."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "fbi" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "fbi" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "fbi" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "fbi" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "fbi")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am or was in the Federal Bureau of Investigation."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not with the Federal Bureau of Investigation."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitIconsO3 = false;
+                    bTraitIconsO4 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitIconsO4)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "nsa" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "nsa" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "nsa" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "nsa" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "nsa")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am or was in the National Security Agency."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not with the National Security Agency."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "white-house" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "white-house" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "white-house" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "white-house" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "white-house")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am or was in the White House."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not nor was in the White House."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "congress" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "congress" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "congress" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "congress" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "congress")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am or was in Congress."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not nor was in Congress."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitIconsO4 = false;
+                    bTraitIconsO5 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitIconsO5)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "trump-campaign" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "trump-campaign" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "trump-campaign" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "trump-campaign" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "trump-campaign")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I was on the Trump Campaign team."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I was not on the Trump Campaign team."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "mueller-investigation" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "mueller-investigation" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "mueller-investigation" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "mueller-investigation" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "mueller-investigation")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I was on the Mueller investigation team."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I was not on the Mueller investigation team."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "media" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "media" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "media" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "media" ||
+                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "media")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am or was a media member."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I ain't nor was a media member."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitIconsO5 = false;
+                    bTraitIconsO1 = true;
+
+                    bGuessingTrait = false;
+                    bCheckingBoard = true;
+                    oMan.ResetOptions();
+                }
+            }
+        }
+        // Skin Color
+        else if (npcTrait[traitInt] == "skin color")
+        {
+            if (bTraitSkinColorO1)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charSkinColor == "white")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am white."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not white."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charSkinColor == "black")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am black."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not black."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charSkinColor == "brown")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am brown."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not brown."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitSkinColorO1 = false;
+                    bTraitSkinColorO2 = true;
+                    PlayerGuessYes(npcTrait[traitInt]);
+                }
+            }
+            else if (bTraitSkinColorO2)
+            {
+                if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charSkinColor == "purple")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am purple-ish blue."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not purple-ish blue."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charSkinColor == "grey")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I am grey."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I am not grey."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
+                {
+                    if (gwc.chars.characters[gwc.opponentCharacter].charSkinColor == "n/a")
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "Yes, I can't tell what my skin color is."
+                        };
+                    }
+                    else
+                    {
+                        gwc.dialogueLines = new string[] {
+                            "No, I can tell what my skin color is."
+                        };
+                    }
+
+                    SPL_TraitTreeConsolidator();
+                }
+                else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
+                {
+                    bTraitSkinColorO2 = false;
+                    bTraitSkinColorO1 = true;
+
+                    bGuessingTrait = false;
+                    bCheckingBoard = true;
+                    oMan.ResetOptions();
+                }
+            }
         }
     }
 
@@ -1716,6 +3461,18 @@ public class SinglePlayerLogic : MonoBehaviour
     public void UnpauseQuestion()
     {
         bPauseQuestion = false;
-        pauseTime = 3.0f;
+        pauseTime = 10f;
+    }
+
+    public void SPL_TraitTreeConsolidator()
+    {
+        gwc.GWC_DialogueRestter();
+        gwc.dPic.sprite = gwc.portPic[48];
+        oMan.ResetOptions();
+
+        PauseQuestion();
+        QuestionAdvancer();
+        bGuessingTrait = false;
+        bPlayerMidGuess = false;
     }
 }

@@ -82,17 +82,11 @@ public class Characters : MonoBehaviour
         // SkinColor = "grey";
         // SkinColor = "n/a";
 
-        // Notes:
-        // eye-color -> blue or green-ish
-        // hair-color -> add black-grey
-        // eye-color -> add black
-        // hair-color -> add white
-        // check country saudia arabia
-
         // Ahmad, Zainab (Mueller)
         characters.Add(new CharacterTraits(
             0,
             "Zainab Ahmad",
+            "Ahmad.Zainab",
             new string[1] { "black" },
             "us",
             "left",
@@ -110,6 +104,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             1,
             "Jason Alberts",
+            "Alberts.Jason",
             new string[3] { "black", "white", "blue" },
             "us",
             "right",
@@ -126,7 +121,8 @@ public class Characters : MonoBehaviour
         // Asonye, Uzo (Mueller)
         characters.Add(new CharacterTraits(
             2,
-            "Uzo Asoyne",
+            "Uzo Asonye",
+            "Asonye.Uzo",
             new string[3] { "black", "white", "yellow" },
             "us",
             "left",
@@ -144,6 +140,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             3,
             "John Brennan",
+            "Brennan.John",
             new string[3] { "black", "white", "red" },
             "us",
             "right",
@@ -161,6 +158,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             4,
             "James Clapper",
+            "Clapper.James",
             new string[3] { "black", "white", "purple" },
             "us",
             "left",
@@ -178,6 +176,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             5,
             "Hillary Clinton",
+            "Clinton.Hillary",
             new string[1] { "black" },
             "us",
             "left",
@@ -195,6 +194,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             6,
             "James Comey",
+            "Comey.James",
             new string[3] { "black", "white", "purple" },
             "us",
             "right",
@@ -212,6 +212,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             7,
             "Elijah Cummings",
+            "Cummings.Elijah",
             new string[3] { "black", "white", "purple" },
             "us",
             "right",
@@ -229,6 +230,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             8,
             "Stormy Daniels",
+            "Daniels.Stormy",
             new string[1] { "blue" },
             "us",
             "left",
@@ -246,6 +248,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             9,
             "Michael Dreeban",
+            "Dreeban.Michael",
             new string[3] { "black", "white", "purple" },
             "us",
             "right",
@@ -263,6 +266,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             10,
             "Maggie Haberman",
+            "Haberman.Maggie",
             new string[2] { "black", "red" },
             "us",
             "right",
@@ -280,6 +284,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             11,
             "Andrew McCabe",
+            "McCabe.Andrew",
             new string[3] { "black", "white", "red" },
             "us",
             "center",
@@ -297,6 +302,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             12,
             "Robert S. Mueller III",
+            "Mueller.Robert.S.III",
             new string[3] { "black", "white", "red" },
             "us",
             "left",
@@ -314,6 +320,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             13,
             "Barack Obama",
+            "Obama.Barack",
             new string[3] { "black", "white", "blue" },
             "us",
             "center",
@@ -331,6 +338,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             14,
             "Nancy Pelosi",
+            "Pelosi.Nancy",
             new string[1] { "black" },
             "us",
             "center",
@@ -348,6 +356,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             15,
             "Jeannie Rhee",
+            "Rhee.Jeannie",
             new string[2] { "black", "white" },
             "us",
             "center",
@@ -365,6 +374,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             16,
             "Mike Rogers",
+            "Rogers.Mike",
             new string[3] { "black", "blue", "yellow" },
             "us",
             "right",
@@ -382,6 +392,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             17,
             "Rod Rosenstein",
+            "Rosenstein.Rod",
             new string[3] { "black", "white", "red" },
             "us",
             "left",
@@ -399,6 +410,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             18,
             "Adam Schiff",
+            "Schiff.Adam",
             new string[3] { "black", "white", "blue" },
             "us",
             "center",
@@ -416,6 +428,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             19,
             "Christopher Steele",
+            "Steele.Christopher",
             new string[3] { "black", "white", "red" },
             "uk",
             "left",
@@ -433,6 +446,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             20,
             "Elizabeth Warren",
+            "Warren.Elizabeth",
             new string[2] { "black", "purple" },
             "us",
             "left",
@@ -450,6 +464,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             21,
             "Andrew Weissmann",
+            "Weissmann.Andrew",
             new string[3] { "black", "white", "purple" },
             "us",
             "center",
@@ -467,6 +482,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             22,
             "Christopher Wylie",
+            "Wylie.Christopher",
             new string[1] { "black" },
             "canada",
             "right",
@@ -484,6 +500,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             23,
             "Sally Yates",
+            "Yates.Sally",
             new string[1] { "black" },
             "us",
             "center",
@@ -501,6 +518,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             24,
             "Steve Bannon",
+            "Bannon.Steve",
             new string[1] { "purple" },
             "us",
             "right",
@@ -518,6 +536,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             25,
             "Michael Cohen",
+            "Cohen.Michael",
             new string[3] { "blue", "white", "red" },
             "us",
             "center",
@@ -535,6 +554,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             26,
             "Kellyanne Conway",
+            "Conway.Kellyanne",
             new string[3] { "black", "grey", "red" },
             "us",
             "left",
@@ -552,6 +572,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             27,
             "Michael Flynn",
+            "Flynn.Michael",
             new string[3] { "brown", "white", "red" },
             "us",
             "left",
@@ -569,6 +590,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             28,
             "Rudy Giuliani",
+            "Giuliani.Rudy",
             new string[3] { "black", "white", "purple" },
             "us",
             "left",
@@ -586,6 +608,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             29,
             "Sean Hannity",
+            "Hannity.Sean",
             new string[3] { "black", "white", "purple" },
             "us",
             "right",
@@ -603,6 +626,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             30,
             "Hope Hicks",
+            "Hicks.Hope",
             new string[1] { "blue" },
             "us",
             "right",
@@ -620,6 +644,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             31,
             "Alex Jones",
+            "Jones.Alex",
             new string[2] { "blue", "white" },
             "us",
             "left",
@@ -637,6 +662,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             32,
             "Jared Kushner",
+            "Kushner.Jared",
             new string[3] { "black", "white", "brown" },
             "us",
             "center",
@@ -654,6 +680,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             33,
             "The Mooch",
+            "Mooch.The",
             new string[3] { "black", "white", "red" },
             "us",
             "right",
@@ -670,6 +697,7 @@ public class Characters : MonoBehaviour
         // Omarosa (Trump)
         characters.Add(new CharacterTraits(
             34,
+            "Omarosa",
             "Omarosa",
             new string[1] { "blue" },
             "us",
@@ -688,6 +716,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             35,
             "Ajit Pai",
+            "Pai.Ajit",
             new string[4] { "black", "white", "yellow", "brown" },
             "us",
             "center",
@@ -705,6 +734,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             36,
             "George Papadopoulos",
+            "Papadopoulos.George",
             new string[2] { "blue", "white" },
             "us",
             "center",
@@ -722,6 +752,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             37,
             "Mike Pence",
+            "Pence.Mike",
             new string[3] { "black", "white", "blue" },
             "us",
             "center",
@@ -739,6 +770,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             38,
             "Erik Prince",
+            "Prince.Erik",
             new string[3] { "brown", "white", "blue" },
             "us",
             "right",
@@ -756,6 +788,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             39,
             "Vladimir Putin",
+            "Putin.Vladimir",
             new string[3] { "blue", "white", "red" },
             "russia",
             "left",
@@ -773,6 +806,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             40,
             "Mohammed Bin Salman",
+            "Salman.Mohammed.Bin",
             new string[3] { "red", "white", "brown" },
             "sa",
             "center",
@@ -790,6 +824,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             41,
             "Sarah Huckabee Sanders",
+            "Sanders.Sarah.Huckabee",
             new string[1] { "purple" },
             "us",
             "left",
@@ -807,6 +842,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             42,
             "Sean Spicer",
+            "Spicer.Sean",
             new string[3] { "black", "white", "blue" },
             "us",
             "center",
@@ -824,6 +860,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             43,
             "Donald J Trump",
+            "Trump.Donald.J",
             new string[3] { "black", "white", "blue" },
             "us",
             "right",
@@ -841,6 +878,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             44,
             "Donald Trump Jr",
+            "Trump.Donald.Jr",
             new string[3] { "blue", "white", "purple" },
             "us",
             "right",
@@ -858,6 +896,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             45,
             "Ivanka Trump",
+            "Trump.Ivanka",
             new string[1] { "red" },
             "us",
             "left",
@@ -875,6 +914,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             46,
             "Melania Trump",
+            "Trump.Melania",
             new string[1] { "purple" },
             "us",
             "center",
@@ -892,6 +932,7 @@ public class Characters : MonoBehaviour
         characters.Add(new CharacterTraits(
             47,
             "Natalia Veselnitskaya",
+            "Veselnitskaya.Natalia",
             new string[1] { "black" },
             "russia",
             "right",

@@ -20,6 +20,7 @@ public class CharacterTraits : IComparable<CharacterTraits>
     public string charCountry;
     public string charDirection;
     public string charEyeColor;
+    public string charGameName;
     public string charHairColor;
     public string charHairLength;
     public string charSkinColor;
@@ -30,6 +31,7 @@ public class CharacterTraits : IComparable<CharacterTraits>
     public CharacterTraits(
         int _charId,
         string _charName,
+        string _charGameName,
         string[] _charClothingColor,
         string _charCountry,
         string _charDirection,
@@ -44,6 +46,7 @@ public class CharacterTraits : IComparable<CharacterTraits>
     {
         charId = _charId;
         charName = _charName;
+        charGameName = _charGameName;
         charClothingColor = _charClothingColor;
         charCountry = _charCountry;
         charDirection = _charDirection;
