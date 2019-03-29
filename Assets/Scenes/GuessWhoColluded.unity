@@ -678,6 +678,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -1601,6 +1602,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -1980,6 +1982,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -2149,6 +2152,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -2962,6 +2966,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -3464,6 +3469,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -4256,6 +4262,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -6206,6 +6213,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -6765,6 +6773,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -7013,6 +7022,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -9621,6 +9631,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -10161,6 +10172,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -11527,6 +11539,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -12168,29 +12181,57 @@ MonoBehaviour:
   dMan: {fileID: 0}
   moveOptsArw: {fileID: 0}
   oMan: {fileID: 0}
+  bAvoidingQuickGuess: 0
+  bCheckingBoard: 0
+  bGuessingFTW: 0
+  bGuessingTrait: 0
+  bOppGuessFTW: 0
   bOppQ1: 0
   bOppQ2: 0
   bOppQ3: 0
   bOppQ4: 0
   bOppQ5: 0
   bOppQ6: 0
+  bOppWins: 0
   bPauseQuestion: 0
   bPlayerGuessing: 0
+  bPlayerMidGuess: 0
   bPlayQ1: 0
   bPlayQ2: 0
   bPlayQ3: 0
   bPlayQ4: 0
   bPlayQ5: 0
   bPlayQ6: 0
+  bPlayWins: 0
+  bTraitInArrayExists: 0
+  bTraitClothingColorO1: 0
+  bTraitClothingColorO2: 0
+  bTraitClothingColorO3: 0
+  bTraitCountryO1: 0
+  bTraitCountryO2: 0
+  bTraitHairColorO1: 0
+  bTraitHairColorO2: 0
+  bTraitHairColorO3: 0
+  bTraitHairLengthO1: 0
+  bTraitHairLengthO2: 0
+  bTraitIconsO1: 0
+  bTraitIconsO2: 0
+  bTraitIconsO3: 0
+  bTraitIconsO4: 0
+  bTraitIconsO5: 0
+  bTraitSkinColorO1: 0
+  bTraitSkinColorO2: 0
   playerGuessNumber: 0
   randomInt: 0
+  traitInt: 0
+  pauseTime: 0
+  nameFTW: 
   pAnswer1: 
   pAnswer2: 
   pAnswer3: 
   pAnswer4: 
   pAnswer5: 
   pAnswer6: 
-  bNpcTrait: 
   npcTrait: []
 --- !u!114 &603981785
 MonoBehaviour:
@@ -12330,6 +12371,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -12425,6 +12467,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -15087,6 +15130,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -15766,6 +15810,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -18944,6 +18989,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -19197,6 +19243,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -19451,6 +19498,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -20043,6 +20091,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -21222,6 +21271,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -21317,6 +21367,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -23671,6 +23722,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -23924,6 +23976,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -24536,6 +24589,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -24868,6 +24922,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -25422,6 +25477,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -25596,6 +25652,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -26783,6 +26840,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -29431,6 +29489,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -30448,6 +30507,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -31090,6 +31150,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -31185,6 +31246,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -32678,6 +32740,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -33744,6 +33807,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -35738,6 +35802,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -36065,6 +36130,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -36342,7 +36408,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.29411766}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.49019608}
     m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_PressedColor: {r: 0.4627451, g: 0.45882353, b: 0.45882353, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -36506,6 +36572,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -37867,6 +37934,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -38512,6 +38580,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -38770,6 +38839,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -40325,6 +40395,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -41011,6 +41082,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -41185,6 +41257,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -41280,6 +41353,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -42682,6 +42756,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}
@@ -42777,6 +42852,7 @@ MonoBehaviour:
   dMan: {fileID: 0}
   gwc: {fileID: 0}
   pause: {fileID: 0}
+  spLogic: {fileID: 0}
   touches: {fileID: 0}
   tileChar: {fileID: 0}
   tileFlag: {fileID: 0}

@@ -1,8 +1,9 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 03/20/2019
-// Last:  03/28/2019
+// Last:  03/29/2019
 
+using System.Collections;
 using UnityEngine;
 
 // Contains logic for single player mode
@@ -14,15 +15,18 @@ public class SinglePlayerLogic : MonoBehaviour
     public MoveOptionsMenuArrow moveOptsArw;
     public OptionsManager oMan;
 
+    public bool bAvoidingQuickGuess;
     public bool bCheckingBoard;
     public bool bGuessingFTW;
     public bool bGuessingTrait;
+    public bool bOppGuessFTW;
     public bool bOppQ1;
     public bool bOppQ2;
     public bool bOppQ3;
     public bool bOppQ4;
     public bool bOppQ5;
     public bool bOppQ6;
+    public bool bOppWins;
     public bool bPauseQuestion;
     public bool bPlayerGuessing;
     public bool bPlayerMidGuess;
@@ -32,6 +36,8 @@ public class SinglePlayerLogic : MonoBehaviour
     public bool bPlayQ4;
     public bool bPlayQ5;
     public bool bPlayQ6;
+    public bool bPlayWins;
+    public bool bTraitInArrayExists;
     public bool bTraitClothingColorO1;
     public bool bTraitClothingColorO2;
     public bool bTraitClothingColorO3;
@@ -103,8 +109,44 @@ public class SinglePlayerLogic : MonoBehaviour
 
             if (pauseTime < 0)
             {
+                StartCoroutine(AvoidQuickGuess());
+
                 UnpauseQuestion();
             }
+        }
+
+        // Opponent Wins
+        if (bOppWins &&
+            !dMan.bDialogueActive)
+        {
+            gwc.dialogueLines = new string[] {
+                "Well played friend. Want to play again?"
+            };
+            gwc.GWC_DialogueRestter();
+            gwc.dPic.sprite = gwc.portPic[48];
+            
+            gwc.optionsLines = new string[] {
+                "Yes",
+                "Nah"
+            };
+            gwc.GWC_OptionsResetter_2Q();
+        }
+
+        // Player Wins
+        if (bPlayWins &&
+            !dMan.bDialogueActive)
+        {
+            gwc.dialogueLines = new string[] {
+                "Congrats! Want to play again?"
+            };
+            gwc.GWC_DialogueRestter();
+            gwc.dPic.sprite = gwc.portPic[48];
+
+            gwc.optionsLines = new string[] {
+                "Yes",
+                "Nah"
+            };
+            gwc.GWC_OptionsResetter_2Q();
         }
 
         // Single Player - Opponent's First Guess
@@ -216,19 +258,6 @@ public class SinglePlayerLogic : MonoBehaviour
 
             OpponentTreeOne(6);
 
-            //if (gwc.oppName == "Trump")
-            //{
-            //    gwc.dialogueLines = new string[] {
-            //        "Got it! Are you Donald Trump?"
-            //    };
-            //}
-            //else if (gwc.oppName == "Mueller")
-            //{
-            //    gwc.dialogueLines = new string[] {
-            //        "Ah ha! Are you Robert Mueller?"
-            //    };
-            //}
-
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[48];
 
@@ -241,12 +270,33 @@ public class SinglePlayerLogic : MonoBehaviour
 
         // Single Player - Player's First Guess
         if (bPlayerGuessing &&
-            playerGuessNumber == 1 &&
+            playerGuessNumber > 0 &&
+            playerGuessNumber < 6 &&
             !dMan.bDialogueActive)
         {
+            if (playerGuessNumber == 1)
+            {
+                bPlayQ1 = true;
+            }
+            else if (playerGuessNumber == 2)
+            {
+                bPlayQ2 = true;
+            }
+            else if (playerGuessNumber == 3)
+            {
+                bPlayQ3 = true;
+            }
+            else if (playerGuessNumber == 4)
+            {
+                bPlayQ4 = true;
+            }
+            else if (playerGuessNumber == 5)
+            {
+                bPlayQ5 = true;
+            }
+
             bPlayerGuessing = false;
             bPlayerMidGuess = true;
-            bPlayQ1 = true;
 
             gwc.GWC_PromptRestrictions();
 
@@ -276,165 +326,28 @@ public class SinglePlayerLogic : MonoBehaviour
             };
             gwc.GWC_OptionsResetter_4Q();
         }
-        // Single Player - Player's Second Guess
-        else if (bPlayerGuessing &&
-                 playerGuessNumber == 2 &&
-                 !dMan.bDialogueActive)
-        {
-            bPlayerGuessing = false;
-            bPlayerMidGuess = true;
-            bPlayQ2 = true;
-
-            gwc.GWC_PromptRestrictions();
-
-            // Avoid new Trait if checking board and reset board check
-            if (!bCheckingBoard)
-            {
-                traitInt = traitInt + 1;
-
-                if (traitInt >= 11)
-                {
-                    traitInt = 0;
-                }
-            }
-            bCheckingBoard = false;
-
-            gwc.dialogueLines = new string[] {
-                "Hmmm.. Should I ask him about.. " + npcTrait[traitInt] + "?"
-            };
-            gwc.GWC_DialogueRestter();
-            gwc.dPic.sprite = gwc.portPic[gwc.playerCharacter];
-
-            gwc.optionsLines = new string[] {
-                "Yes.",
-                "Nah something else..",
-                "Lemme check the board again.",
-                "I know who he is!"
-            };
-            gwc.GWC_OptionsResetter_4Q();
-        }
-        // Single Player - Player's Third Guess
-        else if (bPlayerGuessing &&
-                 playerGuessNumber == 3 &&
-                 !dMan.bDialogueActive)
-        {
-            bPlayerGuessing = false;
-            bPlayerMidGuess = true;
-            bPlayQ1 = true;
-
-            gwc.GWC_PromptRestrictions();
-
-            // Avoid new Trait if checking board and reset board check
-            if (!bCheckingBoard)
-            {
-                traitInt = traitInt + 1;
-
-                if (traitInt >= 11)
-                {
-                    traitInt = 0;
-                }
-            }
-            bCheckingBoard = false;
-
-            gwc.dialogueLines = new string[] {
-                "Hmmm.. Should I ask him about.. " + npcTrait[traitInt] + "?"
-            };
-            gwc.GWC_DialogueRestter();
-            gwc.dPic.sprite = gwc.portPic[gwc.playerCharacter];
-
-            gwc.optionsLines = new string[] {
-                "Yes.",
-                "Nah something else..",
-                "Lemme check the board again.",
-                "I know who he is!"
-            };
-            gwc.GWC_OptionsResetter_4Q();
-        }
-        // Single Player - Player's Fourth Guess
-        else if (bPlayerGuessing &&
-                 playerGuessNumber == 4 &&
-                 !dMan.bDialogueActive)
-        {
-            bPlayerGuessing = false;
-            bPlayQ4 = true;
-
-            gwc.GWC_PromptRestrictions();
-
-            gwc.dialogueLines = new string[] {
-                "Hmmm..."
-            };
-            gwc.GWC_DialogueRestter();
-            gwc.dPic.sprite = gwc.portPic[gwc.playerCharacter];
-
-            gwc.optionsLines = new string[] {
-                "Are you wearing purple?",
-                "You Republican in 2016?",
-                "You fired by Trump?",
-                "I know who it is!"
-            };
-            gwc.GWC_OptionsResetter_4Q();
-        }
-        // Single Player - Player's Fifth Guess
-        else if (bPlayerGuessing &&
-                 playerGuessNumber == 5 &&
-                 !dMan.bDialogueActive)
-        {
-            bPlayerGuessing = false;
-            bPlayQ5 = true;
-
-            gwc.GWC_PromptRestrictions();
-
-            gwc.dialogueLines = new string[] {
-                "Hmmm..."
-            };
-            gwc.GWC_DialogueRestter();
-            gwc.dPic.sprite = gwc.portPic[gwc.playerCharacter];
-
-            gwc.optionsLines = new string[] {
-                "Are you bald-ish?",
-                "You wearing a tie?",
-                "You in a DJT tweet?",
-                "I know who it is!"
-            };
-            gwc.GWC_OptionsResetter_4Q();
-        }
-        // Single Player - Player's Sixth Guess
         else if (bPlayerGuessing &&
                  playerGuessNumber == 6 &&
                  !dMan.bDialogueActive)
         {
-            bPlayerGuessing = false;
             bPlayQ6 = true;
+            bPlayerGuessing = false;
+            bPlayerMidGuess = true;
+            bCheckingBoard = false;
 
             gwc.GWC_PromptRestrictions();
 
-            if (gwc.oppName == "Trump" &&
-                gwc.teamName == "Trump")
-            {
-                gwc.dialogueLines = new string[] {
-                    "I think I know who's been leaking information..."
-                };
-            }
-            else if (gwc.oppName == "Trump" &&
-                     gwc.teamName == "Mueller")
-            {
-                gwc.dialogueLines = new string[] {
-                    "I think I know who's been colluding..."
-                };
-            }
-            else if (gwc.oppName == "Mueller")
-            {
-                gwc.dialogueLines = new string[] {
-                    "I think I know who's been leading this witch hunt..."
-                };
-            }
-            
+            gwc.dialogueLines = new string[] {
+                "Hmmm.. Time to make a guess..."
+            };
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[gwc.playerCharacter];
 
-            // Prompt Sam to say, "Select a person..."
-            // Sam will say are you sure it's X person
-            // Yup or no...
+            gwc.optionsLines = new string[] {
+                "Lemme check the board again.",
+                "I know who he is!"
+            };
+            gwc.GWC_OptionsResetter_2Q();
         }
 
         // Guessing FTW
@@ -445,20 +358,45 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 if (nameFTW == gwc.chars.characters[gwc.opponentCharacter].charGameName)
                 {
-                    Debug.Log("You did it! You win!!");
+                    bPlayWins = true;
+
+                    foreach (CharacterTraits character in gwc.chars.characters)
+                    {
+                        if (character.charGameName == nameFTW)
+                        {
+                            nameFTW = character.charName;
+                        }
+                    }
+
+                    gwc.GWC_PromptRestrictions();
+
+                    gwc.dialogueLines = new string[] {
+                        "Dang, I am " + nameFTW + ".. Good guess'n."
+                    };
+                    gwc.GWC_DialogueRestter();
+                    gwc.dPic.sprite = gwc.portPic[48];
                 }
                 else
                 {
-                    // Use a forLoop to match nameFTW to char[].GameName and pull that charName
-                    //gwc.dialogueLines = new string[] {
-                    //    "So sorry.. I am not " + nameFTW
-                    //};
-                    //gwc.GWC_DialogueRestter();
-                    //gwc.dPic.sprite = gwc.portPic[48];
+                    foreach (CharacterTraits character in gwc.chars.characters)
+                    {
+                        if (character.charGameName == nameFTW)
+                        {
+                            nameFTW = character.charName;
+                        }
+                    }
 
-                    Debug.Log("Nope..");
+                    gwc.GWC_PromptRestrictions();
+
+                    gwc.dialogueLines = new string[] {
+                        "So sorry.. I am not " + nameFTW + "." 
+                    };
+                    gwc.GWC_DialogueRestter();
+                    gwc.dPic.sprite = gwc.portPic[48];
+                    
                     bPlayerMidGuess = false;
 
+                    PauseQuestion();
                     QuestionAdvancer();
                 }
 
@@ -496,16 +434,29 @@ public class SinglePlayerLogic : MonoBehaviour
             bPlayQ5 = false;
             bOppQ6 = true;
         }
-        //else if (bPlayQ6)
-        //{
-        //    bPlayQ6 = false;
-        //}
+        else if (bPlayQ6)
+        {
+            bPlayQ6 = false;
+        }
     }
 
     public void LogicTree()
-    {
+    {   
+        // Single Player - Someone Wins
+        if (bPlayWins || bOppWins)
+        {
+            if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
+            {
+                gwc.ResetBoard();
+                oMan.ResetOptions();
+            }
+            else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
+            {
+                oMan.ResetOptions();
+            }
+        }
         // Single Player - Opponent Question 1 
-        if (bOppQ1)
+        else if (bOppQ1)
         {
             if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
             {
@@ -520,8 +471,6 @@ public class SinglePlayerLogic : MonoBehaviour
             gwc.bSingleReminder = true;
 
             oMan.ResetOptions();
-
-            // NPC Response
         }
         // Single Player - Opponent Question 2 
         else if (bOppQ2)
@@ -539,8 +488,6 @@ public class SinglePlayerLogic : MonoBehaviour
             gwc.bAllowPlayerToGuess = true;
 
             oMan.ResetOptions();
-
-            // NPC Response
         }
         // Single Player - Opponent Question 3 
         else if (bOppQ3)
@@ -558,8 +505,6 @@ public class SinglePlayerLogic : MonoBehaviour
             gwc.bAllowPlayerToGuess = true;
 
             oMan.ResetOptions();
-
-            // NPC Response
         }
         // Single Player - Opponent Question 4 
         else if (bOppQ4)
@@ -577,8 +522,6 @@ public class SinglePlayerLogic : MonoBehaviour
             gwc.bAllowPlayerToGuess = true;
 
             oMan.ResetOptions();
-
-            // NPC Response
         }
         // Single Player - Opponent Question 5 
         else if (bOppQ5)
@@ -586,6 +529,12 @@ public class SinglePlayerLogic : MonoBehaviour
             if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
             {
                 pAnswer5 = "yes";
+
+                if (bOppGuessFTW)
+                {
+                    bOppWins = true;
+                    bOppGuessFTW = false;
+                }
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
             {
@@ -596,8 +545,6 @@ public class SinglePlayerLogic : MonoBehaviour
             gwc.bAllowPlayerToGuess = true;
 
             oMan.ResetOptions();
-
-            // NPC Response
         }
         // Single Player - Opponent Question 6 
         else if (bOppQ6)
@@ -605,6 +552,12 @@ public class SinglePlayerLogic : MonoBehaviour
             if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
             {
                 pAnswer6 = "yes";
+
+                if (bOppGuessFTW)
+                {
+                    bOppWins = true;
+                    bOppGuessFTW = false;
+                }
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
             {
@@ -615,13 +568,13 @@ public class SinglePlayerLogic : MonoBehaviour
             gwc.bAllowPlayerToGuess = true;
 
             oMan.ResetOptions();
-
-            // NPC Response
         }
 
         // Single Player - Player Question 1 
         else if (bPlayQ1 || bPlayQ2 || bPlayQ3 || bPlayQ4 || bPlayQ5)
         {
+            gwc.bAllowPlayerToGuess = false;
+
             if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
             {
                 PlayerGuessYes(npcTrait[traitInt]);
@@ -644,6 +597,8 @@ public class SinglePlayerLogic : MonoBehaviour
         }
         else if (bPlayQ6)
         {
+            gwc.bAllowPlayerToGuess = false;
+
             if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
             {
                 PlayerCheckBoard();
@@ -655,110 +610,6 @@ public class SinglePlayerLogic : MonoBehaviour
                 oMan.ResetOptions();
             }
         }
-        //// Single Player - Player Question 2 
-        //else if (bPlayQ2)
-        //{
-        //    if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
-        //    {
-        //        // "Yes";
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
-        //    {
-        //        // "No another"
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
-        //    {
-        //        // "Check the board"
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
-        //    {
-        //        // "Guess"
-        //    }
-
-        //    bPlayQ2 = false;
-        //    bOppQ3 = true;
-        //    PauseQuestion();
-
-        //    oMan.ResetOptions();
-        //}
-        //// Single Player - Player Question 3 
-        //else if (bPlayQ3)
-        //{
-        //    if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
-        //    {
-        //        // "Yes";
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
-        //    {
-        //        // "No another"
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
-        //    {
-        //        // "Check the board"
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
-        //    {
-        //        // "Guess"
-        //    }
-
-        //    bPlayQ3 = false;
-        //    bOppQ4 = true;
-        //    PauseQuestion();
-
-        //    oMan.ResetOptions();
-        //}
-        //// Single Player - Player Question 4 
-        //else if (bPlayQ4)
-        //{
-        //    if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
-        //    {
-        //        // "Yes";
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
-        //    {
-        //        // "No another"
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
-        //    {
-        //        // "Check the board"
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
-        //    {
-        //        // "Guess"
-        //    }
-
-        //    bPlayQ4 = false;
-        //    bOppQ5 = true;
-        //    PauseQuestion();
-
-        //    oMan.ResetOptions();
-        //}
-        //// Single Player - Player Question 5 
-        //else if (bPlayQ5)
-        //{
-        //    if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
-        //    {
-        //        // "Yes";
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
-        //    {
-        //        // "No another"
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
-        //    {
-        //        // "Check the board"
-        //    }
-        //    else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
-        //    {
-        //        // "Guess"
-        //    }
-
-        //    bPlayQ5 = false;
-        //    bOppQ6 = true;
-        //    PauseQuestion();
-
-        //    oMan.ResetOptions();
-        //}
     }
 
     public void PlayerGuessYes(string trait)
@@ -871,7 +722,7 @@ public class SinglePlayerLogic : MonoBehaviour
                 "Yea",
                 "Nevermind.. To the board"
             };
-            gwc.GWC_OptionsResetter_3Q();
+            gwc.GWC_OptionsResetter_2Q();
         }
         else if (trait == "facial hair")
         {
@@ -884,7 +735,7 @@ public class SinglePlayerLogic : MonoBehaviour
                 "Yea",
                 "Nevermind.. To the board"
             };
-            gwc.GWC_OptionsResetter_3Q();
+            gwc.GWC_OptionsResetter_2Q();
         }
         else if (trait == "gender")
         {
@@ -1091,10 +942,15 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "black" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "black" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "black" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "black")
+                    foreach (string color in gwc.chars.characters[gwc.opponentCharacter].charClothingColor)
+                    {
+                        if (color == "black")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am wearing black."
@@ -1111,10 +967,15 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "brown" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "brown" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "brown" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "brown")
+                    foreach (string color in gwc.chars.characters[gwc.opponentCharacter].charClothingColor)
+                    {
+                        if (color == "brown")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am wearing brown."
@@ -1131,10 +992,15 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "blue" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "blue" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "blue" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "blue")
+                    foreach (string color in gwc.chars.characters[gwc.opponentCharacter].charClothingColor)
+                    {
+                        if (color == "blue")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am wearing blue."
@@ -1143,7 +1009,7 @@ public class SinglePlayerLogic : MonoBehaviour
                     else
                     {
                         gwc.dialogueLines = new string[] {
-                            "No, I am not wearing brown."
+                            "No, I am not wearing blue."
                         };
                     }
 
@@ -1160,10 +1026,15 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "red" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "red" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "red" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "red")
+                    foreach (string color in gwc.chars.characters[gwc.opponentCharacter].charClothingColor)
+                    {
+                        if (color == "red")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am wearing red."
@@ -1176,14 +1047,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitClothingColorO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "purple" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "purple" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "purple" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "purple")
+                    foreach (string color in gwc.chars.characters[gwc.opponentCharacter].charClothingColor)
+                    {
+                        if (color == "purple")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am wearing purple."
@@ -1196,14 +1075,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitClothingColorO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "yellow" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "yellow" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "yellow" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "yellow")
+                    foreach (string color in gwc.chars.characters[gwc.opponentCharacter].charClothingColor)
+                    {
+                        if (color == "yellow")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am wearing yellow."
@@ -1216,6 +1103,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitClothingColorO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
@@ -1224,15 +1114,23 @@ public class SinglePlayerLogic : MonoBehaviour
                     bTraitClothingColorO3 = true;
                     PlayerGuessYes(npcTrait[traitInt]);
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitClothingColorO2 = false;
             }
             else if (bTraitClothingColorO3)
             {
                 if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charClothingColor[0] == "white" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[1] == "white" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[2] == "white" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charClothingColor[3] == "white")
+                    foreach (string color in gwc.chars.characters[gwc.opponentCharacter].charClothingColor)
+                    {
+                        if (color == "white")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am wearing white."
@@ -1244,6 +1142,9 @@ public class SinglePlayerLogic : MonoBehaviour
                             "No, I am not wearing white."
                         };
                     }
+
+                    // Reset to bring back to beginning of list
+                    bTraitClothingColorO1 = true;
 
                     SPL_TraitTreeConsolidator();
                 }
@@ -1338,6 +1239,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitCountryO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
@@ -1355,6 +1259,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitCountryO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
@@ -1366,6 +1273,9 @@ public class SinglePlayerLogic : MonoBehaviour
                     bCheckingBoard = true;
                     oMan.ResetOptions();
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitCountryO2 = false;
             }
         }
         // Direction
@@ -1673,6 +1583,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitHairColorO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
@@ -1689,6 +1602,9 @@ public class SinglePlayerLogic : MonoBehaviour
                             "No, I do not have salt and pepper (black & grey) hair."
                         };
                     }
+
+                    // Reset to bring back to beginning of list
+                    bTraitHairColorO1 = true;
 
                     SPL_TraitTreeConsolidator();
                 }
@@ -1707,6 +1623,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitHairColorO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
@@ -1715,6 +1634,9 @@ public class SinglePlayerLogic : MonoBehaviour
                     bTraitHairColorO3 = true;
                     PlayerGuessYes(npcTrait[traitInt]);
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitHairColorO2 = false;
             }
             else if (bTraitHairColorO3)
             {
@@ -1733,6 +1655,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitHairColorO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
@@ -1749,6 +1674,9 @@ public class SinglePlayerLogic : MonoBehaviour
                             "No, I do not have pink hair."
                         };
                     }
+
+                    // Reset to bring back to beginning of list
+                    bTraitHairColorO1 = true;
 
                     SPL_TraitTreeConsolidator();
                 }
@@ -1767,6 +1695,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitHairColorO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
@@ -1778,6 +1709,9 @@ public class SinglePlayerLogic : MonoBehaviour
                     bCheckingBoard = true;
                     oMan.ResetOptions();
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitHairColorO3 = false;
             }
         }
         // Hair Length
@@ -1860,6 +1794,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitHairLengthO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
@@ -1871,6 +1808,9 @@ public class SinglePlayerLogic : MonoBehaviour
                     bCheckingBoard = true;
                     oMan.ResetOptions();
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitHairLengthO2 = false;
             }
         }
         // Icons
@@ -1880,11 +1820,15 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "fired" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "fired" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "fired" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "fired" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "fired")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "fired")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I was 'fired' by Donald J. Trump."
@@ -1901,11 +1845,15 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "tweet" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "tweet" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "tweet" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "tweet" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "tweet")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "tweet")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I was mentioned in a Donald J. Trump tweet."
@@ -1922,11 +1870,15 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "democrat" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "democrat" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "democrat" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "democrat" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "democrat")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "democrat")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I was a registered Democrat in 2016."
@@ -1952,11 +1904,15 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "republican" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "republican" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "republican" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "republican" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "republican")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "republican")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I was a registered Republican in 2016."
@@ -1969,15 +1925,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "independent" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "independent" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "independent" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "independent" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "independent")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "independent")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I was a registered Independent in 2016."
@@ -1990,15 +1953,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "no-party" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "no-party" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "no-party" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "no-party" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "no-party")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "no-party")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I had no US party affiliation in 2016."
@@ -2011,6 +1981,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
@@ -2019,16 +1992,23 @@ public class SinglePlayerLogic : MonoBehaviour
                     bTraitIconsO3 = true;
                     PlayerGuessYes(npcTrait[traitInt]);
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitIconsO2 = false;
             }
             else if (bTraitIconsO3)
             {
                 if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "cia" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "cia" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "cia" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "cia" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "cia")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "cia")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am or was in the Central Intelligence Agency."
@@ -2041,15 +2021,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "doj" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "doj" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "doj" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "doj" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "doj")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "doj")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am or was in the Department of Justice."
@@ -2062,15 +2049,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "fbi" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "fbi" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "fbi" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "fbi" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "fbi")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "fbi")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am or was in the Federal Bureau of Investigation."
@@ -2083,6 +2077,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
@@ -2091,16 +2088,23 @@ public class SinglePlayerLogic : MonoBehaviour
                     bTraitIconsO4 = true;
                     PlayerGuessYes(npcTrait[traitInt]);
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitIconsO3 = false;
             }
             else if (bTraitIconsO4)
             {
                 if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "nsa" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "nsa" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "nsa" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "nsa" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "nsa")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "nsa")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am or was in the National Security Agency."
@@ -2113,15 +2117,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "white-house" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "white-house" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "white-house" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "white-house" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "white-house")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "white-house")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am or was in the White House."
@@ -2134,15 +2145,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "congress" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "congress" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "congress" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "congress" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "congress")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "congress")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am or was in Congress."
@@ -2155,6 +2173,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
@@ -2163,16 +2184,23 @@ public class SinglePlayerLogic : MonoBehaviour
                     bTraitIconsO5 = true;
                     PlayerGuessYes(npcTrait[traitInt]);
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitIconsO4 = false;
             }
             else if (bTraitIconsO5)
             {
                 if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt1)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "trump-campaign" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "trump-campaign" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "trump-campaign" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "trump-campaign" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "trump-campaign")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "trump-campaign")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I was on the Trump Campaign team."
@@ -2185,15 +2213,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "mueller-investigation" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "mueller-investigation" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "mueller-investigation" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "mueller-investigation" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "mueller-investigation")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "mueller-investigation")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I was on the Mueller investigation team."
@@ -2206,15 +2241,22 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt3)
                 {
-                    if (gwc.chars.characters[gwc.opponentCharacter].charIcons[0] == "media" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[1] == "media" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[2] == "media" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[3] == "media" ||
-                        gwc.chars.characters[gwc.opponentCharacter].charIcons[4] == "media")
+                    foreach (string icon in gwc.chars.characters[gwc.opponentCharacter].charIcons)
+                    {
+                        if (icon == "media")
+                        {
+                            bTraitInArrayExists = true;
+                        }
+                    }
+
+                    if (bTraitInArrayExists)
                     {
                         gwc.dialogueLines = new string[] {
                             "Yes, I am or was a media member."
@@ -2227,6 +2269,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitIconsO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
@@ -2238,6 +2283,9 @@ public class SinglePlayerLogic : MonoBehaviour
                     bCheckingBoard = true;
                     oMan.ResetOptions();
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitIconsO5 = false;
             }
         }
         // Skin Color
@@ -2320,6 +2368,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitSkinColorO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
@@ -2336,6 +2387,9 @@ public class SinglePlayerLogic : MonoBehaviour
                             "No, I am not grey."
                         };
                     }
+
+                    // Reset to bring back to beginning of list
+                    bTraitSkinColorO1 = true;
 
                     SPL_TraitTreeConsolidator();
                 }
@@ -2354,6 +2408,9 @@ public class SinglePlayerLogic : MonoBehaviour
                         };
                     }
 
+                    // Reset to bring back to beginning of list
+                    bTraitSkinColorO1 = true;
+
                     SPL_TraitTreeConsolidator();
                 }
                 else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt4)
@@ -2365,8 +2422,14 @@ public class SinglePlayerLogic : MonoBehaviour
                     bCheckingBoard = true;
                     oMan.ResetOptions();
                 }
+
+                // Reset to bring back to beginning of list
+                bTraitSkinColorO2 = false;
             }
         }
+
+        // Reset bool
+        bTraitInArrayExists = false;
     }
 
     public void OpponentTreeOne(int guessNum)
@@ -2383,21 +2446,6 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 gwc.dialogueLines = new string[] {
                     "Do or have you worked in the Department of Justice?"
-                };
-            }
-            else
-            {
-                if (gwc.teamName == "Trump")
-                {
-                    randomInt = Random.Range(23, 47);
-                }
-                else if (gwc.teamName == "Mueller")
-                {
-                    randomInt = Random.Range(0, 23);
-                }
-
-                gwc.dialogueLines = new string[] {
-                    "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
                 };
             }
         }
@@ -2432,21 +2480,6 @@ public class SinglePlayerLogic : MonoBehaviour
                         "Do or have you worked in Congress?"
                     };
                 }
-            }
-            else
-            {
-                if (gwc.teamName == "Trump")
-                {
-                    randomInt = Random.Range(23, 47);
-                }
-                else if (gwc.teamName == "Mueller")
-                {
-                    randomInt = Random.Range(0, 23);
-                }
-
-                gwc.dialogueLines = new string[] {
-                    "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                };
             }
         }
 
@@ -2513,21 +2546,6 @@ public class SinglePlayerLogic : MonoBehaviour
                         "Are you wearing something red?"
                     };
                 }
-            }
-            else
-            {
-                if (gwc.teamName == "Trump")
-                {
-                    randomInt = Random.Range(23, 47);
-                }
-                else if (gwc.teamName == "Mueller")
-                {
-                    randomInt = Random.Range(0, 23);
-                }
-
-                gwc.dialogueLines = new string[] {
-                    "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                };
             }
         }
 
@@ -2606,6 +2624,21 @@ public class SinglePlayerLogic : MonoBehaviour
                         "Were you registered as in Independent in 2016?"
                     };
                 }
+                else
+                {
+                    if (gwc.teamName == "Trump")
+                    {
+                        randomInt = Random.Range(23, 47);
+                    }
+                    else if (gwc.teamName == "Mueller")
+                    {
+                        randomInt = Random.Range(0, 23);
+                    }
+
+                    gwc.dialogueLines = new string[] {
+                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
+                    };
+                }
             }
             else if (gwc.teamName == "Mueller")
             {
@@ -2679,21 +2712,21 @@ public class SinglePlayerLogic : MonoBehaviour
                         "Were you without any US party affiliation in 2016?"
                     };
                 }
-            }
-            else
-            {
-                if (gwc.teamName == "Trump")
+                else
                 {
-                    randomInt = Random.Range(23, 47);
-                }
-                else if (gwc.teamName == "Mueller")
-                {
-                    randomInt = Random.Range(0, 23);
-                }
+                    if (gwc.teamName == "Trump")
+                    {
+                        randomInt = Random.Range(23, 47);
+                    }
+                    else if (gwc.teamName == "Mueller")
+                    {
+                        randomInt = Random.Range(0, 23);
+                    }
 
-                gwc.dialogueLines = new string[] {
-                    "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                };
+                    gwc.dialogueLines = new string[] {
+                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
+                    };
+                }
             }
         }
 
@@ -2720,6 +2753,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Erik Prince aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -2740,6 +2775,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Mike Pence aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -2760,6 +2797,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Vladimir Putin aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -2770,6 +2809,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Michael Cohen aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -2780,6 +2821,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Donald Trump Jr. aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "yes" && // Republican
@@ -2800,6 +2843,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Rudy Giuliani aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "yes" && // Republican
@@ -2830,6 +2875,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Jared Kushner aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "no" &&  // Republican
@@ -2860,6 +2907,23 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Michael Flynn aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
+                }
+                else
+                {
+                    if (gwc.teamName == "Trump")
+                    {
+                        randomInt = Random.Range(23, 47);
+                    }
+                    else if (gwc.teamName == "Mueller")
+                    {
+                        randomInt = Random.Range(0, 23);
+                    }
+
+                    gwc.dialogueLines = new string[] {
+                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
+                    };
                 }
             }
             else if (gwc.teamName == "Mueller")
@@ -2873,6 +2937,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Jeannie Rhee aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
                          pAnswer2 == "yes" && // Democrat
@@ -2883,26 +2949,32 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Sally Yates aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
                          pAnswer2 == "yes" && // Democrat
-                         pAnswer3 == "yes" && // Woman
+                         pAnswer3 == "no" &&  // Woman
                          pAnswer4 == "yes")   // Brown Hair
                 {
                     // If Hard, from 50% -> 100%
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Andrew Weissmann aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
                          pAnswer2 == "yes" && // Democrat
-                         pAnswer3 == "yes" && // Woman
+                         pAnswer3 == "no" &&  // Woman
                          pAnswer4 == "no")    // Brown Hair
                 {
                     // If Hard, from 50% -> 100%
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Michael Dreeban aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
                          pAnswer2 == "yes" && // Democrat
@@ -2913,6 +2985,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Rod Rosenstein aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
                          pAnswer2 == "yes" && // Democrat
@@ -2923,9 +2997,11 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Robert Mueller aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
-                         pAnswer2 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Democrat
                          pAnswer3 == "no" &&  // Republican
                          pAnswer4 == "yes")   // Fired
                 {
@@ -2933,6 +3009,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're James Comey aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
                          pAnswer2 == "yes" && // Democrat
@@ -2963,6 +3041,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Nancy Pelosi aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "yes" && // Congress
@@ -3034,21 +3114,21 @@ public class SinglePlayerLogic : MonoBehaviour
                         "Do you have facial hair?"
                     };
                 }
-            }
-            else
-            {
-                if (gwc.teamName == "Trump")
+                else
                 {
-                    randomInt = Random.Range(23, 47);
-                }
-                else if (gwc.teamName == "Mueller")
-                {
-                    randomInt = Random.Range(0, 23);
-                }
+                    if (gwc.teamName == "Trump")
+                    {
+                        randomInt = Random.Range(23, 47);
+                    }
+                    else if (gwc.teamName == "Mueller")
+                    {
+                        randomInt = Random.Range(0, 23);
+                    }
 
-                gwc.dialogueLines = new string[] {
-                    "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                };
+                    gwc.dialogueLines = new string[] {
+                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
+                    };
+                }
             }
         }
 
@@ -3066,6 +3146,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Sean Spicer aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -3077,6 +3159,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Donald J Trump aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -3088,6 +3172,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Omarosa aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -3099,6 +3185,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Hope Hicks aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -3110,6 +3198,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Alex Jones aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -3121,6 +3211,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're George Papadopoulos aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
                          pAnswer2 == "yes" && // White House
@@ -3132,6 +3224,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're The Mooch aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "yes" && // Republican
@@ -3143,6 +3237,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Sarah Huckabee Sanders aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "yes" && // Republican
@@ -3154,6 +3250,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Kellyanne Conway aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "yes" && // Republican
@@ -3165,6 +3263,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're The Mooch aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "yes" && // Republican
@@ -3176,6 +3276,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Steve Bannon aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "yes" && // Republican
@@ -3187,6 +3289,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Ajit Pai aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "yes" && // Republican
@@ -3198,6 +3302,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Melania Trump aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "no" &&  // Republican
@@ -3209,6 +3315,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Mohammed Bin Salman aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "no" &&  // Republican
@@ -3220,6 +3328,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Natalia Veselnitskaya aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "no" &&  // Republican
@@ -3231,6 +3341,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Sean Hannity aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // Wearing Blue
                          pAnswer2 == "no" &&  // Republican
@@ -3242,11 +3354,22 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Ivanka Trump aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
-                else 
+                else
                 {
+                    if (gwc.teamName == "Trump")
+                    {
+                        randomInt = Random.Range(23, 47);
+                    }
+                    else if (gwc.teamName == "Mueller")
+                    {
+                        randomInt = Random.Range(0, 23);
+                    }
+
                     gwc.dialogueLines = new string[] {
-                        "Did.. did you cheat?"
+                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
                     };
                 }
             }
@@ -3262,9 +3385,11 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Uzo Asonye aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
-                         pAnswer2 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Democrat
                          pAnswer3 == "no" &&  // Republican
                          pAnswer4 == "no" &&  // Fired
                          pAnswer5 == "no")    // Glasses
@@ -3273,6 +3398,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Zainab Ahmad aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "yes" && // Congress
@@ -3284,6 +3411,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Hillary Clinton aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "yes" && // Congress
@@ -3295,6 +3424,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Elizabeth Warren aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "yes" && // Congress
@@ -3306,6 +3437,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Elijah Cummings aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "yes" && // Congress
@@ -3317,6 +3450,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Mike Rogers aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "yes" && // Congress
@@ -3328,6 +3463,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Barack Obama aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "yes" && // Congress
@@ -3339,6 +3476,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Adam Schiff aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "no" &&  // Congress
@@ -3350,6 +3489,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're John Brennan aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "no" &&  // Congress
@@ -3361,6 +3502,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Maggie Haberman aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "no" &&  // Congress
@@ -3372,6 +3515,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Christopher Steele aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "no" &&  // Congress
@@ -3383,6 +3528,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Andrew McCabe aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "no" &&  // Congress
@@ -3394,6 +3541,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Jason Alberts aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "no" &&  // Congress
@@ -3405,6 +3554,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Christopher Wylie aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "no" &&  // Congress
@@ -3416,6 +3567,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're James Clapper aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "no" &&  // DOJ
                          pAnswer2 == "no" &&  // Congress
@@ -3427,28 +3580,24 @@ public class SinglePlayerLogic : MonoBehaviour
                     gwc.dialogueLines = new string[] {
                         "Ah HA! You're Stormy Daniels aren't ya?!"
                     };
+
+                    bOppGuessFTW = true;
                 }
                 else
                 {
+                    if (gwc.teamName == "Trump")
+                    {
+                        randomInt = Random.Range(23, 47);
+                    }
+                    else if (gwc.teamName == "Mueller")
+                    {
+                        randomInt = Random.Range(0, 23);
+                    }
+
                     gwc.dialogueLines = new string[] {
-                        "Did.. did you cheat?"
+                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
                     };
                 }
-            }
-            else
-            {
-                if (gwc.teamName == "Trump")
-                {
-                    randomInt = Random.Range(23, 47);
-                }
-                else if (gwc.teamName == "Mueller")
-                {
-                    randomInt = Random.Range(0, 23);
-                }
-
-                gwc.dialogueLines = new string[] {
-                    "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                };
             }
         }
     }
@@ -3464,11 +3613,44 @@ public class SinglePlayerLogic : MonoBehaviour
         pauseTime = 10f;
     }
 
+    IEnumerator AvoidQuickGuess()
+    {
+        bAvoidingQuickGuess = true;
+
+        yield return new WaitForSeconds(1.25f);
+
+        bAvoidingQuickGuess = false;
+    }
+
+    public void ResetSingle()
+    {
+        Debug.Log("sp reset");
+        bGuessingTrait = false;
+        bOppGuessFTW = false;
+        bOppWins = false;
+        bPlayerMidGuess = false;
+        bPlayQ1 = false;
+        bPlayQ2 = false;
+        bPlayQ3 = false;
+        bPlayQ4 = false;
+        bPlayQ5 = false;
+        bPlayQ6 = false;
+        bPlayWins = false;
+        playerGuessNumber = 0;
+        pAnswer1 = "";
+        pAnswer2 = "";
+        pAnswer3 = "";
+        pAnswer4 = "";
+        pAnswer5 = "";
+        pAnswer6 = "";
+    }
+
     public void SPL_TraitTreeConsolidator()
     {
+        oMan.ResetOptions();
+
         gwc.GWC_DialogueRestter();
         gwc.dPic.sprite = gwc.portPic[48];
-        oMan.ResetOptions();
 
         PauseQuestion();
         QuestionAdvancer();

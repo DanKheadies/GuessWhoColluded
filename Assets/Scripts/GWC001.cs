@@ -295,7 +295,7 @@ public class GWC001 : MonoBehaviour
             {
                 if (spLogic.bPlayerMidGuess)
                 {
-                    spLogic.bPlayerGuessing = true; // derp
+                    spLogic.bPlayerGuessing = true;
                 }
                 else if (!bIsPlayerG2G)
                 {
@@ -570,7 +570,7 @@ public class GWC001 : MonoBehaviour
         {
             spLogic.TraitTree();
         }
-        else
+        else if (!spLogic.bAvoidingQuickGuess)
         {
             spLogic.LogicTree();
         }
@@ -610,10 +610,15 @@ public class GWC001 : MonoBehaviour
 
     public void ResetBoard()
     {
+        Debug.Log("gwc reset");
         // Hide current character card on Pause screen
         playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.zero;
 
         bBoardReset = true;
+
+        //oMan.ResetOptions();
+
+        spLogic.ResetSingle();
 
         if (bOppMueller)
         {
@@ -637,6 +642,7 @@ public class GWC001 : MonoBehaviour
 
         if (bTeamMueller)
         {
+            Debug.Log("m");
             // Stop tile flipping
             bCanFlip = false;
 
@@ -644,9 +650,7 @@ public class GWC001 : MonoBehaviour
                 "Time to find out who on Team Trump is colluding...",
                 "And I better do it quickly."
             };
-            dMan.currentLine = 0;
-            dText.text = dMan.dialogueLines[dMan.currentLine];
-            dMan.ShowDialogue();
+            GWC_DialogueRestter();
 
             bStartGame = true;
 
@@ -658,6 +662,7 @@ public class GWC001 : MonoBehaviour
         else if (bTeamTrump &&
                  bOppMueller)
         {
+            Debug.Log("tm");
             // Stop tile flipping
             bCanFlip = false;
 
@@ -665,9 +670,7 @@ public class GWC001 : MonoBehaviour
                 "Time to find out who on Team Mueller is leading this witch hunt...",
                 "And I better do it quickly."
             };
-            dMan.currentLine = 0;
-            dText.text = dMan.dialogueLines[dMan.currentLine];
-            dMan.ShowDialogue();
+            GWC_DialogueRestter();
 
             bStartGame = true;
 
@@ -679,6 +682,7 @@ public class GWC001 : MonoBehaviour
         else if (bTeamTrump &&
                  bOppTrump)
         {
+            Debug.Log("tt");
             // Stop tile flipping
             bCanFlip = false;
 
@@ -686,9 +690,7 @@ public class GWC001 : MonoBehaviour
                 "Time to find out who on Team Trump is leaking information...",
                 "And I better do it quickly."
             };
-            dMan.currentLine = 0;
-            dText.text = dMan.dialogueLines[dMan.currentLine];
-            dMan.ShowDialogue();
+            GWC_DialogueRestter();
 
             bStartGame = true;
 
