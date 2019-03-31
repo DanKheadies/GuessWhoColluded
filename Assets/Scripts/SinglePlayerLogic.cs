@@ -3941,7 +3941,7 @@ public class SinglePlayerLogic : MonoBehaviour
                 {
                     // 25% -> 50%
                     gwc.dialogueLines = new string[] {
-                        "Do you have a shitty-brown skin complexion?"
+                        "Do you look like a giant piece of shit?"
                     };
                 }
                 else if (pAnswer1 == "yes" && // Republican
@@ -4319,7 +4319,7 @@ public class SinglePlayerLogic : MonoBehaviour
                          pAnswer2 == "no" &&  // Fired
                          pAnswer3 == "no" &&  // Purple
                          pAnswer4 == "yes" && // Black eyes
-                         pAnswer5 == "yes")   // Brown skin
+                         pAnswer5 == "yes")   // Like shit
                 {
                     // 50% -> 100%
                     gwc.dialogueLines = new string[] {
@@ -4332,7 +4332,7 @@ public class SinglePlayerLogic : MonoBehaviour
                          pAnswer2 == "no" &&  // Fired
                          pAnswer3 == "no" &&  // Purple
                          pAnswer4 == "yes" && // Black eyes
-                         pAnswer5 == "no")    // Brown skin
+                         pAnswer5 == "no")    // Like shit
                 {
                     // 50% -> 100%
                     gwc.dialogueLines = new string[] {

@@ -12218,6 +12218,7 @@ MonoBehaviour:
   bTraitIconsO5: 0
   bTraitSkinColorO1: 0
   bTraitSkinColorO2: 0
+  logicTree: 0
   playerGuessNumber: 0
   randomInt: 0
   traitInt: 0
