@@ -56,6 +56,7 @@ public class SinglePlayerLogic : MonoBehaviour
     public bool bTraitSkinColorO1;
     public bool bTraitSkinColorO2;
 
+    public int logicTree;
     public int playerGuessNumber;
     public int randomInt;
     public int traitInt;
@@ -83,6 +84,7 @@ public class SinglePlayerLogic : MonoBehaviour
 
         bTraitClothingColorO1 = bTraitCountryO1 = bTraitHairColorO1 = bTraitHairLengthO1 = bTraitIconsO1 = bTraitSkinColorO1 = true;
 
+        logicTree = Random.Range(1, 3);
         pauseTime = 10f;
         traitInt = 5;
 
@@ -155,8 +157,15 @@ public class SinglePlayerLogic : MonoBehaviour
             !dMan.bDialogueActive)
         {
             gwc.GWC_PromptRestrictions();
-
-            OpponentTreeOne(1);
+            
+            if (logicTree == 1)
+            {
+                OpponentTreeOne(1);
+            }
+            else if (logicTree == 2)
+            {
+                OpponentTreeTwo(1);
+            }
 
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[48];
@@ -175,8 +184,15 @@ public class SinglePlayerLogic : MonoBehaviour
             !dMan.bDialogueActive)
         {
             gwc.GWC_PromptRestrictions();
-            
-            OpponentTreeOne(2);
+
+            if (logicTree == 1)
+            {
+                OpponentTreeOne(2);
+            }
+            else if (logicTree == 2)
+            {
+                OpponentTreeTwo(2);
+            }
 
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[48];
@@ -196,7 +212,14 @@ public class SinglePlayerLogic : MonoBehaviour
         {
             gwc.GWC_PromptRestrictions();
 
-            OpponentTreeOne(3);
+            if (logicTree == 1)
+            {
+                OpponentTreeOne(3);
+            }
+            else if (logicTree == 2)
+            {
+                OpponentTreeTwo(3);
+            }
 
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[48];
@@ -216,7 +239,14 @@ public class SinglePlayerLogic : MonoBehaviour
         {
             gwc.GWC_PromptRestrictions();
 
-            OpponentTreeOne(4);
+            if (logicTree == 1)
+            {
+                OpponentTreeOne(4);
+            }
+            else if (logicTree == 2)
+            {
+                OpponentTreeTwo(4);
+            }
 
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[48];
@@ -236,7 +266,14 @@ public class SinglePlayerLogic : MonoBehaviour
         {
             gwc.GWC_PromptRestrictions();
 
-            OpponentTreeOne(5);
+            if (logicTree == 1)
+            {
+                OpponentTreeOne(5);
+            }
+            else if (logicTree == 2)
+            {
+                OpponentTreeTwo(5);
+            }
 
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[48];
@@ -256,7 +293,14 @@ public class SinglePlayerLogic : MonoBehaviour
         {
             gwc.GWC_PromptRestrictions();
 
-            OpponentTreeOne(6);
+            if (logicTree == 1)
+            {
+                OpponentTreeOne(6);
+            }
+            else if (logicTree == 2)
+            {
+                OpponentTreeTwo(6);
+            }
 
             gwc.GWC_DialogueRestter();
             gwc.dPic.sprite = gwc.portPic[48];
@@ -926,6 +970,7 @@ public class SinglePlayerLogic : MonoBehaviour
     public void PlayerCheckBoard()
     {
         bCheckingBoard = true;
+        gwc.bAllowPlayerToGuess = true;
     }
 
     public void PlayerGuessNPC()
@@ -1155,6 +1200,7 @@ public class SinglePlayerLogic : MonoBehaviour
 
                     bGuessingTrait = false;
                     bCheckingBoard = true;
+                    gwc.bAllowPlayerToGuess = true;
                     oMan.ResetOptions();
                 }
             }
@@ -1271,6 +1317,7 @@ public class SinglePlayerLogic : MonoBehaviour
 
                     bGuessingTrait = false;
                     bCheckingBoard = true;
+                    gwc.bAllowPlayerToGuess = true;
                     oMan.ResetOptions();
                 }
 
@@ -1336,6 +1383,7 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 bGuessingTrait = false;
                 bCheckingBoard = true;
+                gwc.bAllowPlayerToGuess = true;
                 oMan.ResetOptions();
             }
         }
@@ -1402,6 +1450,7 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 bGuessingTrait = false;
                 bCheckingBoard = true;
+                gwc.bAllowPlayerToGuess = true;
                 oMan.ResetOptions();
             }
         }
@@ -1429,6 +1478,7 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 bGuessingTrait = false;
                 bCheckingBoard = true;
+                gwc.bAllowPlayerToGuess = true;
                 oMan.ResetOptions();
             }
         }
@@ -1456,6 +1506,7 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 bGuessingTrait = false;
                 bCheckingBoard = true;
+                gwc.bAllowPlayerToGuess = true;
                 oMan.ResetOptions();
             }
         }
@@ -1500,6 +1551,7 @@ public class SinglePlayerLogic : MonoBehaviour
             {
                 bGuessingTrait = false;
                 bCheckingBoard = true;
+                gwc.bAllowPlayerToGuess = true;
                 oMan.ResetOptions();
             }
         }
@@ -1707,6 +1759,7 @@ public class SinglePlayerLogic : MonoBehaviour
 
                     bGuessingTrait = false;
                     bCheckingBoard = true;
+                    gwc.bAllowPlayerToGuess = true;
                     oMan.ResetOptions();
                 }
 
@@ -1806,6 +1859,7 @@ public class SinglePlayerLogic : MonoBehaviour
 
                     bGuessingTrait = false;
                     bCheckingBoard = true;
+                    gwc.bAllowPlayerToGuess = true;
                     oMan.ResetOptions();
                 }
 
@@ -2281,6 +2335,7 @@ public class SinglePlayerLogic : MonoBehaviour
 
                     bGuessingTrait = false;
                     bCheckingBoard = true;
+                    gwc.bAllowPlayerToGuess = true;
                     oMan.ResetOptions();
                 }
 
@@ -2420,6 +2475,7 @@ public class SinglePlayerLogic : MonoBehaviour
 
                     bGuessingTrait = false;
                     bCheckingBoard = true;
+                    gwc.bAllowPlayerToGuess = true;
                     oMan.ResetOptions();
                 }
 
@@ -2482,7 +2538,6 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
             }
         }
-
         else if (guessNum == 3)
         {
             if (gwc.teamName == "Trump")
@@ -2548,7 +2603,6 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
             }
         }
-
         else if (guessNum == 4)
         {
             if (gwc.teamName == "Trump")
@@ -2626,18 +2680,7 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else
                 {
-                    if (gwc.teamName == "Trump")
-                    {
-                        randomInt = Random.Range(23, 47);
-                    }
-                    else if (gwc.teamName == "Mueller")
-                    {
-                        randomInt = Random.Range(0, 23);
-                    }
-
-                    gwc.dialogueLines = new string[] {
-                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                    };
+                    Cheater();
                 }
             }
             else if (gwc.teamName == "Mueller")
@@ -2714,18 +2757,7 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else
                 {
-                    if (gwc.teamName == "Trump")
-                    {
-                        randomInt = Random.Range(23, 47);
-                    }
-                    else if (gwc.teamName == "Mueller")
-                    {
-                        randomInt = Random.Range(0, 23);
-                    }
-
-                    gwc.dialogueLines = new string[] {
-                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                    };
+                    Cheater();
                 }
             }
         }
@@ -2801,8 +2833,8 @@ public class SinglePlayerLogic : MonoBehaviour
                     bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
-                         pAnswer2 == "yes" && // White House
-                         pAnswer3 == "no"  && // No-US Party
+                         pAnswer2 == "no" &&  // White House
+                         pAnswer3 == "no" &&  // No-US Party
                          pAnswer4 == "yes")   // Red Tie
                 {
                     // If Hard, from 50% -> 100% (unless the consider Mooch to wear blue)
@@ -2813,7 +2845,7 @@ public class SinglePlayerLogic : MonoBehaviour
                     bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
-                         pAnswer2 == "yes" && // White House
+                         pAnswer2 == "no" &&  // White House
                          pAnswer3 == "no" &&  // No-US Party
                          pAnswer4 == "no")    // Red Tie
                 {
@@ -2912,18 +2944,7 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else
                 {
-                    if (gwc.teamName == "Trump")
-                    {
-                        randomInt = Random.Range(23, 47);
-                    }
-                    else if (gwc.teamName == "Mueller")
-                    {
-                        randomInt = Random.Range(0, 23);
-                    }
-
-                    gwc.dialogueLines = new string[] {
-                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                    };
+                    Cheater();
                 }
             }
             else if (gwc.teamName == "Mueller")
@@ -2977,7 +2998,7 @@ public class SinglePlayerLogic : MonoBehaviour
                     bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
-                         pAnswer2 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Democrat
                          pAnswer3 == "yes" && // Republican
                          pAnswer4 == "yes")   // Glasses
                 {
@@ -2989,7 +3010,7 @@ public class SinglePlayerLogic : MonoBehaviour
                     bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // DOJ
-                         pAnswer2 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Democrat
                          pAnswer3 == "yes" && // Republican
                          pAnswer4 == "no")    // Glasses
                 {
@@ -3116,18 +3137,7 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else
                 {
-                    if (gwc.teamName == "Trump")
-                    {
-                        randomInt = Random.Range(23, 47);
-                    }
-                    else if (gwc.teamName == "Mueller")
-                    {
-                        randomInt = Random.Range(0, 23);
-                    }
-
-                    gwc.dialogueLines = new string[] {
-                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                    };
+                    Cheater();
                 }
             }
         }
@@ -3189,7 +3199,7 @@ public class SinglePlayerLogic : MonoBehaviour
                     bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
-                         pAnswer2 == "yes" && // White House
+                         pAnswer2 == "no" &&  // White House
                          pAnswer3 == "yes" && // No-US Party
                          pAnswer4 == "yes" && // American
                          pAnswer5 == "yes")   // Media Member
@@ -3202,7 +3212,7 @@ public class SinglePlayerLogic : MonoBehaviour
                     bOppGuessFTW = true;
                 }
                 else if (pAnswer1 == "yes" && // Wearing Blue
-                         pAnswer2 == "yes" && // White House
+                         pAnswer2 == "no"  && // White House
                          pAnswer3 == "yes" && // No-US Party
                          pAnswer4 == "yes" && // American
                          pAnswer5 == "no")    // Media Member
@@ -3322,7 +3332,7 @@ public class SinglePlayerLogic : MonoBehaviour
                          pAnswer2 == "no" &&  // Republican
                          pAnswer3 == "yes" && // No-US Party
                          pAnswer4 == "no" &&  // American
-                         pAnswer5 == "no")   // Facial Hair
+                         pAnswer5 == "no")    // Facial Hair
                 {
                     // If Hard, from 50% -> 100%
                     gwc.dialogueLines = new string[] {
@@ -3335,7 +3345,7 @@ public class SinglePlayerLogic : MonoBehaviour
                          pAnswer2 == "no" &&  // Republican
                          pAnswer3 == "no" &&  // No-US Party
                          pAnswer4 == "yes" && // Independent
-                         pAnswer5 == "yes")    // Purple Tie
+                         pAnswer5 == "yes")   // Purple Tie
                 {
                     // If Hard, from 50% -> 100%
                     gwc.dialogueLines = new string[] {
@@ -3359,24 +3369,13 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else
                 {
-                    if (gwc.teamName == "Trump")
-                    {
-                        randomInt = Random.Range(23, 47);
-                    }
-                    else if (gwc.teamName == "Mueller")
-                    {
-                        randomInt = Random.Range(0, 23);
-                    }
-
-                    gwc.dialogueLines = new string[] {
-                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
-                    };
+                    Cheater();
                 }
             }
             else if (gwc.teamName == "Mueller")
             {
                 if (pAnswer1 == "yes" && // DOJ
-                    pAnswer2 == "yes" && // Democrat
+                    pAnswer2 == "no" &&  // Democrat
                     pAnswer3 == "no" &&  // Republican
                     pAnswer4 == "no" &&  // Fired
                     pAnswer5 == "yes")   // Glasses
@@ -3522,7 +3521,7 @@ public class SinglePlayerLogic : MonoBehaviour
                          pAnswer2 == "no" &&  // Congress
                          pAnswer3 == "yes" && // Red
                          pAnswer4 == "no" &&  // White House
-                         pAnswer5 == "no")   // British
+                         pAnswer5 == "no")    // British
                 {
                     // If Hard, from 50% -> 100%
                     gwc.dialogueLines = new string[] {
@@ -3585,21 +3584,1104 @@ public class SinglePlayerLogic : MonoBehaviour
                 }
                 else
                 {
-                    if (gwc.teamName == "Trump")
-                    {
-                        randomInt = Random.Range(23, 47);
-                    }
-                    else if (gwc.teamName == "Mueller")
-                    {
-                        randomInt = Random.Range(0, 23);
-                    }
+                    Cheater();
+                }
+            }
+        }
+    }
 
+    public void OpponentTreeTwo(int guessNum)
+    {
+        if (guessNum == 1)
+        {
+            if (gwc.teamName == "Trump")
+            {
+                gwc.dialogueLines = new string[] {
+                    "Were you registered as a Republican in 2016?"
+                };
+            }
+            else if (gwc.teamName == "Mueller")
+            {
+                gwc.dialogueLines = new string[] {
+                    "Were you registered as a Democrat in 2016?"
+                };
+            }
+        }
+        else if (guessNum == 2)
+        {
+            if (gwc.teamName == "Trump")
+            {
+                if (pAnswer1 == "yes") // Republican
+                {
                     gwc.dialogueLines = new string[] {
-                        "Umm.. Did you.... Nvm. Are you " + chars.characters[randomInt].charName + "?"
+                        "Were you 'fired' by Donald Trump?"
+                    };
+                }
+                else if (pAnswer1 == "no") // Republican
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you wearing red?"
+                    };
+                }
+            }
+            else if (gwc.teamName == "Mueller")
+            {
+                if (pAnswer1 == "yes") // Democrat
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you a woman?"
+                    };
+                }
+                else if (pAnswer1 == "no") // Democrat
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you looking to the left?"
                     };
                 }
             }
         }
+        else if (guessNum == 3)
+        {
+            if (gwc.teamName == "Trump")
+            {
+                if (pAnswer1 == "yes" && // Republican
+                    pAnswer2 == "yes")   // Fired
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you a media member?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no")    // Fired
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you wearing purple?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "yes")   // Red
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you American?"
+                    };
+                }
+                else if (pAnswer1 == "no" && // Republican
+                         pAnswer2 == "no")   // Red
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you wearing black?"
+                    };
+                }
+            }
+            else if (gwc.teamName == "Mueller")
+            {
+                if (pAnswer1 == "yes" && // Democrat
+                    pAnswer2 == "yes")   // Woman
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Do you have brown eyes?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "no")    // Woman
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you white?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes")   // Left
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you wearing glasses?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no")    // Left
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Are you wearing glasses?"
+                    };
+                }
+            }
+        }
+        else if (guessNum == 4)
+        {
+            if (gwc.teamName == "Trump")
+            {
+                if (pAnswer1 == "yes" && // Republican
+                    pAnswer2 == "yes" && // Fired
+                    pAnswer3 == "yes")   // Media
+                {
+                    // 33%
+                    gwc.dialogueLines = new string[] {
+                        "Are you a man?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "yes" && // Fired
+                         pAnswer3 == "no")    // Media
+                {
+                    // 50%
+                    gwc.dialogueLines = new string[] {
+                        "Do you have white, beady eyes?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "yes")   // Purple
+                {
+                    // 25%
+                    gwc.dialogueLines = new string[] {
+                        "Are you wearing a tie?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "no")    // Purple
+                {
+                    // 25%
+                    gwc.dialogueLines = new string[] {
+                        "Do you have black eyes (or black pupils)?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "yes" && // Red
+                         pAnswer3 == "yes")   // American
+                {
+                    // 33%
+                    gwc.dialogueLines = new string[] {
+                        "Are you a Trump?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "yes" && // Red
+                         pAnswer3 == "no")    // American
+                {
+                    // 50%
+                    gwc.dialogueLines = new string[] {
+                        "Are you wearing any kind of headgear or hat?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "yes")   // Black
+                {
+                    // 33%
+                    gwc.dialogueLines = new string[] {
+                        "Are you Russian?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "no")    // Black
+                {
+                    // 33%
+                    gwc.dialogueLines = new string[] {
+                        "Were you registered as an Independent in 2016?"
+                    };
+                }
+                else
+                {
+                    Cheater();
+                }
+            }
+            else if (gwc.teamName == "Mueller")
+            {
+                if (pAnswer1 == "yes" && // Democrat
+                    pAnswer2 == "yes" && // Woman
+                    pAnswer3 == "yes")   // Brown eyes
+                {
+                    // 33%
+                    gwc.dialogueLines = new string[] {
+                        "Did you work on Mueller's investigation team?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "yes" && // Woman
+                         pAnswer3 == "no")    // Brown eyes
+                {
+                    // 50%
+                    gwc.dialogueLines = new string[] {
+                        "Do or did you work in the White House?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Woman
+                         pAnswer3 == "yes")   // White
+                {
+                    // 33%
+                    gwc.dialogueLines = new string[] {
+                        "Were you on Mueller's investigation team?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Woman
+                         pAnswer3 == "no")    // White
+                {
+                    // 50%
+                    gwc.dialogueLines = new string[] {
+                        "Where you mentioned in a Donald Trump tweet?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "yes")   // Glasses
+                {
+                    // 33%
+                    gwc.dialogueLines = new string[] {
+                        "Do or have you worked for the DOJ?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "no")    // Glasses
+                {
+                    // 33%
+                    gwc.dialogueLines = new string[] {
+                        "Are you an American?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "yes")   // Glasses
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Do or have you worked in the White House?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "no")    // Glasses
+                {
+                    gwc.dialogueLines = new string[] {
+                        "Have you been mentioned in a Donald Trump tweet?"
+                    };
+                }
+                else
+                {
+                    Cheater();
+                }
+            }
+        }
+        else if (guessNum == 5)
+        {
+            if (gwc.teamName == "Trump")
+            {
+                if (pAnswer1 == "yes" && // Republican
+                    pAnswer2 == "yes" && // Fired
+                    pAnswer3 == "yes" && // Media
+                    pAnswer4 == "yes")   // Man
+                {
+                    // 33% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Are you wearing glasses?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "yes" && // Fired
+                         pAnswer3 == "yes" && // Media
+                         pAnswer4 == "no")    // Man
+                {
+                    // 33% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Hope Hicks aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "yes" && // Fired
+                         pAnswer3 == "no" &&  // Media
+                         pAnswer4 == "yes")   // White eyes
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Steve Bannon aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "yes" && // Fired
+                         pAnswer3 == "no" &&  // Media
+                         pAnswer4 == "no")    // White eyes
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Omarosa aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "yes" && // Purple
+                         pAnswer4 == "yes")   // Tie
+                {
+                    // 25% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Did or do you work in the Department of Justice?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "yes" && // Purple
+                         pAnswer4 == "no")    // Tie
+                {
+                    // 25% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Are you a Trump?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "no" &&  // Purple
+                         pAnswer4 == "yes")   // Black eyes
+                {
+                    // 25% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Do you have a shitty-brown skin complexion?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "no" &&  // Purple
+                         pAnswer4 == "no")    // Black eyes
+                {
+                    // 25% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Are you a Trump?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "yes" && // Red
+                         pAnswer3 == "yes" && // American
+                         pAnswer4 == "yes")   // Trump
+                {
+                    // 33% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Ivanka Trump aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "yes" && // Red
+                         pAnswer3 == "yes" && // American
+                         pAnswer4 == "no")    // Trump
+                {
+                    // 33% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Do you have salt & pepper (black and grey) hair?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "yes" && // Red
+                         pAnswer3 == "no" &&  // American
+                         pAnswer4 == "yes")   // Headgear
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Mohammed Bin Salman aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "yes" && // Red
+                         pAnswer3 == "no" &&  // American
+                         pAnswer4 == "no")    // Headgear
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Vladimir Putin aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "yes" && // Black
+                         pAnswer4 == "yes")   // Russian
+                {
+                    // 33% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Natalia Veselnitskaya aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "yes" && // Black
+                         pAnswer4 == "no")    // Russian
+                {
+                    // 33% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Did you work on Trump's campaign team?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "no" &&  // Black
+                         pAnswer4 == "yes")   // Independent
+                {
+                    // 33% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Erik Prince aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "no" &&  // Black
+                         pAnswer4 == "no")    // Independent
+                {
+                    // 33% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Did you work on Trump's campaign team?"
+                    };
+                }
+                else
+                {
+                    Cheater();
+                }
+            }
+            else if (gwc.teamName == "Mueller")
+            {
+                if (pAnswer1 == "yes" && // Democrat
+                    pAnswer2 == "yes" && // Woman
+                    pAnswer3 == "yes" && // Brown Eyes
+                    pAnswer4 == "yes")   // Mueller's
+                {
+                    // 33% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Jeannie Rhee aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "yes" && // Woman
+                         pAnswer3 == "yes" && // Brown Eyes
+                         pAnswer4 == "no")    // Mueller's
+                {
+                    // 33% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Were you fired by Trump?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "yes" && // Woman
+                         pAnswer3 == "no" &&  // Brown Eyes
+                         pAnswer4 == "yes")   // White House
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Hillary Clinton aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "yes" && // Woman
+                         pAnswer3 == "no" &&  // Brown Eyes
+                         pAnswer4 == "no")    // White House
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Elizabeth Warren aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Woman
+                         pAnswer3 == "yes" && // White
+                         pAnswer4 == "yes")   // Mueller's
+                {
+                    // 33% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Have or do you work for the FBI?"
+                    };
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Woman
+                         pAnswer3 == "yes" && // White
+                         pAnswer4 == "no")    // Mueller's
+                {
+                    // 33% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Adam Schiff aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Woman
+                         pAnswer3 == "no" &&  // White
+                         pAnswer4 == "yes")   // Tweet
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Barack Obama aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Woman
+                         pAnswer3 == "no" &&  // White
+                         pAnswer4 == "no")    // Tweet
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Elijah Cummings aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "yes")   // DOJ
+                {
+                    // 33% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Do or have you worked in Congress?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "no")    // DOJ
+                {
+                    // 33% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're James Clapper aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "yes")   // American
+                {
+                    // 33% -> 50%
+                    gwc.dialogueLines = new string[] {
+                        "Have you or do you work in the FBI?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "no")    // American
+                {
+                    // 33% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Christopher Steele aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "yes")   // White House
+                {
+                    // 50%
+                    gwc.dialogueLines = new string[] {
+                        "Have you or do you work in the CIA?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "no")    // White House
+                {
+                    // 50%
+                    gwc.dialogueLines = new string[] {
+                        "Are you Canadian?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "yes")   // Tweet
+                {
+                    // 50%
+                    gwc.dialogueLines = new string[] {
+                        "Were you 'fired' by Donald Trump?"
+                    };
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "no")    // Tweet
+                {
+                    // 50%
+                    gwc.dialogueLines = new string[] {
+                        "Do you have red hair?"
+                    };
+                }
+                else
+                {
+                    Cheater();
+                }
+            }
+        }
+        else if (guessNum == 6)
+        {
+            if (gwc.teamName == "Trump")
+            {
+                if (pAnswer1 == "yes" && // Republican
+                    pAnswer2 == "yes" && // Fired
+                    pAnswer3 == "yes" && // Media
+                    pAnswer4 == "yes" && // Man
+                    pAnswer5 == "yes")   // Glasses
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're The Mooch aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "yes" && // Fired
+                         pAnswer3 == "yes" && // Media
+                         pAnswer4 == "yes" && // Man
+                         pAnswer5 == "yes")   // Glasses
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Sean Spicer aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "yes" && // Purple
+                         pAnswer4 == "yes" && // Tie
+                         pAnswer5 == "yes")   // DOJ
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Rudy Giuliani aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "yes" && // Purple
+                         pAnswer4 == "yes" && // Tie
+                         pAnswer5 == "no")    // DOJ
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Donald Trump Jr. aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "yes" && // Purple
+                         pAnswer4 == "no" &&  // Tie
+                         pAnswer5 == "yes")   // A Trump
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Melania Trump aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "yes" && // Purple
+                         pAnswer4 == "no" &&  // Tie
+                         pAnswer5 == "no")    // A Trump
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Sarah Huckabee Sanders aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "no" &&  // Purple
+                         pAnswer4 == "yes" && // Black eyes
+                         pAnswer5 == "yes")   // Brown skin
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Ajit Pai aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "no" &&  // Purple
+                         pAnswer4 == "yes" && // Black eyes
+                         pAnswer5 == "no")    // Brown skin
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Kellyanne Conway aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "no" &&  // Purple
+                         pAnswer4 == "no" &&  // Black eyes
+                         pAnswer5 == "yes")   // A Trump
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Donald J. Trump aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Republican
+                         pAnswer2 == "no" &&  // Fired
+                         pAnswer3 == "no" &&  // Purple
+                         pAnswer4 == "no" &&  // Black eyes
+                         pAnswer5 == "no")    // A Trump
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Mike Pence aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "yes" && // Red
+                         pAnswer3 == "yes" && // American
+                         pAnswer4 == "no" &&  // Trump
+                         pAnswer5 == "yes")   // Salt & Pepper
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Michael Cohen aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "yes" && // Red
+                         pAnswer3 == "yes" && // American
+                         pAnswer4 == "no" &&  // Trump
+                         pAnswer5 == "no")    // Salt & Pepper
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Michael Flynn aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "yes" && // Black
+                         pAnswer4 == "no" &&  // Russian
+                         pAnswer5 == "yes")   // Campaign
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Jared Kushner aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "yes" && // Black
+                         pAnswer4 == "no" &&  // Russian
+                         pAnswer5 == "no")    // Campaign
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Sean Hannity aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "no" &&  // Black
+                         pAnswer4 == "no" &&  // Russian
+                         pAnswer5 == "yes")   // Campaign
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're George Papadopoulos aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Republican
+                         pAnswer2 == "no" &&  // Red
+                         pAnswer3 == "no" &&  // Black
+                         pAnswer4 == "no" &&  // Russian
+                         pAnswer5 == "no")    // Campaign
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Alex Jones aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else
+                {
+                    Cheater();
+                }
+            }
+            else if (gwc.teamName == "Mueller")
+            {
+                if (pAnswer1 == "yes" && // Democrat
+                    pAnswer2 == "yes" && // Woman
+                    pAnswer3 == "yes" && // Brown Eyes
+                    pAnswer4 == "no" &&  // Mueller's
+                    pAnswer5 == "yes")   // Fired
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Sally Yates aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "yes" && // Woman
+                         pAnswer3 == "yes" && // Brown Eyes
+                         pAnswer4 == "no" &&  // Mueller's
+                         pAnswer5 == "no")    // Fired
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Nancy Pelosi aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Woman
+                         pAnswer3 == "yes" && // White
+                         pAnswer4 == "yes" && // Mueller's
+                         pAnswer5 == "yes")   // FBI
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Andrew Weissmann aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "yes" && // Democrat
+                         pAnswer2 == "no" &&  // Woman
+                         pAnswer3 == "yes" && // White
+                         pAnswer4 == "yes" && // Mueller's
+                         pAnswer5 == "no")    // FBI
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Michael Dreeban aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "yes" && // DOJ
+                         pAnswer5 == "yes")   // Congress
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Uzo Asonye aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "yes" && // DOJ
+                         pAnswer5 == "no")    // Congress
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Rod Rosenstein aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "yes" && // American
+                         pAnswer5 == "yes")   // FBI
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Robert S. Mueller III aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "yes" && // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "yes" && // American
+                         pAnswer5 == "no")    // FBI
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Zainab Ahmad aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "yes" && // White House
+                         pAnswer5 == "yes")   // CIA
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're John Brennan aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "yes" && // White House
+                         pAnswer5 == "no")    // CIA
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Maggie Haberman aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "no" &&  // White House
+                         pAnswer5 == "yes")   // Canadian
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Christopher Wylie aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "yes" && // Glasses
+                         pAnswer4 == "no" &&  // White House
+                         pAnswer5 == "no")    // Canadian
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Andrew McCabe aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "yes" && // Tweet
+                         pAnswer5 == "yes")   // Fired
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're James Comey aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "yes" && // Tweet
+                         pAnswer5 == "no")    // Fired
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Stormy Daniels aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "no" &&  // Tweet
+                         pAnswer5 == "yes")   // Red hair
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Jason Alberts aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else if (pAnswer1 == "no" &&  // Democrat
+                         pAnswer2 == "no" &&  // Left
+                         pAnswer3 == "no" &&  // Glasses
+                         pAnswer4 == "no" &&  // Tweet
+                         pAnswer5 == "no")    // Red hair
+                {
+                    // 50% -> 100%
+                    gwc.dialogueLines = new string[] {
+                        "Ah HA! You're Mike Rogers aren't ya?!"
+                    };
+
+                    bOppGuessFTW = true;
+                }
+                else
+                {
+                    Cheater();
+                }
+            }
+        }
+    }
+
+    public void Cheater()
+    {
+        if (gwc.teamName == "Trump")
+        {
+            randomInt = Random.Range(24, 48);
+        }
+        else if (gwc.teamName == "Mueller")
+        {
+            randomInt = Random.Range(0, 24);
+        }
+
+        gwc.dialogueLines = new string[] {
+            "Umm.. Did you cheat?.. You know what, nevermind. Are you " + chars.characters[randomInt].charName + "?"
+        };
     }
 
     public void PauseQuestion()
@@ -3624,7 +4706,6 @@ public class SinglePlayerLogic : MonoBehaviour
 
     public void ResetSingle()
     {
-        Debug.Log("sp reset");
         bGuessingTrait = false;
         bOppGuessFTW = false;
         bOppWins = false;
@@ -3643,6 +4724,8 @@ public class SinglePlayerLogic : MonoBehaviour
         pAnswer4 = "";
         pAnswer5 = "";
         pAnswer6 = "";
+
+        logicTree = Random.Range(1, 3);
     }
 
     public void SPL_TraitTreeConsolidator()

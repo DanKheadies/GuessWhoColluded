@@ -58,9 +58,6 @@ public class GWC001 : MonoBehaviour
     public bool bTeamTrump;
 
     public float buttonTimer;
-    public float guessDownTime;
-    public float guessUpTime;
-    public float guessPressedTime;
     public float guessThreshold;
     public float musicTimer1;
     public float musicTimer2;
@@ -199,13 +196,13 @@ public class GWC001 : MonoBehaviour
             }
             if (bOptModeSingle)
             {
-                StartCoroutine(StartSingle());
+                StartCoroutine(StartSingle(1.0f));
             }
         }
 
         // Change from first music track to second
-        if (!dMan.bDialogueActive &&
-            bStartGame &&
+        if (bStartGame &&
+            bAvoidUpdate &&
             musicTimer1 > 0)
         {
             musicTimer1 -= Time.deltaTime;
@@ -233,11 +230,7 @@ public class GWC001 : MonoBehaviour
             bBoardReset &&
             !bCanFlip)
         {
-            // Change to avoid running this logic
-            bBoardReset = false;
-
-            // Allow tile flipping
-            bCanFlip = true;
+            StartCoroutine(DelayedResetBoard());
         }
 
         // Zoom In -- Scroll Forward or press Y
@@ -318,9 +311,9 @@ public class GWC001 : MonoBehaviour
         bCanFlip = true;
     }
 
-    IEnumerator StartSingle()
+    IEnumerator StartSingle(float timeToWait)
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(timeToWait);
 
         GWC_PromptRestrictions();
 
@@ -336,33 +329,63 @@ public class GWC001 : MonoBehaviour
         if (bOppMueller)
         {
             oppName = "Mueller";
-            opponentCharacter = Random.Range(0, 23);
+            opponentCharacter = Random.Range(0, 24);
         }
         else if (bOppTrump)
         {
             oppName = "Trump";
-            opponentCharacter = Random.Range(24, 47);
+            opponentCharacter = Random.Range(24, 48);
         }
 
         // Randomize Dialogue
         int randomInt = Random.Range(0, 3);
-        if (randomInt == 0)
+        if (bBoardReset)
         {
-            dialogueLines = new string[] {
-                "Sure, I'll be Team " + oppName + ". Please, age before beauty..",
-            };
+            if (randomInt == 0)
+            {
+                dialogueLines = new string[] {
+                    "I'll be Team " + oppName + " again. To make it fair..",
+                    "3.. ",
+                    "2.. ",
+                    "1..",
+                    "Dibs on going first!",
+                    "Ha works every time..."
+                };
+                }
+            else if (randomInt == 1)
+            {
+                dialogueLines = new string[] {
+                    "Good luck Team " + teamName + ", I'll go first..",
+                    "Again..."
+                };
+            }
+            else if (randomInt == 2)
+            {
+                dialogueLines = new string[] {
+                    "Alright Team " + teamName + ", imma come at you like a spider monkey."
+                };
+            }
         }
-        else if (randomInt == 1)
+        else
         {
-            dialogueLines = new string[] {
-                "Good luck Team " + teamName + ", I'll go first...",
-            };
-        }
-        else if (randomInt == 2)
-        {
-            dialogueLines = new string[] {
-                "Alright Team " + oppName + ", it's you and your squad vs Me and the Revolution..",
-            };
+            if (randomInt == 0)
+            {
+                dialogueLines = new string[] {
+                    "Sure, I'll be Team " + oppName + ". Please, age before beauty.."
+                };
+            }
+            else if (randomInt == 1)
+            {
+                dialogueLines = new string[] {
+                    "Good luck Team " + teamName + ", I'll go first..."
+                };
+            }
+            else if (randomInt == 2)
+            {
+                dialogueLines = new string[] {
+                    "Alright Team " + teamName + ", it's you and your friends vs Me and the Revolution.."
+                };
+            }
         }
 
         GWC_DialogueRestter();
@@ -382,6 +405,17 @@ public class GWC001 : MonoBehaviour
             };
         GWC_DialogueRestter();
         dPic.sprite = portPic[48];
+    }
+
+    IEnumerator DelayedResetBoard()
+    {
+        yield return new WaitForSeconds(1.0f);
+        
+        // Change to avoid running this logic
+        bBoardReset = false;
+
+        // Allow tile flipping
+        bCanFlip = true;
     }
     
     public void OptionsSelection()
@@ -473,7 +507,7 @@ public class GWC001 : MonoBehaviour
             bStartGame = true;
 
             // Pick random Mueller character for the player
-            playerCharacter = Random.Range(0, 23);
+            playerCharacter = Random.Range(0, 24);
             dPic.sprite = portPic[playerCharacter];
             playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
@@ -508,7 +542,7 @@ public class GWC001 : MonoBehaviour
             bStartGame = true;
 
             // Pick random Trump character for the player
-            playerCharacter = Random.Range(24, 47);
+            playerCharacter = Random.Range(24, 48);
             dPic.sprite = portPic[playerCharacter];
             playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
@@ -543,7 +577,7 @@ public class GWC001 : MonoBehaviour
             bStartGame = true;
 
             // Pick random Trump character for the player
-            playerCharacter = Random.Range(24, 47);
+            playerCharacter = Random.Range(24, 48);
             dPic.sprite = portPic[playerCharacter];
             playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
@@ -610,13 +644,13 @@ public class GWC001 : MonoBehaviour
 
     public void ResetBoard()
     {
-        Debug.Log("gwc reset");
         // Hide current character card on Pause screen
         playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.zero;
 
         bBoardReset = true;
+        bCanFlip = false;
 
-        //oMan.ResetOptions();
+        StartCoroutine(StartSingle(0.0f));
 
         spLogic.ResetSingle();
 
@@ -642,60 +676,24 @@ public class GWC001 : MonoBehaviour
 
         if (bTeamMueller)
         {
-            Debug.Log("m");
-            // Stop tile flipping
-            bCanFlip = false;
-
-            dMan.dialogueLines = new string[] {
-                "Time to find out who on Team Trump is colluding...",
-                "And I better do it quickly."
-            };
-            GWC_DialogueRestter();
-
-            bStartGame = true;
-
             // Pick random Mueller character for the player
-            playerCharacter = Random.Range(0, 23);
+            playerCharacter = Random.Range(0, 24);
             dPic.sprite = portPic[playerCharacter];
             playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
         else if (bTeamTrump &&
                  bOppMueller)
         {
-            Debug.Log("tm");
-            // Stop tile flipping
-            bCanFlip = false;
-
-            dMan.dialogueLines = new string[] {
-                "Time to find out who on Team Mueller is leading this witch hunt...",
-                "And I better do it quickly."
-            };
-            GWC_DialogueRestter();
-
-            bStartGame = true;
-
             // Pick random Trump character for the player
-            playerCharacter = Random.Range(24, 47);
+            playerCharacter = Random.Range(24, 48);
             dPic.sprite = portPic[playerCharacter];
             playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }
         else if (bTeamTrump &&
                  bOppTrump)
         {
-            Debug.Log("tt");
-            // Stop tile flipping
-            bCanFlip = false;
-
-            dMan.dialogueLines = new string[] {
-                "Time to find out who on Team Trump is leaking information...",
-                "And I better do it quickly."
-            };
-            GWC_DialogueRestter();
-
-            bStartGame = true;
-
             // Pick random Trump character for the player
-            playerCharacter = Random.Range(24, 47);
+            playerCharacter = Random.Range(24, 48);
             dPic.sprite = portPic[playerCharacter];
             playerCard.gameObject.transform.GetChild(playerCharacter).localScale = Vector3.one;
         }

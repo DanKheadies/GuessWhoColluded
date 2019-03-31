@@ -12095,9 +12095,6 @@ MonoBehaviour:
   bTeamMueller: 0
   bTeamTrump: 0
   buttonTimer: 0
-  guessDownTime: 0
-  guessUpTime: 0
-  guessPressedTime: 0
   guessThreshold: 0
   musicTimer1: 0
   musicTimer2: 0
