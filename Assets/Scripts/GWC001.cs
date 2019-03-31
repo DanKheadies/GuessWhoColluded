@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  03/28/2019
+// Last:  03/31/2019
 
 using System.Collections;
 using UnityEngine;
@@ -20,8 +20,8 @@ public class GWC001 : MonoBehaviour
     public GameObject guiConts;
     public GameObject HUD;
     public GameObject muellerCards;
-    public GameObject pauseBtn;
     public GameObject oBox;
+    public GameObject pauseBtn;
     public GameObject playerCard;
     public GameObject sFaderAnim;
     public GameObject sFaderAnimDia;

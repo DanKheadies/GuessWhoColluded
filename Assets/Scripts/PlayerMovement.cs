@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  03/15/2019
+// Last:  03/31/2019
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -52,12 +52,6 @@ public class PlayerMovement : MonoBehaviour
         {
             movementVector = Vector2.zero;
             rBody.velocity = Vector2.zero;
-
-            if (scene.name == "GuessWhoColluded")
-            {
-                movementVector = Vector2.zero;
-                rBody.velocity = Vector2.zero;
-            }
         }
         //else if (touches.bDown || touches.bLeft || touches.bRight || touches.bUp ||
         //    touches.bUpRight || touches.bUpLeft || touches.bDownRight || touches.bDownLeft)

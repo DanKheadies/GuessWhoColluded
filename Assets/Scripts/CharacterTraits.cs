@@ -1,10 +1,8 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 03/20/2019
-// Last:  03/20/2019
+// Last:  03/31/2019
 
-using UnityEngine;
-using System.Collections;
 using System;
 
 // Contains info on traits and characters

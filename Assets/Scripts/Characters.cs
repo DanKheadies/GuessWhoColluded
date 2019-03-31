@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 03/20/2019
-// Last:  03/22/2019
+// Last:  03/31/2019
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -18,7 +18,8 @@ public class Characters : MonoBehaviour
 
         // "Full" List of Traits
         // Id
-        // Name
+        // Name = "First Last";
+        // GameName = "Last.First";
         // ClothingColor[0] = "black";
         // ClothingColor[1] = "brown";
         // ClothingColor[2] = "blue";
@@ -945,21 +946,5 @@ public class Characters : MonoBehaviour
             new string[1] { "no-party" },
             "white"
         ));
-
-        // Id = 0;
-        // Name = "Zainab Ahmad";
-        // ClothingColor[0] = "black";
-        // Country = "us";
-        // Direction = "left";
-        // EyeColor = "brown";
-        // EyeWear = 0;
-        // FacialHair = 0;
-        // Gender = 1;
-        // HairColor = "black";
-        // HairLength = "long";
-        // Icons[0] = "no-party";
-        // Icons[0] = "doj";
-        // Icons[0] = "mueller-investigation";
-        // SkinColor = "brown";
     }
 }

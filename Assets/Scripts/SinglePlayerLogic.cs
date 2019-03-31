@@ -10,8 +10,9 @@ using UnityEngine;
 public class SinglePlayerLogic : MonoBehaviour
 {
     public Characters chars;
-    public GWC001 gwc;
     public DialogueManager dMan;
+    public EndGame end;
+    public GWC001 gwc;
     public MoveOptionsMenuArrow moveOptsArw;
     public OptionsManager oMan;
 
@@ -78,6 +79,7 @@ public class SinglePlayerLogic : MonoBehaviour
         // Initializers
         chars = FindObjectOfType<Characters>();
         dMan = FindObjectOfType<DialogueManager>();
+        end = FindObjectOfType<EndGame>();
         gwc = FindObjectOfType<GWC001>();
         moveOptsArw = FindObjectOfType<MoveOptionsMenuArrow>();
         oMan = FindObjectOfType<OptionsManager>();
@@ -496,6 +498,7 @@ public class SinglePlayerLogic : MonoBehaviour
             }
             else if (moveOptsArw.currentPosition == MoveOptionsMenuArrow.ArrowPos.Opt2)
             {
+                end.GoToMainMenu();
                 oMan.ResetOptions();
             }
         }
