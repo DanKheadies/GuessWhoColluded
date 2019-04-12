@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/29/2018
-// Last:  03/17/2019
+// Last:  04/11/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,8 +17,9 @@ public class DialogueManager : MonoBehaviour
     public Image dPic;
     public ImageStrobe imgStrobe;
     public OptionsManager oMan;
+    public PauseGame pause;
     public PlayerMovement pMove;
-    private SFXManager SFXMan;
+    public SFXManager SFXMan;
     public Sprite portPic;
     public Text dText;
     public TouchControls touches;
@@ -59,6 +60,7 @@ public class DialogueManager : MonoBehaviour
         imgStrobe = GameObject.Find("Dialogue_Arrow").GetComponent<ImageStrobe>();
         mainCamera = FindObjectOfType<CameraFollow>();
         oMan = FindObjectOfType<OptionsManager>();
+        pause = FindObjectOfType<PauseGame>();
         pMove = FindObjectOfType<PlayerMovement>();
         SFXMan = FindObjectOfType<SFXManager>();
         touches = FindObjectOfType<TouchControls>();
@@ -88,33 +90,44 @@ public class DialogueManager : MonoBehaviour
         }
 
         // Advance active dialogues
-        if ((bDialogueActive && !bPauseDialogue && Input.GetButtonDown("Action")) ||
-            (bDialogueActive && !bPauseDialogue && Input.GetButtonDown("DialogueAction")) ||
-            (bDialogueActive && !bPauseDialogue && touches.bAaction))
+        if (bDialogueActive && 
+            !bPauseDialogue && 
+            !pause.bPausing &&
+            !pause.bPauseActive && 
+            (Input.GetButtonDown("Action") ||
+             Input.GetButtonDown("DialogueAction") || 
+             touches.bAaction))
         {
+            Debug.Log("adavnce dialog");
             touches.Vibrate();
 
             if (currentLine < dialogueLines.Length)
             {
+                touches.bAaction = false;
                 currentLine++;
             }
         }
 
         // Set current text whenever Options are hidden
-        if (bDialogueActive && !oMan.bOptionsActive && currentLine <= dialogueLines.Length - 1)
+        if (bDialogueActive && 
+            !oMan.bOptionsActive && 
+            currentLine <= dialogueLines.Length - 1)
         {
             dText.text = dialogueLines[currentLine];
         }
 
         // Show Options if present and w/ the last dialogue prompt; otherwise, reset the dialogue
-        if (bDialogueActive && oMan.bDiaToOpts && !oMan.bOptionsActive && currentLine >= dialogueLines.Length - 1)
+        if (bDialogueActive && 
+            oMan.bDiaToOpts && 
+            !oMan.bOptionsActive && 
+            currentLine >= dialogueLines.Length - 1)
         {
             oMan.ShowOptions();
         }
-        else if (!oMan.bOptionsActive && currentLine >= dialogueLines.Length)
+        else if (!oMan.bOptionsActive && 
+                 currentLine >= dialogueLines.Length)
         {
             ResetDialogue();
-            touches.transform.localScale = Vector3.zero;
         }
 
         // Temp: Update Camera display / aspect ratio
@@ -151,7 +164,10 @@ public class DialogueManager : MonoBehaviour
         pMove.bStopPlayerMovement = false;
 
         // Show controls if visible
-        touches.transform.localScale = Vector3.one;
+        if (uiMan.bControlsActive)
+        {
+            touches.transform.localScale = Vector3.one; // DC TODO -- prob don't need
+        }
     }
 
     public void ShowDialogue()
@@ -172,12 +188,8 @@ public class DialogueManager : MonoBehaviour
 
         // Stops the player's movement
         pMove.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        //anim.SetBool("bIsWalking", false);
         touches.UnpressedAllArrows();
         pMove.bStopPlayerMovement = true;
-
-        // Hides UI controls
-        touches.transform.localScale = Vector3.zero;
     }
 
     public void ConfigureParameters()
@@ -215,27 +227,30 @@ public class DialogueManager : MonoBehaviour
         {
             // Width => change in width affects variables, so look at the height of the camera
             dArrowPoints[0] = 0f;
-            dArrowPoints[1] = 533.3f * (cameraHeight * cameraHeight) - 1274f * cameraHeight + 738.9f;
+            dArrowPoints[1] = 533.3f * (cameraHeight * cameraHeight) - 1274f * cameraHeight + 738.9f - 6f; // DC TODO -- Edit to move down from top of screen
             dArrowPoints[2] = -198.5f * (cameraHeight * cameraHeight) + 733.5f * cameraHeight + 205.3f;
             dArrowPoints[3] = (-198.5f * (cameraHeight * cameraHeight) + 733.5f * cameraHeight + 205.3f) / 1.142857f;
 
             dFramePoints[0] = 0f;
-            dFramePoints[1] = 533.3f * (cameraHeight * cameraHeight) - 1274f * cameraHeight + 738.9f;
+            dFramePoints[1] = 533.3f * (cameraHeight * cameraHeight) - 1274f * cameraHeight + 738.9f - 6f; // DC TODO -- Edit to move down from top of screen
             dFramePoints[2] = -198.5f * (cameraHeight * cameraHeight) + 733.5f * cameraHeight + 205.3f;
             dFramePoints[3] = (-198.5f * (cameraHeight * cameraHeight) + 733.5f * cameraHeight + 205.3f) / 1.142857f;
 
             dPicPoints[0] = 70.80f * (cameraHeight * cameraHeight) - 260.5f * cameraHeight - 72.74f;
-            dPicPoints[1] = 483.3f * (cameraHeight * cameraHeight) - 1070f * cameraHeight + 799.8f;
+            dPicPoints[1] = 483.3f * (cameraHeight * cameraHeight) - 1070f * cameraHeight + 799.8f - 6f; // DC TODO -- Edit to move down from top of screen
             dPicPoints[2] = -35.93f * (cameraHeight * cameraHeight) + 143.9f * cameraHeight + 41.46f;
             dPicPoints[3] = -35.93f * (cameraHeight * cameraHeight) + 143.9f * cameraHeight + 41.46f;
 
             dTextPoints[0] = -4.963f * (cameraHeight * cameraHeight) + 44.29f * cameraHeight + 23.76f;
-            dTextPoints[1] = 494.4f * (cameraHeight * cameraHeight) - 1081f * cameraHeight + 802.1f;
+            dTextPoints[1] = 494.4f * (cameraHeight * cameraHeight) - 1081f * cameraHeight + 802.1f - 6f; // DC TODO -- Edit to move down from top of screen
             dTextPoints[2] = -114.1f * (cameraHeight * cameraHeight) + 452.0f * cameraHeight + 131.5f;
             dTextPoints[3] = -39.92f * (cameraHeight * cameraHeight) + 167.9f * cameraHeight + 43.11f;
 
             dText.fontSize = (int)(2.432f * (cameraHeight * cameraHeight) + 25.84f * cameraHeight + 20.05f);
         }
+
+        // Jamma 8x16 Font Change
+        dText.fontSize = (int)(dText.fontSize * 0.75f);
 
         dArrow.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(dArrowPoints[0], dArrowPoints[1]);
         dArrow.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(dArrowPoints[2], dArrowPoints[3]);

@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/29/2018
-// Last:  03/15/2019
+// Last:  04/10/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,11 +18,9 @@ public class UIManager : MonoBehaviour
     public DialogueManager dMan;
     public OptionsManager oMan;
     public RectTransform controlsMenu;
-    //public RectTransform gwcMenu;
     public RectTransform iconsMenu;
     public RectTransform pauseMenu;
     public RectTransform soundMenu;
-    //public RectTransform stuffMenu;
     public Scene currScene;
     public Slider contOpacSlider;
     public Toggle conTog;
@@ -40,11 +38,11 @@ public class UIManager : MonoBehaviour
         conTog = GameObject.Find("ShowButtonsToggle").GetComponent<Toggle>();
         currScene = SceneManager.GetActiveScene();
         dHUD = GameObject.Find("Dialogue_HUD").GetComponent<Canvas>();
-        dMan = GameObject.FindObjectOfType<DialogueManager>();
+        dMan = FindObjectOfType<DialogueManager>();
         HUD = GetComponent<Canvas>();
         hudCanvas = GetComponent<CanvasGroup>();
-        mainCamera = GameObject.FindObjectOfType<Camera>().GetComponent<Camera>();
-        oMan = GameObject.FindObjectOfType<OptionsManager>();
+        mainCamera = FindObjectOfType<Camera>().GetComponent<Camera>();
+        oMan = FindObjectOfType<OptionsManager>();
         touches = FindObjectOfType<TouchControls>();
 
         controlsMenu = GameObject.Find("ControlsMenu").GetComponent<RectTransform>();
@@ -55,7 +53,7 @@ public class UIManager : MonoBehaviour
         // Sets initial activation off saved data
         if (!PlayerPrefs.HasKey("ControlsActive"))
         {
-            bControlsActive = true;
+            // GWC default is no GUI
         }
         else
         {
@@ -63,13 +61,13 @@ public class UIManager : MonoBehaviour
             {
                 bControlsActive = true;
                 conTog.isOn = true;
-                touches.transform.localScale = Vector3.one;
+                DisplayControls();
             }
             else
             {
                 bControlsActive = false;
                 conTog.isOn = false;
-                touches.transform.localScale = Vector3.zero;
+                HideControls();
             }
         }
 
@@ -95,8 +93,18 @@ public class UIManager : MonoBehaviour
     {
         if (!bControlsActive)
         {
-            touches.transform.localScale = Vector3.zero;
+            HideControls();
         }
+    }
+
+    public void DisplayControls()
+    {
+        touches.transform.localScale = Vector3.one;
+    }
+
+    public void HideControls()
+    {
+        touches.transform.localScale = Vector3.zero;
     }
 
     // Adjust the opacity of the UI controls
@@ -111,12 +119,12 @@ public class UIManager : MonoBehaviour
     {
         if (bControlsActive)
         {
-            touches.transform.localScale = Vector3.zero;
+            HideControls();
             bControlsActive = false;
         }
         else if (!bControlsActive)
         {
-            touches.transform.localScale = Vector3.one;
+            DisplayControls();
             bControlsActive = true;
         }
     }

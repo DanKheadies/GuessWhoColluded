@@ -4683,7 +4683,7 @@ public class SinglePlayerLogic : MonoBehaviour
         }
 
         gwc.dialogueLines = new string[] {
-            "Umm.. Did you cheat?.. You know what, nevermind. Are you " + chars.characters[randomInt].charName + "?"
+            "Umm.. Did you cheat? Well whatever.. Are you " + chars.characters[randomInt].charName + "?"
         };
     }
 

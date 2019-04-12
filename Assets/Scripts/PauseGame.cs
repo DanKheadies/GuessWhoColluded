@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  01/10/2019
+// Last:  04/11/2019
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +21,7 @@ public class PauseGame : MonoBehaviour
     public Transform soundMenu;
 
     public bool bPauseActive;
+    public bool bPausing;
 
     void Start()
     {
@@ -39,7 +40,6 @@ public class PauseGame : MonoBehaviour
         controlsMenu.transform.localScale = Vector3.zero;
         iconsMenu.transform.localScale = Vector3.zero;
         soundMenu.transform.localScale = Vector3.zero;
-
     }
 
     void Update()
@@ -66,6 +66,11 @@ public class PauseGame : MonoBehaviour
         }
     }
 
+    public void Pausing()
+    {
+        bPausing = true;
+    }
+
     public void Pause()
     {
         if (pauseTrans.localScale != Vector3.one)
@@ -78,6 +83,7 @@ public class PauseGame : MonoBehaviour
             pauseTrans.transform.localScale = Vector3.one;
             Time.timeScale = 0;
 
+            bPausing = false;
             bPauseActive = true;
             pMove.bStopPlayerMovement = true;
             touches.bUIactive = true;

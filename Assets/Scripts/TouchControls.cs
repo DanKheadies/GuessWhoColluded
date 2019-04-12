@@ -1,17 +1,15 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  03/15/2019
+// Last:  04/11/2019
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // Controls the actions & display of the GUI input
 public class TouchControls : MonoBehaviour
 {
     private PlayerMovement pMove;
-    private Scene scene;
     public Toggle vibeTog;
 
     public bool bAaction;
@@ -36,7 +34,6 @@ public class TouchControls : MonoBehaviour
     {
         // Initializers
         pMove = FindObjectOfType<PlayerMovement>();
-        scene = SceneManager.GetActiveScene();
         vibeTog = GameObject.Find("VibrateToggle").GetComponent<Toggle>();
 
         // Sets initial vibrate based off saved data
@@ -69,8 +66,7 @@ public class TouchControls : MonoBehaviour
     {
         // Moving the player based off arrow flags
         if (pMove.bGWCUpdate &&
-            !pMove.bStopPlayerMovement &&
-            scene.name == "GuessWhoColluded")
+            !pMove.bStopPlayerMovement)
         {
             if (bUp)
             {
@@ -96,71 +92,6 @@ public class TouchControls : MonoBehaviour
                 bRight = false;
             }
         }
-
-        //if (!pMove.bStopPlayerMovement &&
-        //    bUIactive)
-        //{
-        //    if (bUp)
-        //    {
-        //        pMove.Move(0.0f, 1.0f);
-        //    }
-        //    else if (bRight)
-        //    {
-        //        pMove.Move(1.0f, 0.0f);
-        //    }
-        //    else if (bLeft)
-        //    {
-        //        pMove.Move(-1.0f, 0.0f);
-        //    }
-        //    else if (bDown)
-        //    {
-        //        pMove.Move(0.0f, -1.0f);
-        //    }
-
-        //    if (bUpRight &&
-        //        lastDirection == "up")
-        //    {
-        //        pMove.Move(1.0f, 0.0f);
-        //    }
-        //    else if (bUpRight &&
-        //             lastDirection == "right")
-        //    {
-        //        pMove.Move(0.0f, 1.0f);
-        //    }
-
-        //    if (bUpLeft &&
-        //        lastDirection == "up")
-        //    {
-        //        pMove.Move(-1.0f, 0.0f);
-        //    }
-        //    else if (bUpLeft &&
-        //             lastDirection == "left")
-        //    {
-        //        pMove.Move(0.0f, 1.0f);
-        //    }
-
-        //    if (bDownLeft &&
-        //        lastDirection == "down")
-        //    {
-        //        pMove.Move(-1.0f, 0.0f);
-        //    }
-        //    else if (bDownLeft &&
-        //             lastDirection == "left")
-        //    {
-        //        pMove.Move(0.0f, -1.0f);
-        //    }
-
-        //    if (bDownRight &&
-        //        lastDirection == "down")
-        //    {
-        //        pMove.Move(1.0f, 0.0f);
-        //    }
-        //    else if (bDownRight &&
-        //             lastDirection == "right")
-        //    {
-        //        pMove.Move(0.0f, -1.0f);
-        //    }
-        //}
     }
 
     // A button flagging
@@ -213,19 +144,6 @@ public class TouchControls : MonoBehaviour
 
     // Movement / arrow button flags
     // Cartesian coordinate arrangement
-    //public void PressedUpRightArrow()
-    //{
-    //    bUpRight = true;
-    //    bUIactive = true;
-    //}
-    //public void UnpressedUpRightArrow()
-    //{
-    //    bUpRight = false;
-    //    bUIactive = false;
-
-    //    lastDirection = "upRight";
-    //}
-
     public void PressedUpArrow()
     {
         bUp = true;
@@ -238,19 +156,6 @@ public class TouchControls : MonoBehaviour
 
         lastDirection = "up";
     }
-
-    //public void PressedUpLeftArrow()
-    //{
-    //    bUpLeft = true;
-    //    bUIactive = true;
-    //}
-    //public void UnpressedUpLeftArrow()
-    //{
-    //    bUpLeft = false;
-    //    bUIactive = false;
-
-    //    lastDirection = "upLeft";
-    //}
 
     public void PressedLeftArrow()
     {
@@ -265,19 +170,6 @@ public class TouchControls : MonoBehaviour
         lastDirection = "left";
     }
 
-    //public void PressedDownLeftArrow()
-    //{
-    //    bDownLeft = true;
-    //    bUIactive = true;
-    //}
-    //public void UnpressedDownLeftArrow()
-    //{
-    //    bDownLeft = false;
-    //    bUIactive = false;
-
-    //    lastDirection = "downLeft";
-    //}
-
     public void PressedDownArrow()
     {
         bDown = true;
@@ -290,19 +182,6 @@ public class TouchControls : MonoBehaviour
 
         lastDirection = "down";
     }
-
-    //public void PressedDownRightArrow()
-    //{
-    //    bDownRight = true;
-    //    bUIactive = true;
-    //}
-    //public void UnpressedDownRightArrow()
-    //{
-    //    bDownRight = false;
-    //    bUIactive = false;
-
-    //    lastDirection = "downRight";
-    //}
 
     public void PressedRightArrow()
     {
@@ -320,13 +199,9 @@ public class TouchControls : MonoBehaviour
     // Clear all movement / arrow buttons
     public void UnpressedAllArrows()
     {
-        //UnpressedUpRightArrow();
         UnpressedUpArrow();
-        //UnpressedUpLeftArrow();
         UnpressedLeftArrow();
-        //UnpressedDownLeftArrow();
         UnpressedDownArrow();
-        //UnpressedDownRightArrow();
         UnpressedRightArrow();
     }
 

@@ -284,6 +284,8 @@ public class MovePauseMenuArrow : MonoBehaviour
                         ResetBtn.onClick.Invoke();
                     }
                 }
+
+                touches.bAaction = false;
             }
             else if (Input.GetKeyDown(KeyCode.Escape) ||
                      Input.GetKeyUp(KeyCode.JoystickButton7) ||
@@ -291,6 +293,8 @@ public class MovePauseMenuArrow : MonoBehaviour
                      touches.bBaction)
             {
                 ResetArrows();
+
+                touches.bBaction = false;
             }
         }
     }

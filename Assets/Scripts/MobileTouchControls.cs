@@ -2,7 +2,7 @@
 // Authors: Unity (https://unity3d.com/learn/tutorials/topics/mobile-touch/pinch-zoom) (https://docs.unity3d.com/ScriptReference/Input.GetTouch.html)
 // Contributors: David W. Corso, JoaquinRD, alberto-lara
 // Start: 03/15/2019
-// Last:  03/17/2019
+// Last:  04/11/2019
 
 using UnityEngine;
 
@@ -11,10 +11,11 @@ public class MobileTouchControls : MonoBehaviour
     public AspectUtility aUtil;
     public Camera mainCamera;
     public GameObject pause;
+    public GWC001 gwc;
     public PlayerMovement pMove;
     public TouchControls touches;
 
-    //public bool bPanning;
+    public bool bReadyToCycle;
     public bool bReadyToPan;
 
     public float perspectiveZoomSpeed;
@@ -27,6 +28,7 @@ public class MobileTouchControls : MonoBehaviour
     {
         // Initializers
         aUtil = FindObjectOfType<AspectUtility>();
+        gwc = FindObjectOfType<GWC001>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         pause = GameObject.Find("PauseScreen");
         pMove = FindObjectOfType<PlayerMovement>();
@@ -36,6 +38,7 @@ public class MobileTouchControls : MonoBehaviour
         orthoZoomSpeed = 0.0125f;          // The rate of change of the orthographic size in orthographic mode.
         speed = 0.05f;
 
+        bReadyToCycle = true;
         bReadyToPan = true;
     }
 
@@ -60,11 +63,11 @@ public class MobileTouchControls : MonoBehaviour
                 {
                     if (touchDeltaPosition.x > 0)
                     {
-                        xInput = 1;
+                        xInput = -1;
                     }
                     else if (touchDeltaPosition.x < 0)
                     {
-                        xInput = -1;
+                        xInput = 1;
                     }
 
                     pMove.GWCMove(xInput, 0);
@@ -73,11 +76,11 @@ public class MobileTouchControls : MonoBehaviour
                 {
                     if (touchDeltaPosition.y > 0)
                     {
-                        yInput = 1;
+                        yInput = -1;
                     }
                     else if (touchDeltaPosition.y < 0)
                     {
-                        yInput = -1;
+                        yInput = 1;
                     }
 
                     pMove.GWCMove(0, yInput);
@@ -130,6 +133,20 @@ public class MobileTouchControls : MonoBehaviour
 
                     // Clamp the field of view to make sure it's between 0 and 180.
                     mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView, 0.1f, 179.9f);
+                }
+            }
+
+            // Layer Cycle
+            // If there are three touches on the device...
+            if (bReadyToCycle &&
+                //Input.touchCount == 3 &&
+                Input.GetKeyDown(KeyCode.Minus) &&
+                gwc.bStartGame)
+            {
+                // Flip the layer of each tile
+                for (int i = 0; i <= gwc.charTiles.Length; i++)
+                {
+                    gwc.charTiles[i].FlipLayer();
                 }
             }
         }
