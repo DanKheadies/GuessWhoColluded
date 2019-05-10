@@ -103,7 +103,7 @@ public class TouchControls : MonoBehaviour
     public void aActionStop()
     {
         bAaction = false;
-        bUIactive = false;
+        CheckUIActive();
     }
 
     // B button flagging
@@ -115,7 +115,7 @@ public class TouchControls : MonoBehaviour
     public void bActionStop()
     {
         bBaction = false;
-        bUIactive = false;
+        CheckUIActive();
     }
     
     // X button flagging
@@ -127,7 +127,7 @@ public class TouchControls : MonoBehaviour
     public void xActionStop()
     {
         bXaction = false;
-        bUIactive = false;
+        CheckUIActive();
     }
 
     // Y button flagging
@@ -139,7 +139,7 @@ public class TouchControls : MonoBehaviour
     public void yActionStop()
     {
         bYaction = false;
-        bUIactive = false;
+        CheckUIActive();
     }
 
     // Movement / arrow button flags
@@ -152,7 +152,7 @@ public class TouchControls : MonoBehaviour
     public void UnpressedUpArrow()
     {
         bUp = false;
-        bUIactive = false;
+        CheckUIActive();
 
         lastDirection = "up";
     }
@@ -165,7 +165,7 @@ public class TouchControls : MonoBehaviour
     public void UnpressedLeftArrow()
     {
         bLeft = false;
-        bUIactive = false;
+        CheckUIActive();
 
         lastDirection = "left";
     }
@@ -178,7 +178,7 @@ public class TouchControls : MonoBehaviour
     public void UnpressedDownArrow()
     {
         bDown = false;
-        bUIactive = false;
+        CheckUIActive();
 
         lastDirection = "down";
     }
@@ -191,9 +191,28 @@ public class TouchControls : MonoBehaviour
     public void UnpressedRightArrow()
     {
         bRight = false;
-        bUIactive = false;
+        CheckUIActive();
 
         lastDirection = "right";
+    }
+
+    public void CheckUIActive()
+    {
+        if (bAaction ||
+            bBaction ||
+            bXaction ||
+            bYaction ||
+            bDown ||
+            bLeft ||
+            bRight ||
+            bUp)
+        {
+            bUIactive = true;
+        }
+        else
+        {
+            bUIactive = false;
+        }
     }
 
     // Clear all movement / arrow buttons
@@ -208,16 +227,19 @@ public class TouchControls : MonoBehaviour
     // Vibrate on touch
     public void Vibrate()
     {
-        if (bControlsVibrate)
-        {
-        #if UNITY_ANDROID
-            Handheld.Vibrate();
-        #endif
+        // DC 04/16/2019 -- Avoid showing in UnityEditor Log
+        #if !UNITY_EDITOR
+            if (bControlsVibrate)
+                {
+                #if UNITY_ANDROID
+                    Handheld.Vibrate(); 
+                #endif
 
-        #if UNITY_IOS
-            Handheld.Vibrate();
+                #if UNITY_IOS
+                    Handheld.Vibrate();
+                #endif
+            }
         #endif
-        }
     }
 
     public void ToggleVibrate()
@@ -249,6 +271,7 @@ public class TouchControls : MonoBehaviour
     {
         bUIactive = true;
     }
+
     public void UIInactive()
     {
         bUIactive = false;

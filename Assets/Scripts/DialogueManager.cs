@@ -1,10 +1,12 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/29/2018
-// Last:  04/11/2019
+// Last:  05/10/2019
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // Controls where dialogues are displayed
 public class DialogueManager : MonoBehaviour
@@ -23,11 +25,12 @@ public class DialogueManager : MonoBehaviour
     public Sprite portPic;
     public Text dText;
     public TouchControls touches;
-    public UIManager uiMan;
+    public UIManager uMan;
 
-    public bool bTempControlActive;
     public bool bDialogueActive;
+    public bool bStartStrobing;
     public bool bPauseDialogue;
+    public bool bTempControlActive;
 
     private float cameraHeight;
     private float cameraWidth;
@@ -64,7 +67,7 @@ public class DialogueManager : MonoBehaviour
         pMove = FindObjectOfType<PlayerMovement>();
         SFXMan = FindObjectOfType<SFXManager>();
         touches = FindObjectOfType<TouchControls>();
-        uiMan = FindObjectOfType<UIManager>();
+        uMan = FindObjectOfType<UIManager>();
 
         bDialogueActive = false;
         bPauseDialogue = false; // UX -- Prevents immediately reopening a dialogue while moving / talking
@@ -93,18 +96,19 @@ public class DialogueManager : MonoBehaviour
         if (bDialogueActive && 
             !bPauseDialogue && 
             !pause.bPausing &&
-            !pause.bPauseActive && 
-            (Input.GetButtonDown("Action") ||
-             Input.GetButtonDown("DialogueAction") || 
-             touches.bAaction))
+            !pause.bPauseActive &&
+            (touches.bAaction ||
+             Input.GetButtonDown("Action") ||
+             (Input.GetButtonDown("DialogueAction") &&
+              !uMan.bControlsActive)))
         {
-            Debug.Log("adavnce dialog");
             touches.Vibrate();
 
             if (currentLine < dialogueLines.Length)
             {
-                touches.bAaction = false;
                 currentLine++;
+
+                touches.bAaction = false;
             }
         }
 
@@ -135,7 +139,7 @@ public class DialogueManager : MonoBehaviour
             Input.GetKeyUp(KeyCode.JoystickButton6))
         {
             ConfigureParameters();
-            uiMan.CheckAndSetMenus();
+            uMan.CheckAndSetMenus();
         }
 
         //Check sizing stuff
@@ -149,6 +153,12 @@ public class DialogueManager : MonoBehaviour
 
     public void ResetDialogue()
     {
+        // Show controls if visible
+        if (uMan.bControlsActive)
+        {
+            uMan.DisplayControls();
+        }
+
         // Mini-pause on triggering the same dialogue
         PauseDialogue();
 
@@ -163,15 +173,15 @@ public class DialogueManager : MonoBehaviour
         // Reactivate the player
         pMove.bStopPlayerMovement = false;
 
-        // Show controls if visible
-        if (uiMan.bControlsActive)
-        {
-            touches.transform.localScale = Vector3.one; // DC TODO -- prob don't need
-        }
+        // Restore Brio & Button if no more dialogue
+        StartCoroutine(WaitForOptions());
     }
 
     public void ShowDialogue()
     {
+        // Sound Effect
+        SFXMan.sounds[2].PlayOneShot(SFXMan.sounds[2].clip);
+
         // Set the text
         dText.text = dialogueLines[currentLine];
 
@@ -181,15 +191,35 @@ public class DialogueManager : MonoBehaviour
         // Displays the dialogue box & strobing arrow
         bDialogueActive = true;
         dBox.transform.localScale = Vector3.one;
-        StartCoroutine(dArrow.gameObject.GetComponent<ImageStrobe>().Strobe());
-
-        // Sound Effect
-        SFXMan.sounds[2].PlayOneShot(SFXMan.sounds[2].clip);
+        StartCoroutine(ResetStrobes());
 
         // Stops the player's movement
         pMove.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         touches.UnpressedAllArrows();
         pMove.bStopPlayerMovement = true;
+
+        // Hide BrioBar & Pause Button (Opac)
+        uMan.HideBrioAndButton();
+    }
+
+    public IEnumerator WaitForOptions()
+    {
+        yield return new WaitForSeconds(0.0125f);
+
+        if (!bDialogueActive &&
+            !oMan.bOptionsActive)
+        {
+            uMan.ShowBrioAndButton();
+        }
+    }
+
+    public IEnumerator ResetStrobes()
+    {
+        StartCoroutine(dArrow.gameObject.GetComponent<ImageStrobe>().StopStrobe());
+
+        yield return new WaitForSeconds(1.0f);
+
+        StartCoroutine(dArrow.gameObject.GetComponent<ImageStrobe>().Strobe());
     }
 
     public void ConfigureParameters()

@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/29/2018
-// Last:  04/10/2019
+// Last:  05/10/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,17 +16,18 @@ public class UIManager : MonoBehaviour
     public CanvasGroup contOpacCan;
     public CanvasGroup hudCanvas;
     public DialogueManager dMan;
+    public GameObject pauseButtOpac;
     public OptionsManager oMan;
     public RectTransform controlsMenu;
     public RectTransform iconsMenu;
     public RectTransform pauseMenu;
     public RectTransform soundMenu;
-    public Scene currScene;
     public Slider contOpacSlider;
     public Toggle conTog;
     public TouchControls touches;
 
     public bool bControlsActive;
+    public bool bMobileDevice;
 
     public float currentContOpac;
 
@@ -36,42 +37,40 @@ public class UIManager : MonoBehaviour
         contOpacCan = GameObject.Find("GUIControls").GetComponent<CanvasGroup>();
         contOpacSlider = GameObject.Find("ShowButtonsSlider").GetComponent<Slider>();
         conTog = GameObject.Find("ShowButtonsToggle").GetComponent<Toggle>();
-        currScene = SceneManager.GetActiveScene();
         dHUD = GameObject.Find("Dialogue_HUD").GetComponent<Canvas>();
         dMan = FindObjectOfType<DialogueManager>();
         HUD = GetComponent<Canvas>();
         hudCanvas = GetComponent<CanvasGroup>();
         mainCamera = FindObjectOfType<Camera>().GetComponent<Camera>();
         oMan = FindObjectOfType<OptionsManager>();
+        pauseButtOpac = GameObject.Find("Pause_Button_Opacity");
         touches = FindObjectOfType<TouchControls>();
 
         controlsMenu = GameObject.Find("ControlsMenu").GetComponent<RectTransform>();
         pauseMenu = GameObject.Find("PauseMenu").GetComponent<RectTransform>();
         soundMenu = GameObject.Find("SoundMenu").GetComponent<RectTransform>();
         iconsMenu = GameObject.Find("IconsMenu").GetComponent<RectTransform>();
-
-        // Sets initial activation off saved data
+        
+        // Sets initial activation off saved data (or transfer, which always saves UI)
+        // In other words, this first IF only occurs on Chp0 - New Game
         if (!PlayerPrefs.HasKey("ControlsActive"))
         {
-            // GWC default is no GUI
+            CheckIfMobile();
         }
         else
         {
             if (PlayerPrefs.GetInt("ControlsActive") == 1)
             {
-                bControlsActive = true;
-                conTog.isOn = true;
                 DisplayControls();
             }
             else
             {
-                bControlsActive = false;
-                conTog.isOn = false;
                 HideControls();
             }
         }
 
-        // Sets initial opacity based off saved data
+        // Sets initial opacity based off saved data (or transfer, which always saves UI)
+        // In other words, this first IF only occurs on Chp0 - New Game
         if (!PlayerPrefs.HasKey("ControlsOpac"))
         {
             currentContOpac = 1.0f;
@@ -89,29 +88,38 @@ public class UIManager : MonoBehaviour
         CheckAndSetMenus();
     }
 
-    void Update()
-    {
-        if (!bControlsActive)
-        {
-            HideControls();
-        }
-    }
-
     public void DisplayControls()
     {
+        bControlsActive = true;
+        conTog.isOn = true;
         touches.transform.localScale = Vector3.one;
     }
 
     public void HideControls()
     {
+        bControlsActive = false;
+        conTog.isOn = false;
         touches.transform.localScale = Vector3.zero;
     }
 
-    // Adjust the opacity of the UI controls
-    public void ContOpacSliderChange()
+    public void CheckIfMobile()
     {
-        currentContOpac = contOpacSlider.value;
-        contOpacCan.alpha = currentContOpac;
+        // Set based off device
+        #if !UNITY_EDITOR
+            #if UNITY_IOS
+                bMobileDevice = true;
+            #endif
+
+            #if UNITY_ANDROID
+                bMobileDevice = true;
+            #endif
+        #endif
+
+        // Show GUI Controls for Mobile Devices
+        if (bMobileDevice)
+        {
+            DisplayControls();
+        }
     }
 
     // Toggles the UI controls
@@ -120,19 +128,44 @@ public class UIManager : MonoBehaviour
         if (bControlsActive)
         {
             HideControls();
-            bControlsActive = false;
         }
         else if (!bControlsActive)
         {
             DisplayControls();
-            bControlsActive = true;
         }
     }
 
-    // Adjusts the volume slider based off keyboard input
-    // DC 07/29/2018 -- TODO: Adjusts the volume slider based off keyboard input
+    public void CheckAndSetControls()
+    {
+        if (bControlsActive)
+        {
+            DisplayControls();
+        }
+        else if (!bControlsActive)
+        {
+            HideControls();
+        }
+    }
 
+    public void HideBrioAndButton()
+    {
+        //brioBar.gameObject.transform.localScale = Vector3.zero;
+        pauseButtOpac.transform.localScale = Vector3.zero;
+    }
 
+    public void ShowBrioAndButton()
+    {
+        //brioBar.gameObject.transform.localScale = Vector3.one;
+        pauseButtOpac.transform.localScale = Vector3.one;
+    }
+
+    // Adjust the opacity of the UI controls
+    public void ContOpacSliderChange()
+    {
+        currentContOpac = contOpacSlider.value;
+        contOpacCan.alpha = currentContOpac;
+    }
+    
     public void CheckAndSetMenus()
     {
         // Width > height = center in the screen

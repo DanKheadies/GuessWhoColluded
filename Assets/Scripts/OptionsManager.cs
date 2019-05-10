@@ -1,8 +1,9 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  04/11/2019
+// Last:  05/10/2019
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,7 @@ public class OptionsManager : MonoBehaviour
     public Image o4Text;
     public Image oFrame;
     public MoveOptionsMenuArrow moveOptsArw;
-    public TouchControls touches;
+    public UIManager uMan;
 
     public bool bDiaToOpts;
     public bool bOptionsActive;
@@ -69,7 +70,7 @@ public class OptionsManager : MonoBehaviour
         o4Text = GameObject.Find("Opt4").GetComponent<Image>();
         oFrame = GameObject.Find("Options_Frame").GetComponent<Image>();
         oBox = GameObject.Find("Options_Box");
-        touches = FindObjectOfType<TouchControls>();
+        uMan = FindObjectOfType<UIManager>();
 
         // DC TODO -- Default is false?
         bDiaToOpts = false;
@@ -115,13 +116,17 @@ public class OptionsManager : MonoBehaviour
         bOptionsActive = true;
         oBox.transform.localScale = Vector3.one;
 
-        // text options
+        // Text Options
+        // 05/10/2019 DC TODO -- Should set temptOptsCount = 0 here
         for (int i = 0; i < options.Length; i++)
         {
             GameObject optText = GameObject.Find("Opt" + (i + 1) + "_Text");
             optText.GetComponentInChildren<Text>().text = options[i];
             tempOptsCount += 1;
         }
+
+        // Hide Brio Bar & Pause Button (Overlay)
+        uMan.HideBrioAndButton();
 
         PauseOptions();
     }
@@ -141,6 +146,19 @@ public class OptionsManager : MonoBehaviour
         ShowAllOptionsText();
 
         dMan.ResetDialogue();
+
+        StartCoroutine(WaitForDialogue());
+    }
+
+    public IEnumerator WaitForDialogue()
+    {
+        yield return new WaitForSeconds(0.0125f);
+
+        if (!bOptionsActive &&
+            !dMan.bDialogueActive)
+        {
+            uMan.ShowBrioAndButton();
+        }
     }
 
     public void CheckAndAssignClickedValue(int option)

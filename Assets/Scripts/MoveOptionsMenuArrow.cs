@@ -156,7 +156,6 @@ public class MoveOptionsMenuArrow : MonoBehaviour
             else if (Input.GetButtonDown("Action") ||
                      // DC 04/12/2019 -- If Virtual buttons visible, have to double tap with mouse click to select the option
                      // DC TODO -- See if this occurs on mobile
-                     //Input.GetButtonDown("DialogueAction") ||
                      Input.GetKeyDown(KeyCode.JoystickButton0) ||
                      touches.bAaction)
             {

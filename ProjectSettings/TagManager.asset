@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fader
+  - Pause
   layers:
   - Default
   - TransparentFX

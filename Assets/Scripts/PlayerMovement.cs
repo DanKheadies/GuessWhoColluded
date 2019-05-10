@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  03/31/2019
+// Last:  05/10/2019
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,15 +13,15 @@ public class PlayerMovement : MonoBehaviour
     private CameraFollow cameraFollow;
     public PolygonCollider2D playerCollider;
     public Rigidbody2D rBody;
-    public Scene scene;
     private SFXManager SFXMan;
     private TouchControls touches;
     private Transform trans;
-    private UIManager uiMan;
+    private UIManager uMan;
     public Vector2 movementVector;
 
     public bool bBoosting;
     public bool bGWCUpdate;
+    public bool bIsMobile;
     public bool bStopPlayerMovement;
 
     public float moveSpeed;
@@ -34,13 +34,11 @@ public class PlayerMovement : MonoBehaviour
         cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         playerCollider = GetComponent<PolygonCollider2D>();
         rBody = GetComponent<Rigidbody2D>();
-        scene = SceneManager.GetActiveScene();
         SFXMan = FindObjectOfType<SFXManager>();
         touches = FindObjectOfType<TouchControls>();
         trans = GetComponent<Transform>(); 
-        uiMan = FindObjectOfType<UIManager>();
-
-        bBoosting = false;
+        uMan = FindObjectOfType<UIManager>();
+        
         bGWCUpdate = true;
 
         moveSpeed = 1.0f;
@@ -53,9 +51,10 @@ public class PlayerMovement : MonoBehaviour
             movementVector = Vector2.zero;
             rBody.velocity = Vector2.zero;
         }
-        //else if (touches.bDown || touches.bLeft || touches.bRight || touches.bUp ||
-        //    touches.bUpRight || touches.bUpLeft || touches.bDownRight || touches.bDownLeft)
-        else if (touches.bDown || touches.bLeft || touches.bRight || touches.bUp)
+        else if (touches.bDown ||
+                 touches.bLeft ||
+                 touches.bRight ||
+                 touches.bUp)
         {
             // No action; just need to avoid MovePlayer() here b/c it's cancelling out
             // the Touches script by passing in Move(0,0) while touches passes Move(X,Y)
@@ -109,24 +108,5 @@ public class PlayerMovement : MonoBehaviour
         {
             rBody.position = new Vector2(rBody.position.x + (2 * xInput), rBody.position.y + (2 * yInput));
         }
-    }
-
-    public void CollisionBundle() // Note: order is important
-    {
-        // Reset Camera dimension / ratio incase screen size changed at all (e.g. WebGL Fullscreen)
-        aspectUtil.Awake();
-
-        // Unsync and stop camera tracking
-        cameraFollow.bUpdateOn = false;
-
-        // Hide UI (if present) and prevent input
-        touches.transform.localScale = Vector3.zero;
-        touches.UnpressedAllArrows();
-
-        // Prevent player movement
-        bStopPlayerMovement = true;
-
-        // Prevent player interactions (e.g. other tripwires)
-        playerCollider.enabled = false;
     }
 }
