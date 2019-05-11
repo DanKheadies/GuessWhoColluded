@@ -758,11 +758,6 @@ public class GWC001 : MonoBehaviour
     public void GWC_PromptRestrictions()
     {
         thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = true;
-        
-        //if (uMan.bControlsActive)
-        //{
-        //    touches.transform.localScale = Vector3.one;
-        //}
     }
 
     public void GWC_DialogueResetter()
@@ -776,7 +771,7 @@ public class GWC001 : MonoBehaviour
         StartCoroutine(dMan.ResetStrobes());
     }
 
-    public void GWC_OptionsRestter()
+    public void GWC_OptionsResetter()
     {
         oMan.tempOptsCount = 0;
         oMan.options = optionsLines;
@@ -785,18 +780,18 @@ public class GWC001 : MonoBehaviour
 
     public void GWC_OptionsResetter_2Q()
     {
-        GWC_OptionsRestter();
+        GWC_OptionsResetter();
         oMan.HideThirdPlusOpt();
     }
 
     public void GWC_OptionsResetter_3Q()
     {
-        GWC_OptionsRestter();
+        GWC_OptionsResetter();
         oMan.HideFourthOpt();
     }
 
     public void GWC_OptionsResetter_4Q()
     {
-        GWC_OptionsRestter();
+        GWC_OptionsResetter();
     }
 }

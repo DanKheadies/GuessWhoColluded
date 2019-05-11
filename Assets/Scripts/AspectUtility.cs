@@ -2,16 +2,14 @@
 // Authors: Eric Haines
 // Contributors: David W. Corso
 // Start: --/--/----
-// Last:  07/29/2018
+// Last:  05/10/2019
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class AspectUtility : MonoBehaviour
 {
     private static Camera cam;
     private static Camera backgroundCam;
-    private Scene scene;
 
     static float wantedAspectRatio;
     public float _wantedAspectRatio;
@@ -20,7 +18,6 @@ public class AspectUtility : MonoBehaviour
     public void Awake()
     {
         // Initializers
-        scene = SceneManager.GetActiveScene();
         cam = GetComponent<Camera>();
 
         _wantedAspectRatio = 1.142857f;

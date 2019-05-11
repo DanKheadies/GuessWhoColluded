@@ -1,11 +1,10 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  04/11/2019
+// Last:  05/10/2019
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 // To "move" and execute the arrows on the Options Menu
 public class MoveOptionsMenuArrow : MonoBehaviour
@@ -20,9 +19,7 @@ public class MoveOptionsMenuArrow : MonoBehaviour
     private GameObject Opt4Arw;
     private GameObject pauseScreen;
     private OptionsManager oMan;
-    private Scene scene;
     private TouchControls touches;
-    private Transform optionsBox;
 
     public bool bControllerDown;
     public bool bControllerUp;
@@ -53,9 +50,7 @@ public class MoveOptionsMenuArrow : MonoBehaviour
         Opt4Arw = GameObject.Find("Opt4Arw");
 
         oMan = FindObjectOfType<OptionsManager>();
-        optionsBox = GameObject.Find("Options_Box").transform;
         pauseScreen = GameObject.Find("PauseScreen");
-        scene = SceneManager.GetActiveScene();
         touches = FindObjectOfType<TouchControls>();
 
         currentPosition = ArrowPos.Opt1;
@@ -106,21 +101,21 @@ public class MoveOptionsMenuArrow : MonoBehaviour
             {
                 bControllerDown = false;
 
-                if (currentPosition == ArrowPos.Opt1 && 
+                if (currentPosition == ArrowPos.Opt1 &&
                     oMan.tempOptsCount > 1)
                 {
                     currentPosition = ArrowPos.Opt2;
                     ClearAllArrows();
                     Opt2Arw.transform.localScale = new Vector3(1, 1, 1);
                 }
-                else if (currentPosition == ArrowPos.Opt2 && 
+                else if (currentPosition == ArrowPos.Opt2 &&
                          oMan.tempOptsCount > 2)
                 {
                     currentPosition = ArrowPos.Opt3;
                     ClearAllArrows();
                     Opt3Arw.transform.localScale = new Vector3(1, 1, 1);
                 }
-                else if (currentPosition == ArrowPos.Opt3 && 
+                else if (currentPosition == ArrowPos.Opt3 &&
                          oMan.tempOptsCount > 3)
                 {
                     currentPosition = ArrowPos.Opt4;
@@ -153,11 +148,9 @@ public class MoveOptionsMenuArrow : MonoBehaviour
                     Opt1Arw.transform.localScale = new Vector3(1, 1, 1);
                 }
             }
-            else if (Input.GetButtonDown("Action") ||
-                     // DC 04/12/2019 -- If Virtual buttons visible, have to double tap with mouse click to select the option
-                     // DC TODO -- See if this occurs on mobile
-                     Input.GetKeyDown(KeyCode.JoystickButton0) ||
-                     touches.bAaction)
+            else if (touches.bAaction ||
+                     Input.GetButtonDown("Action") ||
+                     Input.GetKeyDown(KeyCode.JoystickButton0))
             {
                 if (currentPosition == ArrowPos.Opt1)
                 {

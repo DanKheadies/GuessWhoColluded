@@ -4,19 +4,14 @@
 // Last:  05/10/2019
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 // Control Player movement
 public class PlayerMovement : MonoBehaviour
 {
-    private AspectUtility aspectUtil;
-    private CameraFollow cameraFollow;
     public PolygonCollider2D playerCollider;
     public Rigidbody2D rBody;
-    private SFXManager SFXMan;
     private TouchControls touches;
     private Transform trans;
-    private UIManager uMan;
     public Vector2 movementVector;
 
     public bool bBoosting;
@@ -30,14 +25,10 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         // Initializers
-        aspectUtil = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AspectUtility>();
-        cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         playerCollider = GetComponent<PolygonCollider2D>();
         rBody = GetComponent<Rigidbody2D>();
-        SFXMan = FindObjectOfType<SFXManager>();
         touches = FindObjectOfType<TouchControls>();
         trans = GetComponent<Transform>(); 
-        uMan = FindObjectOfType<UIManager>();
         
         bGWCUpdate = true;
 
