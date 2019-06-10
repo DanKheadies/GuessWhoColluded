@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 08/08/2018
-// Last:  05/10/2019
+// Last:  06/10/2019
 
 using UnityEngine;
 
@@ -10,6 +10,7 @@ public class CharacterTile : MonoBehaviour
 {
     public DialogueManager dMan;
     public GWC001 gwc;
+    public MobileTouchControls mTouches;
     public PauseGame pause;
     public SinglePlayerLogic spLogic;
     public TouchControls touches;
@@ -35,6 +36,7 @@ public class CharacterTile : MonoBehaviour
         // Initializers
         dMan = FindObjectOfType<DialogueManager>();
         gwc = FindObjectOfType<GWC001>();
+        mTouches = FindObjectOfType<MobileTouchControls>();
         pause = GameObject.Find("Game_Controller").GetComponent<PauseGame>();
         spLogic = FindObjectOfType<SinglePlayerLogic>();
         tileChar = gameObject.transform.GetChild(2);
@@ -204,7 +206,8 @@ public class CharacterTile : MonoBehaviour
             !spLogic.bGuessingFTW &&
             !dMan.bDialogueActive &&
             !pause.bPauseActive &&
-            !touches.bAvoidSubUIElements)
+            !touches.bAvoidSubUIElements &&
+            !mTouches.bPinchZooming)
         {
             CheckAndFlip();
         }
@@ -228,6 +231,8 @@ public class CharacterTile : MonoBehaviour
             ShowBack();
         }
 
+        //mTouches.bTouchChar = true;
+        mTouches.tapCount = 0;
         touches.bAaction = false;
     }
 }

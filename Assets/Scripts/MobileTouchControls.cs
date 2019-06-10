@@ -2,7 +2,7 @@
 // Authors: Unity (https://unity3d.com/learn/tutorials/topics/mobile-touch/pinch-zoom) (https://docs.unity3d.com/ScriptReference/Input.GetTouch.html)
 // Contributors: David W. Corso, JoaquinRD, alberto-lara
 // Start: 03/15/2019
-// Last:  05/10/2019
+// Last:  06/10/2019
 
 using UnityEngine;
 
@@ -10,11 +10,13 @@ public class MobileTouchControls : MonoBehaviour
 {
     public AspectUtility aUtil;
     public Camera mainCamera;
+    public DialogueManager dMan;
     public GameObject pause;
     public GWC001 gwc;
     public PlayerMovement pMove;
     public TouchControls touches;
-    
+
+    public bool bPinchZooming;
     public bool bReadyToPan;
 
     public float maxDoubleTapTime;
@@ -31,6 +33,7 @@ public class MobileTouchControls : MonoBehaviour
     {
         // Initializers
         aUtil = FindObjectOfType<AspectUtility>();
+        dMan = FindObjectOfType<DialogueManager>();
         gwc = FindObjectOfType<GWC001>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         pause = GameObject.Find("PauseScreen");
@@ -48,10 +51,11 @@ public class MobileTouchControls : MonoBehaviour
 
     void Update()
     {
-        // If GUI Controls are disabled
+        // If GUI Controls are disabled, no Pause & no Dialogue
         if (gwc.bStartGame &&
             touches.transform.localScale == Vector3.zero &&
-            pause.transform.localScale == Vector3.zero)
+            pause.transform.localScale == Vector3.zero &&
+            !dMan.bDialogueActive)
         {
             // Swipe-Pan
             if (bReadyToPan &&
@@ -91,15 +95,11 @@ public class MobileTouchControls : MonoBehaviour
                 }
             }
 
-            if (Input.touchCount > 0 && 
-                Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                bReadyToPan = true;
-            }
-
             // Cycle Layers
-            // If there is a double tap on the device...
-            if (Input.touchCount == 1)
+            // If there is a double tap on the device... (and not on a character)
+            // 05/15/2019 -- checking bReadyToPan means they're not panning atm
+            if (Input.touchCount == 1 &&
+                bReadyToPan)
             {
                 Touch touch = Input.GetTouch(0);
 
@@ -112,7 +112,8 @@ public class MobileTouchControls : MonoBehaviour
                 {
                     newTime = Time.time + maxDoubleTapTime;
                 }
-                else if (tapCount == 2 && Time.time <= newTime)
+                else if (tapCount == 2 && 
+                         Time.time <= newTime)
                 {
                     for (int i = 0; i < gwc.charTiles.Length; i++)
                     {
@@ -123,7 +124,14 @@ public class MobileTouchControls : MonoBehaviour
                 }
             }
 
-            //// Reset double tap timer
+            // 06/09/2019 -- Keep here to run after Cycle check (avoids cycling while panning quickly)
+            if (Input.touchCount > 0 &&
+                Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                bReadyToPan = true;
+            }
+
+            // Reset double tap timer
             if (Time.time > newTime)
             {
                 tapCount = 0;
@@ -133,6 +141,8 @@ public class MobileTouchControls : MonoBehaviour
             // If there are two touches on the device...
             if (Input.touchCount == 2)
             {
+                bPinchZooming = true;
+
                 // Store both touches.
                 Touch touchZero = Input.GetTouch(0);
                 Touch touchOne = Input.GetTouch(1);
@@ -166,6 +176,12 @@ public class MobileTouchControls : MonoBehaviour
                     // Clamp the field of view to make sure it's between 0 and 180.
                     mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView, 0.1f, 179.9f);
                 }
+            }
+            // Reset check to help avoid flipping tiles via MouseUp
+            else if (Input.touchCount == 0 &&
+                     bPinchZooming)
+            {
+                bPinchZooming = false;
             }
         }
     }

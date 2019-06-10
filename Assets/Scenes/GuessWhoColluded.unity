@@ -677,6 +677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -1602,6 +1603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -1983,6 +1985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -2154,6 +2157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -3048,6 +3052,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -3552,6 +3557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -4357,6 +4363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -5519,11 +5526,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aUtil: {fileID: 0}
   mainCamera: {fileID: 0}
+  dMan: {fileID: 0}
   pause: {fileID: 0}
   gwc: {fileID: 0}
   pMove: {fileID: 0}
   touches: {fileID: 0}
   bReadyToPan: 0
+  bTouchChar: 0
   maxDoubleTapTime: 0
   newTime: 0
   perspectiveZoomSpeed: 0
@@ -6313,6 +6322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -6874,6 +6884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -7124,6 +7135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -9813,6 +9825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -10355,6 +10368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -11723,6 +11737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -12562,6 +12577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -12659,6 +12675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -15402,6 +15419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -16083,6 +16101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -19357,6 +19376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -19612,6 +19632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -19868,6 +19889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -20462,6 +20484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -21643,6 +21666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -21740,6 +21764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -24095,6 +24120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -24350,6 +24376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -24964,6 +24991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -25298,6 +25326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -25854,6 +25883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -26030,6 +26060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -27219,6 +27250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -30036,6 +30068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -31055,6 +31088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -31699,6 +31733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -31796,6 +31831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -33291,6 +33327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -34444,6 +34481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -36451,6 +36489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -36780,6 +36819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -37234,6 +37274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -38597,6 +38638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -39244,6 +39286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -39504,6 +39547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -41061,6 +41105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -41919,6 +41964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -42095,6 +42141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -42192,6 +42239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -43616,6 +43664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
@@ -43713,6 +43762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dMan: {fileID: 0}
   gwc: {fileID: 0}
+  mTouches: {fileID: 0}
   pause: {fileID: 0}
   spLogic: {fileID: 0}
   touches: {fileID: 0}
