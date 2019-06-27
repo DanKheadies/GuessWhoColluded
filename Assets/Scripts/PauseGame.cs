@@ -73,6 +73,11 @@ public class PauseGame : MonoBehaviour
         bPausing = true;
     }
 
+    public void PausingDone()
+    {
+        bPausing = false;
+    }
+
     public void Pause()
     {
         if (pauseTrans.localScale != Vector3.one)

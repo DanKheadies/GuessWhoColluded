@@ -230,8 +230,7 @@ public class CharacterTile : MonoBehaviour
         {
             ShowBack();
         }
-
-        //mTouches.bTouchChar = true;
+        
         mTouches.tapCount = 0;
         touches.bAaction = false;
     }

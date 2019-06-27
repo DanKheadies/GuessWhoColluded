@@ -29,10 +29,9 @@ public class MovePauseMenuArrow : MonoBehaviour
     private GameObject SoundArw;
 
     private Scene scene;
-
     private TouchControls touches;
-
     private Transform pauseMenu;
+    private Transform pauseScreen;
 
     public bool bControllerDown;
     public bool bControllerUp;
@@ -56,6 +55,11 @@ public class MovePauseMenuArrow : MonoBehaviour
     void Start()
     {
         // Initializers
+        pauseMenu = GameObject.Find("PauseScreen").transform;
+        pauseScreen = GameObject.Find("PauseScreen").transform;
+        scene = SceneManager.GetActiveScene();
+        touches = FindObjectOfType<TouchControls>();
+
         CollumBtn = GameObject.Find("Colluminac").GetComponent<Button>();
         ControlsBtn = GameObject.Find("Controls").GetComponent<Button>();
         GoOnBtn = GameObject.Find("GoOn").GetComponent<Button>();
@@ -74,26 +78,13 @@ public class MovePauseMenuArrow : MonoBehaviour
         ResetArw = GameObject.Find("ResetArw");
         SoundArw = GameObject.Find("SoundArw");
 
-        pauseMenu = GameObject.Find("PauseScreen").transform;
-        scene = SceneManager.GetActiveScene();
-        touches = FindObjectOfType<TouchControls>();
-
         currentPosition = ArrowPos.GoOn;
     }
 
     void Update()
     {
-        //Debug.Log((float)currentPosition);
-        //var newfloat = (float)currentPosition;
-        //Debug.Log(newfloat);
-        //PauseArrow.transform.position = new Vector2(
-        //    PauseArrow.transform.position.x,
-        //    (int)currentPosition
-        //    );
-        //Debug.Log(newfloat);
-        //Debug.Log((int)currentPosition);
-
-        if (pauseMenu.localScale == Vector3.one)
+        if (pauseMenu.localScale == Vector3.one &&
+            pauseScreen.localScale == Vector3.one)
         {
             // Controller Support 
             // DC TODO 01/10/2019 -- temp bug where sub-pause menus not closing as expected
