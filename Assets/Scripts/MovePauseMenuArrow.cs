@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 08/02/2018
-// Last:  01/13/2019
+// Last:  06/28/2019
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -89,21 +89,21 @@ public class MovePauseMenuArrow : MonoBehaviour
             // Controller Support 
             // DC TODO 01/10/2019 -- temp bug where sub-pause menus not closing as expected
             if (Input.GetAxis("Controller DPad Vertical") == 0 &&
-               (!touches.bDown &&
-                !touches.bUp))
+                (!touches.bDown &&
+                 !touches.bUp))
             {
                 bFreezeControllerInput = false;
             }
             else if (!bFreezeControllerInput &&
-                    (Input.GetAxis("Controller DPad Vertical") > 0 ||
-                    touches.bDown))
+                     (Input.GetAxis("Controller DPad Vertical") > 0 ||
+                      touches.bDown))
             {
                 bControllerDown = true;
                 bFreezeControllerInput = true;
             }
             else if (!bFreezeControllerInput &&
-                    (Input.GetAxis("Controller DPad Vertical") < 0 ||
-                    touches.bUp))
+                     (Input.GetAxis("Controller DPad Vertical") < 0 ||
+                      touches.bUp))
             {
                 bControllerUp = true;
                 bFreezeControllerInput = true;

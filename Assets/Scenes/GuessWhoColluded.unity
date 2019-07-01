@@ -22921,7 +22921,6 @@ GameObject:
   - component: {fileID: 1104048308}
   - component: {fileID: 1104048307}
   - component: {fileID: 1104048306}
-  - component: {fileID: 1104048311}
   - component: {fileID: 1104048310}
   - component: {fileID: 1104048312}
   m_Layer: 5
@@ -23004,8 +23003,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603981780}
-        m_MethodName: OpenColluminac
+      - m_Target: {fileID: 1104048310}
+        m_MethodName: OpenLink
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23070,34 +23069,6 @@ MonoBehaviour:
   CharactersLink: 
   bColluminac: 1
   bCharacters: 0
---- !u!114 &1104048311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104048304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d622d03aa4cc47fd9c4a35894a0c6e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1104048310}
-        m_MethodName: OpenLink
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: PressHandler+ButtonPressEvent, Assembly-CSharp-firstpass, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1104048312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33704,7 +33675,6 @@ GameObject:
   - component: {fileID: 1635987535}
   - component: {fileID: 1635987534}
   - component: {fileID: 1635987533}
-  - component: {fileID: 1635987532}
   - component: {fileID: 1635987531}
   - component: {fileID: 1635987537}
   m_Layer: 5
@@ -33750,34 +33720,6 @@ MonoBehaviour:
   CharactersLink: 
   bColluminac: 0
   bCharacters: 1
---- !u!114 &1635987532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635987529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d622d03aa4cc47fd9c4a35894a0c6e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1635987531}
-        m_MethodName: OpenLink
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: PressHandler+ButtonPressEvent, Assembly-CSharp-firstpass, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1635987533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33831,8 +33773,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603981780}
-        m_MethodName: OpenCharacters
+      - m_Target: {fileID: 1104048310}
+        m_MethodName: OpenLink
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

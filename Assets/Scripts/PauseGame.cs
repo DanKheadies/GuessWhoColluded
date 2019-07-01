@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  05/10/2019
+// Last:  06/28/2019
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -92,16 +92,7 @@ public class PauseGame : MonoBehaviour
 
             bPausing = false;
             bPauseActive = true;
-
-            if (oMan.bOptionsActive ||
-                dMan.bDialogueActive)
-            {
-                pMove.bStopPlayerMovement = true;
-            }
-            else
-            {
-                pMove.bStopPlayerMovement = false;
-            }
+            pMove.bStopPlayerMovement = true;
         }
         else
         {

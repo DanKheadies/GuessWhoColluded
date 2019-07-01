@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/31/2018
-// Last:  05/10/2019
+// Last:  06/28/2019
 
 using System.Collections;
 using UnityEngine;
@@ -155,6 +155,8 @@ public class GWC001 : MonoBehaviour
         dPic.sprite = portPic[48];
         dBox.transform.localScale = Vector3.one;
         sFaderAnimDia.GetComponent<Animator>().enabled = true;
+
+        thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = true;
     }
 
     void Update()
@@ -208,11 +210,6 @@ public class GWC001 : MonoBehaviour
             thePlayer.GetComponent<PlayerMovement>().bStopPlayerMovement = false;
             mMan.bMusicCanPlay = true;
             sFaderAnim.GetComponent<Animator>().enabled = true;
-
-            if (uMan.bControlsActive)
-            {
-                touches.transform.localScale = Vector3.one;
-            }
 
             // Change to avoid running this logic
             bAvoidUpdate = true;
@@ -675,20 +672,6 @@ public class GWC001 : MonoBehaviour
                 "No"
             };
         GWC_OptionsResetter_2Q();
-    }
-
-    public void OpenColluminac()
-    {
-        #if !UNITY_WEBGL
-            Application.OpenURL("http://guesswhocolluded.com/colluminac.html");
-        #endif
-    }
-
-    public void OpenCharacters()
-    {
-        #if !UNITY_WEBGL
-                Application.OpenURL("http://guesswhocolluded.com/colluminac.html#characters");
-        #endif
     }
 
     public void ResetBoard()

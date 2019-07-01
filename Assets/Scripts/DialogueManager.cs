@@ -1,7 +1,7 @@
 ﻿// CC 4.0 International License: Attribution--HolisticGaming.com--NonCommercial--ShareALike
 // Authors: David W. Corso
 // Start: 07/29/2018
-// Last:  05/10/2019
+// Last:  06/28/2019
 
 using System.Collections;
 using UnityEngine;
@@ -156,12 +156,6 @@ public class DialogueManager : MonoBehaviour
 
     public void ResetDialogue()
     {
-        // Show controls if visible
-        if (uMan.bControlsActive)
-        {
-            uMan.DisplayControls(); // DC TODO -- Not needed anymore?
-        }
-
         // Mini-pause on triggering the same dialogue
         PauseDialogue();
 
